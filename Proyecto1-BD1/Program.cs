@@ -17,10 +17,7 @@ namespace Proyecto1_BD1
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			ConectionBD conectionBD = new ConectionBD("Data Source=DESKTOP-QHTQCVG;Initial Catalog=tarea_programada_1_db; Integrated Security=True");
-			conectionBD.openConnection();
-			conectionBD.closeConnection();
-			Application.Run(new Form1());
+			Application.Run(new ConectarServidorForm());
 			
 		}
 	}

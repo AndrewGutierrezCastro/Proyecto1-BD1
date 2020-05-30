@@ -7,31 +7,60 @@ using System.Data.SqlClient;
 
 namespace Proyecto1_BD1
 {
-	class ConectionBD
+	public sealed class ConectionBD
 	{
-		public SqlConnection conectionBD = new SqlConnection();
-		public ConectionBD(String pathBD)
-		{
+
+		private readonly static SqlConnection conectionBD = new SqlConnection();
+		private String pathBD;
+		public ConectionBD(String pPathBD)
+		{	
 			conectionBD.ConnectionString = pathBD;
+			pathBD = pPathBD;
 		}
 
-		public void openConnection()
+		public static SqlConnection Instance
+		{
+			get
+			{
+				return conectionBD;
+			}
+		}
+
+		public Exception openConnection()
 		{
 			try
 			{
+				conectionBD.ConnectionString = pathBD;
 				conectionBD.Open();
 				Console.WriteLine("Conexion Exitosa");
+				return null;
 			}
-			catch (Exception e)
+			catch (SqlException e)
 			{
-				Console.WriteLine("La conexion con la base de datos ha fallado"+e.Message);
+				return e;
+			}
+			catch(InvalidOperationException e)
+			{
+				return e;
 			}
 		}
 
-		public void closeConnection()
+		public Exception closeConnection()
 		{
-			conectionBD.Close();
-			Console.WriteLine("Conexion cerrada exitosamente");
+			try
+			{
+				conectionBD.Close();
+				Console.WriteLine("Conexion cerrada exitosamente");
+				return null;
+			}
+			catch (SqlException e)
+			{
+				return e;
+			}
+			catch (InvalidOperationException e)
+			{
+				return e;
+			}
 		}
 	}
 
