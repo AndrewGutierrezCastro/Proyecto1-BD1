@@ -29,6 +29,10 @@ namespace Proyecto1_BD1
 			{
 				servidorBDNombre = listaConexionBase[0];
 			}
+			else
+			{
+				servidorBDNombre = listaConexionBase[1];
+			}
 			if (servidorBDNombre != "") {
 				
 				conectionBD = new ConectionBD(servidorBDNombre);

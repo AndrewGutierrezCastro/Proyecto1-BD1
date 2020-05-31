@@ -44,5 +44,21 @@ namespace Proyecto1_BD1
             
             this.Close();
         }
+
+        private void listarClientesBtn_Click(object sender, EventArgs e)
+        {
+            listarClientesTabControl.Visible = true;
+            /* SqlConnection conexionBD = ConectionBD.Instance;
+             SqlDataAdapter listarPersonas = new SqlDataAdapter("SELECT TOP (1000) [Cedula] ,[Nombre] ,[Direccion] ,[Numero] FROM viewPersonas", conexionBD);
+             DataTable tablaPersonas = new DataTable();
+             listarPersonas.Fill(tablaPersonas);
+             dataGrid.DataSource = tablaPersonas;*/
+        }
+
+        private void MenuGeneral_Load(object sender, EventArgs e)
+        {
+            listarClientesTabControl.Visible = false;
+        }
+
     }
 }
