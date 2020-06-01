@@ -37,6 +37,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Messaging" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -52,21 +53,43 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cliente.cs" />
     <Compile Include="ConecttionBD.cs" />
+    <Compile Include="CrearOrganizacion.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CrearOrganizacion.Designer.cs">
+      <DependentUpon>CrearOrganizacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CrearPersona.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CrearPersona.Designer.cs">
+      <DependentUpon>CrearPersona.cs</DependentUpon>
+    </Compile>
     <Compile Include="DialogoDeConexion.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DialogoDeConexion.Designer.cs">
       <DependentUpon>DialogoDeConexion.cs</DependentUpon>
     </Compile>
+    <Compile Include="FuncionesClientes.cs" />
     <Compile Include="MenuGeneral.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MenuGeneral.Designer.cs">
       <DependentUpon>MenuGeneral.cs</DependentUpon>
     </Compile>
+    <Compile Include="Organizacion.cs" />
+    <Compile Include="Persona.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CrearOrganizacion.resx">
+      <DependentUpon>CrearOrganizacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CrearPersona.resx">
+      <DependentUpon>CrearPersona.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DialogoDeConexion.resx">
       <DependentUpon>DialogoDeConexion.cs</DependentUpon>
     </EmbeddedResource>
