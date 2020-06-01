@@ -47,7 +47,7 @@
             // 
             this.comboBoxBD.FormattingEnabled = true;
             this.comboBoxBD.Items.AddRange(new object[] {
-            "DESKTOP-QHTQCVG",
+            "PC Andrew",
             "PC Josue"});
             this.comboBoxBD.Location = new System.Drawing.Point(159, 49);
             this.comboBoxBD.Name = "comboBoxBD";
