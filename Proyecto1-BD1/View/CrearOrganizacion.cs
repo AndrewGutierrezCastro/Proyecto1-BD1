@@ -24,7 +24,6 @@ namespace Proyecto1_BD1
             ciudadTxtBox.Text = "";
             numeroTxtBox.Text = "";
             direccionTxtBox.Text = "";
-
         }
     }
 }

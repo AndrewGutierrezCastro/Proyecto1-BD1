@@ -64,6 +64,7 @@ namespace Proyecto1_BD1
 					AbrirConexionBtn.Enabled = false;
 					this.Hide();
 					menu = new MenuGeneral();
+					menu.conectionBD = conectionBD;
                     menu.ShowDialog();
 					this.Close();
 				}

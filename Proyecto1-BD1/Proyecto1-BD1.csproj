@@ -57,16 +57,22 @@
     <Compile Include="Model\Parte.cs" />
     <Compile Include="Model\Cliente.cs" />
     <Compile Include="ConnectionBD.cs" />
-    <Compile Include="CrearOrganizacion.cs">
+    <Compile Include="View\CambiarEstadoCliente.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CrearOrganizacion.Designer.cs">
+    <Compile Include="View\CambiarEstadoCliente.Designer.cs">
+      <DependentUpon>CambiarEstadoCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\CrearOrganizacion.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\CrearOrganizacion.Designer.cs">
       <DependentUpon>CrearOrganizacion.cs</DependentUpon>
     </Compile>
-    <Compile Include="CrearPersona.cs">
+    <Compile Include="View\CrearPersona.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CrearPersona.Designer.cs">
+    <Compile Include="View\CrearPersona.Designer.cs">
       <DependentUpon>CrearPersona.cs</DependentUpon>
     </Compile>
     <Compile Include="View\DialogoDeConexion.cs">
@@ -75,7 +81,7 @@
     <Compile Include="View\DialogoDeConexion.Designer.cs">
       <DependentUpon>DialogoDeConexion.cs</DependentUpon>
     </Compile>
-    <Compile Include="FuncionesClientes.cs" />
+    <Compile Include="Model\FuncionesClientes.cs" />
     <Compile Include="View\MenuGeneral.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,10 +92,25 @@
     <Compile Include="Model\Persona.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="CrearOrganizacion.resx">
+    <Compile Include="View\UpdateOrganizacion.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\UpdateOrganizacion.Designer.cs">
+      <DependentUpon>UpdateOrganizacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\UpdatePersona.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\UpdatePersona.Designer.cs">
+      <DependentUpon>UpdatePersona.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="View\CambiarEstadoCliente.resx">
+      <DependentUpon>CambiarEstadoCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\CrearOrganizacion.resx">
       <DependentUpon>CrearOrganizacion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CrearPersona.resx">
+    <EmbeddedResource Include="View\CrearPersona.resx">
       <DependentUpon>CrearPersona.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\DialogoDeConexion.resx">
@@ -107,6 +128,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="View\UpdateOrganizacion.resx">
+      <DependentUpon>UpdateOrganizacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\UpdatePersona.resx">
+      <DependentUpon>UpdatePersona.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

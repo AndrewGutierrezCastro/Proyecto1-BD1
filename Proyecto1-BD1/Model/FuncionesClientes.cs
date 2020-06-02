@@ -16,8 +16,8 @@ namespace Proyecto1_BD1
         private DataTable tablaOrganizaciones;
         private List<Persona> personas;
         private List<Organizacion> organizaciones;
-        private SqlConnection conexionBD;
-
+        private SqlConnection conexionSqlBd;
+        public ConectionBD conectionBD;
         public FuncionesClientes(SqlConnection pConexionBD)
         {
             ConexionBD = pConexionBD;
@@ -25,7 +25,7 @@ namespace Proyecto1_BD1
 
         public DataTable TablaPersonas { get => tablaPersonas; set => tablaPersonas = value; }
         public DataTable TablaOrganizaciones { get => tablaOrganizaciones; set => tablaOrganizaciones = value; }
-        public SqlConnection ConexionBD { get => conexionBD; set => conexionBD = value; }
+        public SqlConnection ConexionBD { get => conexionSqlBd; set => conexionSqlBd = value; }
         internal List<Persona> Personas { get => personas; set => personas = value; }
         internal List<Organizacion> Organizaciones { get => organizaciones; set => organizaciones = value; }
 
@@ -35,10 +35,19 @@ namespace Proyecto1_BD1
             Organizaciones = new List<Organizacion>();
             tablaPersonas = new DataTable();
             tablaOrganizaciones = new DataTable();
-        SqlDataAdapter listarPersonas = new SqlDataAdapter("SELECT TOP ("+numPersonas+") [Estado], [Cedula] ,[Nombre] ,[Direccion] ,[Numero] FROM ViewPersonas", ConexionBD);
+            if (conexionSqlBd.State == ConnectionState.Open)
+            {
+                conectionBD.closeConnection();
+                conectionBD.openConnection();
+            }
+            else
+            {
+                conectionBD.openConnection();
+            }
+            SqlDataAdapter listarPersonas = new SqlDataAdapter("SELECT TOP (" + numPersonas + ") [Estado], [Cedula] ,[Nombre] ,[Direccion] ,[Numero] FROM ViewPersonas", ConexionBD);
             listarPersonas.Fill(TablaPersonas);
 
-            SqlDataAdapter listarOrganizaciones = new SqlDataAdapter("SELECT TOP ("+numOrganizaciones+") [Estado], [CedulaJuridica], [Nombre] ,[Ciudad] ,[Direccion] ,[Nombre_Contacto] ,[Cargo_Contacto] ,[Numero] FROM ViewOrganizaciones", ConexionBD);
+            SqlDataAdapter listarOrganizaciones = new SqlDataAdapter("SELECT TOP (" + numOrganizaciones + ") [Estado], [CedulaJuridica], [Nombre] ,[Ciudad] ,[Direccion] ,[Nombre_Contacto] ,[Cargo_Contacto] ,[Numero] FROM ViewOrganizaciones", ConexionBD);
             listarOrganizaciones.Fill(TablaOrganizaciones);
 
             /*
@@ -53,9 +62,9 @@ namespace Proyecto1_BD1
                     datosPersona[i] = row[i].ToString();
                 }
                 Personas.Add(new Persona(datosPersona[0], datosPersona[1], datosPersona[2], datosPersona[3], datosPersona[4]));
-                
+
             }
-            String[] datosOrganizacion = new String[] { "Estado", "CedulaJ", "Nombre", "Ciudad","Direccion","NombreCon", "CargoCon", "Numero" };
+            String[] datosOrganizacion = new String[] { "Estado", "CedulaJ", "Nombre", "Ciudad", "Direccion", "NombreCon", "CargoCon", "Numero" };
             foreach (DataRow row in TablaOrganizaciones.Rows)
             {
                 for (int i = 0; i < datosOrganizacion.GetLength(0); i++)
@@ -65,22 +74,11 @@ namespace Proyecto1_BD1
                 Organizaciones.Add(new Organizacion(datosOrganizacion[0], datosOrganizacion[1], datosOrganizacion[2],
                  datosOrganizacion[3], datosOrganizacion[4], datosOrganizacion[5], datosOrganizacion[6], datosOrganizacion[7]));
             }
-            
+
         }
         public int CrearNuevaPersona(String[] datosPersona)
-        {   
-            bool existePersona(String[] pDatosPersona)
-            {
-                foreach (Persona persona in Personas)
-                {
-                    if (persona.Cedula.StartsWith(pDatosPersona[1]))
-                    {
-                        return true;
-                    }
-                }
-                
-                return false;
-            }
+        {
+
             /*
              *POSIBLES RESPUESTAS
 	             0 = caso exitoso
@@ -93,13 +91,16 @@ namespace Proyecto1_BD1
               
 	         *"Estado", "Cedula", "Nombre", "Direccion", "Numero"
 	        */
-            if (datosPersona[1] == "") {
+            if (datosPersona[1] == "")
+            {
                 return -1;
             }
-            else if (datosPersona[2] == "") {
+            else if (datosPersona[2] == "")
+            {
                 return -2;
             }
-            else if (datosPersona[3] == "") {
+            else if (datosPersona[3] == "")
+            {
                 return -3;
             }
             else if (datosPersona[4] == "")
@@ -119,9 +120,9 @@ namespace Proyecto1_BD1
 	                @Numero nchar(24), == 4
 	                @Estado nchar(10), == 0
                  */
-                using (conexionBD)
+                using (conexionSqlBd)
                 {
-                    using (SqlCommand comandoCrearPersona = new SqlCommand("CreatePersona", conexionBD))
+                    using (SqlCommand comandoCrearPersona = new SqlCommand("CreatePersona", conexionSqlBd))
                     {
                         comandoCrearPersona.CommandType = CommandType.StoredProcedure;
                         comandoCrearPersona.Parameters.Add("@Estado", SqlDbType.VarChar).Value = datosPersona[0];
@@ -131,10 +132,10 @@ namespace Proyecto1_BD1
                         comandoCrearPersona.Parameters.Add("@Numero", SqlDbType.VarChar).Value = datosPersona[4];
                         comandoCrearPersona.Parameters.Add("@RespuestaOperacion", SqlDbType.TinyInt).Direction = ParameterDirection.Output;
                         comandoCrearPersona.ExecuteNonQuery();
-                        
-                        
+
+
                         int respuestaOperacion = int.Parse(comandoCrearPersona.Parameters["@RespuestaOperacion"].Value.ToString());
-                        if(respuestaOperacion == 0)
+                        if (respuestaOperacion == 0)
                         {
                             CargarClientesBDtoLocal();
                         }
@@ -148,18 +149,7 @@ namespace Proyecto1_BD1
 
         public int CrearNuevaOrganizacion(String[] datosOrganizacion)
         {
-            bool existeOrganizacion(String[] pDatosOrganizacion)
-            {
-                foreach (Organizacion organizacion in organizaciones)
-                {
-                    if (organizacion.CedulaJuridica.StartsWith(pDatosOrganizacion[1]))
-                    {
-                        return true;
-                    }
-                }
 
-                return false;
-            }
             /*
              *POSIBLES RESPUESTAS
 	             0 = caso exitoso
@@ -198,7 +188,7 @@ namespace Proyecto1_BD1
             {
                 return -7;
             }
-            else if(datosOrganizacion[7] == "")
+            else if (datosOrganizacion[7] == "")
             {
                 return -5;
             }
@@ -246,5 +236,110 @@ namespace Proyecto1_BD1
 
             }
         }
-    }   
+
+        public int UpdatePersona(String[] datosPersona)
+        {
+            if (!existePersona(datosPersona))
+            {
+                return -1;
+            }
+            else
+            {
+                /*
+                @Cedula nchar(32),
+	            @Nombre nchar(128),
+	            @Direccion nchar(256),
+	            @Numero nchar(24),
+	            @Estado nchar(10),
+                 */
+                String[] parametros = new string[] { "@Estado", "@Cedula", "@Nombre", "@Direccion", "@Numero" };
+
+                int respuestaOperacion = conectionBD.EjecutarProcedimientoAlmacenado("UpdatePersona", parametros, datosPersona, conexionSqlBd);
+                if (respuestaOperacion == 0)
+                {
+                    this.ConexionBD = conexionSqlBd;
+                    CargarClientesBDtoLocal();
+                }
+                return respuestaOperacion;
+
+
+            }
+        }
+        private bool existePersona(String[] pDatosPersona)
+        {
+            foreach (Persona persona in Personas)
+            {
+                if (persona.Cedula.StartsWith(pDatosPersona[1]))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public int UpdateOrganizacion(String[] datosOrganizacion)
+        {
+            if (!existeOrganizacion(datosOrganizacion))
+            {
+                return -1;
+            }
+            else
+            {
+                /*
+                @CedulaJuridica nchar(32),
+	            @Nombre nchar(128),
+	            @Direccion nchar(256),
+	            @Ciudad nchar(64),
+	            @Numero nchar(24),
+	            @NombreContacto nchar(128),
+	            @CargoContacto nchar(64),
+	            @Estado nchar(10),
+	            @RespuestaOperacion int = 0 OUTPUT
+                 */
+                String[] parametros = new string[] { "@Estado", "@CedulaJuridica", "@Nombre", "@Ciudad", "@Direccion", "@NombreContacto", "@CargoContacto", "@Numero" };
+
+                int respuestaOperacion = conectionBD.EjecutarProcedimientoAlmacenado("UpdateOrganizacion", parametros, datosOrganizacion, conexionSqlBd);
+                if (respuestaOperacion == 0)
+                {
+                    this.ConexionBD = conexionSqlBd;
+                    CargarClientesBDtoLocal();
+                }
+                return respuestaOperacion;
+
+
+            }
+        }
+        private bool existeOrganizacion(String[] pDatosOrganizacion)
+        {
+            foreach (Organizacion organizacion in organizaciones)
+            {
+                if (organizacion.CedulaJuridica.StartsWith(pDatosOrganizacion[1]))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public int UpdateEstadoCliente(String[] datosCliente)
+        {
+            if (!(existeOrganizacion(datosCliente) || existePersona(datosCliente)))
+            {
+                return -1;
+            }
+            else
+            {
+                String[] parametros = new string[] { "@Estado", "@Cedula" };
+
+                int respuestaOperacion = conectionBD.EjecutarProcedimientoAlmacenado("UpdateEstadoCliente", parametros, datosCliente, conexionSqlBd);
+                if (respuestaOperacion == 0)
+                {
+                    this.ConexionBD = conexionSqlBd;
+                    CargarClientesBDtoLocal();
+                }
+                return respuestaOperacion;
+            }
+        }
+    }
 }

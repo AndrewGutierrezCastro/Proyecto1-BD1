@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using Proyecto1_BD1.View;
 
 namespace Proyecto1_BD1
 {
@@ -15,9 +16,13 @@ namespace Proyecto1_BD1
     {
         private CrearPersona crearPersona;
         private CrearOrganizacion crearOrganizacion;
+        private UpdatePersona updatePersona;
+        private UpdateOrganizacion updateOrganizacion;
+        private CambiarEstadoCliente cambiarEstadoCliente;
         private DataGridView listaPersonasGrid;
         private DataGridView listaOrganizacionesGrid;
         private FuncionesClientes funcionesClientes = new FuncionesClientes(ConectionBD.Instance);
+        public ConectionBD conectionBD;
         public MenuGeneral()
         {
             InitializeComponent();
@@ -53,7 +58,7 @@ namespace Proyecto1_BD1
         public void MenuGeneral_Load(object sender, EventArgs e)
         {
             // carga de datos en inicio de aplicacion
-
+            funcionesClientes.conectionBD = conectionBD;
             funcionesClientes.CargarClientesBDtoLocal();
 
             LoadPartes( Modelo.Parte.LoadData( ConectionBD.Instance ) );
@@ -192,6 +197,119 @@ namespace Proyecto1_BD1
         {
             this.crearOrganizacion.Hide();
         }
+
+        private void modificarClienteBtn_Click(object sender, EventArgs e)
+        {
+            this.updatePersona = new UpdatePersona();
+            this.updatePersona.Name = "updatePersona1";
+            this.updatePersona.Size = new Size(379, 349);
+            this.updatePersona.TabIndex = 2;
+
+            this.personasTab.Controls.Clear();
+
+            this.personasTab.Controls.Add(updatePersona);
+            this.updatePersona.aceptarBtn.Click += new System.EventHandler(this.updatePersonaAceptarBtn_Click);
+            this.updatePersona.cancelarBtn.Click += new System.EventHandler(this.updatePersonaCancelarBtn_Click);
+
+            this.updateOrganizacion = new UpdateOrganizacion();
+            this.updateOrganizacion.Name = "updateOrganizacion1";
+            this.updateOrganizacion.Size = new Size(589, 340);
+            this.updateOrganizacion.TabIndex = 2;
+
+            this.organizacionesTab.Controls.Clear();
+
+            this.organizacionesTab.Controls.Add(updateOrganizacion);
+            this.updateOrganizacion.aceptarBtn.Click += new System.EventHandler(this.updateOrganizacionAceptarBtn_Click);
+            this.updateOrganizacion.cancelarBtn.Click += new System.EventHandler(this.updateOrganizacionCancelarBtn_Click);
+        }
+
+        private void updatePersonaAceptarBtn_Click(object sender, EventArgs e)
+        {
+            String[] datosPersona = new String[] { "ACTIVO", "Cedula", "Nombre", "Direccion", "Numero" };
+            datosPersona[0] = this.updatePersona.estadoCmbBox.Text;
+            datosPersona[1] = this.updatePersona.cedulaTxtBox.Text;
+            datosPersona[2] = this.updatePersona.nombreTxtBox.Text;
+            datosPersona[2] += " " + this.updatePersona.apellidosTxtBox.Text;
+            datosPersona[3] = this.updatePersona.direccionTxtBox.Text;
+            datosPersona[4] = this.updatePersona.numeroTxtBox.Text;
+            int respuesta = funcionesClientes.UpdatePersona(datosPersona);
+            if (respuesta == 0)
+            {
+                MessageBox.Show("Actualizado Exitosamente", "Arial", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.updatePersona.limpiarBtn_Click(sender, e);
+            }
+            else
+            {
+                MessageBox.Show("No se puede Actualizar\n" + "Codigo error:" + respuesta, "Arial", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void updatePersonaCancelarBtn_Click(Object sender, EventArgs e)
+        {
+            this.updatePersona.Hide();
+        }
+        private void updateOrganizacionAceptarBtn_Click(object sender, EventArgs e)
+        {
+            String[] datosOrganizacion = new String[] { "ACTIVO", "CedulaJ", "Nombre", "Ciudad", "Direccion", "NombreCon", "CargoCon", "Numero" };
+            datosOrganizacion[0] = this.updateOrganizacion.estadoCmbBox.Text;
+            datosOrganizacion[1] = this.updateOrganizacion.cedulaJuriTxtBox.Text;
+            datosOrganizacion[2] = this.updateOrganizacion.nombreTxtBox.Text;
+            datosOrganizacion[3] = this.updateOrganizacion.ciudadTxtBox.Text;
+            datosOrganizacion[4] = this.updateOrganizacion.direccionTxtBox.Text;
+            datosOrganizacion[5] = this.updateOrganizacion.nombreContacTxtBox.Text;
+            datosOrganizacion[6] = this.updateOrganizacion.cargoContacTxtBox.Text;
+            datosOrganizacion[7] = this.updateOrganizacion.numeroTxtBox.Text;
+            int respuesta = funcionesClientes.UpdateOrganizacion(datosOrganizacion);
+            if (respuesta == 0)
+            {
+                MessageBox.Show("Actualizado Exitosamente", "Arial", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.updatePersona.limpiarBtn_Click(sender, e);
+            }
+            else
+            {
+                MessageBox.Show("No se puede Actualizar\n" + "Codigo error:" + respuesta, "Arial", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void updateOrganizacionCancelarBtn_Click(Object sender, EventArgs e)
+        {
+            this.updateOrganizacion.Hide();
+        }
+        private void cambiarEstadoCLienteBtn_Click(object sender, EventArgs e)
+        {
+            this.cambiarEstadoCliente = new CambiarEstadoCliente();
+            this.cambiarEstadoCliente.Name = "cambiarEstadoCliente1";
+            this.cambiarEstadoCliente.Size = new Size(287, 167);
+            this.cambiarEstadoCliente.TabIndex = 2;
+
+            
+            this.clientesTabControl.Hide();
+            this.panelClientesAux.Controls.Add(cambiarEstadoCliente);
+            this.cambiarEstadoCliente.aceptarBtn.Click += new System.EventHandler(this.cambiarEstadoClienteAceptarBtn_Click);
+            this.cambiarEstadoCliente.cancelarBtn.Click += new System.EventHandler(this.cambiarEstadoClienteCancelarBtn_Click);
+        }
+        private void cambiarEstadoClienteAceptarBtn_Click(Object sender, EventArgs e)
+        {
+            String[] datosCliente= new String[] { "ACTIVO", "Cedula"};
+            datosCliente[0] = this.cambiarEstadoCliente.estadoCmbBox.Text;
+            datosCliente[1] = this.cambiarEstadoCliente.cedulaTxtBox.Text;
+
+            int respuesta = funcionesClientes.UpdateEstadoCliente(datosCliente);
+            if (respuesta == 0)
+            {
+                MessageBox.Show("Actualizado Exitosamente", "Arial", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.cambiarEstadoCliente.limpiarBtn_Click(sender, e);
+            }
+            else
+            {
+                MessageBox.Show("No se puede Actualizar\n" + "Codigo error:" + respuesta, "Arial", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            this.clientesTabControl.Show();
+        }
+        private void cambiarEstadoClienteCancelarBtn_Click(Object sender, EventArgs e)
+        {
+            this.cambiarEstadoCliente.Hide();
+            this.clientesTabControl.Show();
+       
+        }
         private void Partes_dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -229,5 +347,7 @@ namespace Proyecto1_BD1
                 MessageBox.Show("Debe seleccionar alguna parte en la tabla", "Aviso");
             }
         }
+
+        
     }
 }

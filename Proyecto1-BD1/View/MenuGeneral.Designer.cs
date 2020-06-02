@@ -37,8 +37,8 @@
             this.organizacionesTab = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.listarClientesBtn = new System.Windows.Forms.Button();
-            this.cambiarEstadoCLienteBtn = new System.Windows.Forms.Button();
-            this.modificarClienteBtn = new System.Windows.Forms.Button();
+            this.cambiarEstadoClienteBtn = new System.Windows.Forms.Button();
+            this.updateClienteBtn = new System.Windows.Forms.Button();
             this.insertarClienteBtn = new System.Windows.Forms.Button();
             this.partesTab = new System.Windows.Forms.TabPage();
             this.ProveedorPartesTab = new System.Windows.Forms.TabControl();
@@ -172,8 +172,8 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.listarClientesBtn);
-            this.panel1.Controls.Add(this.cambiarEstadoCLienteBtn);
-            this.panel1.Controls.Add(this.modificarClienteBtn);
+            this.panel1.Controls.Add(this.cambiarEstadoClienteBtn);
+            this.panel1.Controls.Add(this.updateClienteBtn);
             this.panel1.Controls.Add(this.insertarClienteBtn);
             this.panel1.Location = new System.Drawing.Point(7, 7);
             this.panel1.Name = "panel1";
@@ -190,23 +190,25 @@
             this.listarClientesBtn.UseVisualStyleBackColor = true;
             this.listarClientesBtn.Click += new System.EventHandler(this.listarClientesBtn_Click);
             // 
-            // cambiarEstadoCLienteBtn
+            // cambiarEstadoClienteBtn
             // 
-            this.cambiarEstadoCLienteBtn.Location = new System.Drawing.Point(3, 100);
-            this.cambiarEstadoCLienteBtn.Name = "cambiarEstadoCLienteBtn";
-            this.cambiarEstadoCLienteBtn.Size = new System.Drawing.Size(126, 24);
-            this.cambiarEstadoCLienteBtn.TabIndex = 6;
-            this.cambiarEstadoCLienteBtn.Text = "Cambiar Estado Cliente";
-            this.cambiarEstadoCLienteBtn.UseVisualStyleBackColor = true;
+            this.cambiarEstadoClienteBtn.Location = new System.Drawing.Point(3, 100);
+            this.cambiarEstadoClienteBtn.Name = "cambiarEstadoClienteBtn";
+            this.cambiarEstadoClienteBtn.Size = new System.Drawing.Size(126, 24);
+            this.cambiarEstadoClienteBtn.TabIndex = 6;
+            this.cambiarEstadoClienteBtn.Text = "Cambiar Estado Cliente";
+            this.cambiarEstadoClienteBtn.UseVisualStyleBackColor = true;
+            this.cambiarEstadoClienteBtn.Click += new System.EventHandler(this.cambiarEstadoCLienteBtn_Click);
             // 
-            // modificarClienteBtn
+            // updateClienteBtn
             // 
-            this.modificarClienteBtn.Location = new System.Drawing.Point(3, 50);
-            this.modificarClienteBtn.Name = "modificarClienteBtn";
-            this.modificarClienteBtn.Size = new System.Drawing.Size(126, 24);
-            this.modificarClienteBtn.TabIndex = 5;
-            this.modificarClienteBtn.Text = "Modificar Cliente";
-            this.modificarClienteBtn.UseVisualStyleBackColor = true;
+            this.updateClienteBtn.Location = new System.Drawing.Point(3, 50);
+            this.updateClienteBtn.Name = "updateClienteBtn";
+            this.updateClienteBtn.Size = new System.Drawing.Size(126, 24);
+            this.updateClienteBtn.TabIndex = 5;
+            this.updateClienteBtn.Text = "Modificar Cliente";
+            this.updateClienteBtn.UseVisualStyleBackColor = true;
+            this.updateClienteBtn.Click += new System.EventHandler(this.modificarClienteBtn_Click);
             // 
             // insertarClienteBtn
             // 
@@ -583,8 +585,8 @@
         private System.Windows.Forms.TabPage partesTab;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button listarClientesBtn;
-        private System.Windows.Forms.Button cambiarEstadoCLienteBtn;
-        private System.Windows.Forms.Button modificarClienteBtn;
+        private System.Windows.Forms.Button cambiarEstadoClienteBtn;
+        private System.Windows.Forms.Button updateClienteBtn;
         private System.Windows.Forms.Button insertarClienteBtn;
         private System.Windows.Forms.Panel panelClientesAux;
         private System.Windows.Forms.TabControl clientesTabControl;
