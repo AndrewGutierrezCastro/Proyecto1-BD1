@@ -53,6 +53,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\OrdenDetalle.cs" />
     <Compile Include="Model\Orden.cs" />
     <Compile Include="Model\Parte.cs" />
     <Compile Include="Model\Cliente.cs" />
