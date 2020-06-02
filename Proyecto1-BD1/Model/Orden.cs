@@ -39,7 +39,7 @@ namespace Proyecto1_BD1.Modelo
                 SqlParameter montoVenta = comando.Parameters.Add("@MontoVenta", SqlDbType.Decimal);
                 SqlParameter montoIva = comando.Parameters.Add("@MontoIva", SqlDbType.Decimal);
                 SqlParameter montoCobrado = comando.Parameters.Add("@MontoCobrado", SqlDbType.Decimal);
-                SqlParameter resultadoOperacion = comando.Parameters.Add("@ResultadoOperacion", SqlDbType.int);
+                SqlParameter resultadoOperacion = comando.Parameters.Add("@ResultadoOperacion", SqlDbType.Int);
 
                 // establecer valores
                 tipoCliente.Value = this.tipoCliente;

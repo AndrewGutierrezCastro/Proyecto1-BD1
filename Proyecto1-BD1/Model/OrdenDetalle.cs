@@ -36,7 +36,7 @@ namespace Proyecto1_BD1.Model
                 SqlParameter cantidad = comando.Parameters.Add("@Cantidad", SqlDbType.Int);
                 SqlParameter montoVenta = comando.Parameters.Add("@MontoVenta", SqlDbType.Decimal);
                 SqlParameter precioCobrado = comando.Parameters.Add("@PrecioCobrado", SqlDbType.Decimal);
-                SqlParameter resultadoOperacion = comando.Parameters.Add("@ResultadoOperacion", SqlDbType.int);
+                SqlParameter resultadoOperacion = comando.Parameters.Add("@ResultadoOperacion", SqlDbType.Int);
 
                 // establecer valores
                 idOrden.Value = this.IdOrden;

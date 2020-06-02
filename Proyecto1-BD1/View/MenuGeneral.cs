@@ -151,6 +151,7 @@ namespace Proyecto1_BD1
         }
         private void  crearPersonaAceptarBtn_Click(Object sender, EventArgs e)
         {
+            
             String[] datosPersona = new String[] { "ACTIVO", "Cedula", "Nombre", "Direccion", "Numero" };
             datosPersona[1] = this.crearPersona.cedulaTxtBox.Text;
             datosPersona[2] = this.crearPersona.nombreTxtBox.Text;
@@ -158,14 +159,40 @@ namespace Proyecto1_BD1
             datosPersona[3] = this.crearPersona.direccionTxtBox.Text;
             datosPersona[4] = this.crearPersona.numeroTxtBox.Text;
             int respuesta = funcionesClientes.CrearNuevaPersona(datosPersona);
-            if ( respuesta == 0)
-            {   
-                MessageBox.Show(datosPersona[2]+"\nAgregado Exitosamente", "Arial", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.crearPersona.limpiarBtn_Click(sender, e);
-            }
-            else
+            /*
+	        POSIBLES RESPUESTAS
+	         0 = caso exitoso
+	        -1 = cedula invalida
+	        -2 = nombre invalida
+	        -3 = Direccion invalido
+	        -4 = Numero no invalido
+	        -5 = Estado invalido
+	        -6 = Persona ya existe
+	        */
+            switch (respuesta)
             {
-                MessageBox.Show(datosPersona[2] + "\nNo se puede agregar\n"+"Codigo error:"+respuesta, "Arial", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                case (0):
+                    MessageBox.Show(datosPersona[2] + "\nAgregado Exitosamente", "Crear persona exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.crearPersona.limpiarBtn_Click(sender, e);
+                    break;
+                case (-1):
+                    MessageBox.Show("No se puede crear" + datosPersona[2] + "\nCodigo error:" + respuesta + "\nLa cedula ingresada invalida.", "Crear Persona ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                case (-2):
+                    MessageBox.Show("No se puede crear" + "\nCodigo error:" + respuesta + "\nEl nombre  ingresado es invalido.", "Crear Persona ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                case (-3):
+                    MessageBox.Show("No se puede crear" + datosPersona[2] + "\nCodigo error:" + respuesta + "\nLa direccion  ingresada es invalida.", "Crear Persona ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                case (-4):
+                    MessageBox.Show("No se puede crear" + datosPersona[2] + "\nCodigo error:" + respuesta + "\nEl numero  ingresado es invalido.", "Crear Persona ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                case (-5):
+                    MessageBox.Show("No se puede crear" + datosPersona[2] + "\nCodigo error:" + respuesta + "\nEl estado del cliente es invalido.", "Crear Persona ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                case (-6):
+                    MessageBox.Show("No se puede crear" + datosPersona[2] + "\nCodigo error:" + respuesta + "\nLa persona ya existe, revise la cedula.", "Crear Persona ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
             }
         }
         private void crearPersonaCancelarBtn_Click(Object sender, EventArgs e)
@@ -183,21 +210,57 @@ namespace Proyecto1_BD1
             datosOrganizacion[6] = this.crearOrganizacion.cargoContacTxtBox.Text;
             datosOrganizacion[7] = this.crearOrganizacion.numeroTxtBox.Text;
             int respuesta = funcionesClientes.CrearNuevaOrganizacion(datosOrganizacion);
-            if ( respuesta == 0)
+            /*
+             0 = caso exitoso
+	        -1 = cedulaJuridica invalida
+	        -2 = nombre invalida
+	        -3 = Direccion invalido
+	        -4 = Ciudad  invalida
+	        -5 = Numero invalido
+	        -6 = NombreContacto invalido
+	        -7 = Cargo de Contacto invalido
+	        -8 = Estado invalido
+	        -9 = Organizacion ya existe
+             */
+            switch (respuesta)
             {
-                MessageBox.Show(datosOrganizacion[2] + "\nAgregado Exitosamente", "Arial", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.crearPersona.limpiarBtn_Click(sender, e);
-            }
-            else
-            {
-                MessageBox.Show(datosOrganizacion[2] + "\nNo se puede agregar\n" + "Codigo error:" + respuesta, "Arial", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                case (0):
+                    MessageBox.Show("Creado exitosamente", "Crear organizacion exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.crearOrganizacion.limpiarBtn_Click(sender, e);
+                    break;
+                case (-1):
+                    MessageBox.Show("No se puede crear" +datosOrganizacion[2]+ "\nCodigo error:" + respuesta + "\nLa cedula ingresada invalida.", "Crear Organizacion ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                case (-2):
+                    MessageBox.Show("No se puede crear" + "\nCodigo error:" + respuesta + "\nEl nombre  ingresado es invalido.", "Crear Organizacion ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                case (-3):
+                    MessageBox.Show("No se puede crear" + datosOrganizacion[2] + "\nCodigo error:" + respuesta + "\nLa direccion  ingresada es invalida.", "Crear Organizacion ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                case (-4):
+                    MessageBox.Show("No se puede crear" + datosOrganizacion[2] + "\nCodigo error:" + respuesta + "\nLa ciudad  ingresada es invalida.", "Crear Organizacion ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                case (-5):
+                    MessageBox.Show("No se puede crear" + datosOrganizacion[2] + "\nCodigo error:" + respuesta + "\nEl numero  ingresado es invalido.", "Crear Organizacion ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                case (-6):
+                    MessageBox.Show("No se puede crear" + datosOrganizacion[2] + "\nCodigo error:" + respuesta + "\nEl nombre del contacto ingresado es invalido.", "Crear Organizacion ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                case (-7):
+                    MessageBox.Show("No se puede crear" + datosOrganizacion[2] + "\nCodigo error:" + respuesta + "\nEl cargo del contacto ingresado es invalido.", "Crear Organizacion ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                case (-8):
+                    MessageBox.Show("No se puede crear" + datosOrganizacion[2] + "\nCodigo error:" + respuesta + "\nEl estado cliente es invalido.", "Crear Organizacion ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                case (-9):
+                    MessageBox.Show("No se puede crear" + datosOrganizacion[2] + "\nCodigo error:" + respuesta + "\nLa organizacion ya existe, revise la cedula juridica.", "Arial", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
             }
         }
         private void crearOrganizacionCancelarBtn_Click(Object sender, EventArgs e)
         {
             this.crearOrganizacion.Hide();
         }
-
         private void modificarClienteBtn_Click(object sender, EventArgs e)
         {
             this.updatePersona = new UpdatePersona();
@@ -222,7 +285,6 @@ namespace Proyecto1_BD1
             this.updateOrganizacion.aceptarBtn.Click += new System.EventHandler(this.updateOrganizacionAceptarBtn_Click);
             this.updateOrganizacion.cancelarBtn.Click += new System.EventHandler(this.updateOrganizacionCancelarBtn_Click);
         }
-
         private void updatePersonaAceptarBtn_Click(object sender, EventArgs e)
         {
             String[] datosPersona = new String[] { "ACTIVO", "Cedula", "Nombre", "Direccion", "Numero" };
@@ -233,15 +295,17 @@ namespace Proyecto1_BD1
             datosPersona[3] = this.updatePersona.direccionTxtBox.Text;
             datosPersona[4] = this.updatePersona.numeroTxtBox.Text;
             int respuesta = funcionesClientes.UpdatePersona(datosPersona);
-            if (respuesta == 0)
+            switch (respuesta)
             {
-                MessageBox.Show("Actualizado Exitosamente", "Arial", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.updatePersona.limpiarBtn_Click(sender, e);
+                case (0):
+                    MessageBox.Show("Actualizado Exitosamente", "Modificar persona exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.updatePersona.limpiarBtn_Click(sender, e);
+                    break;
+                case (-1):
+                    MessageBox.Show("No se puede Actualizar\n" + "Codigo error:" + respuesta + "\nLa cedula ingresada no se encontró.", "Modificar persona ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
             }
-            else
-            {
-                MessageBox.Show("No se puede Actualizar\n" + "Codigo error:" + respuesta, "Arial", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+
         }
         private void updatePersonaCancelarBtn_Click(Object sender, EventArgs e)
         {
@@ -259,14 +323,15 @@ namespace Proyecto1_BD1
             datosOrganizacion[6] = this.updateOrganizacion.cargoContacTxtBox.Text;
             datosOrganizacion[7] = this.updateOrganizacion.numeroTxtBox.Text;
             int respuesta = funcionesClientes.UpdateOrganizacion(datosOrganizacion);
-            if (respuesta == 0)
+            switch (respuesta)
             {
-                MessageBox.Show("Actualizado Exitosamente", "Arial", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.updatePersona.limpiarBtn_Click(sender, e);
-            }
-            else
-            {
-                MessageBox.Show("No se puede Actualizar\n" + "Codigo error:" + respuesta, "Arial", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                case (0):
+                    MessageBox.Show("Actualizado Exitosamente", "Modificar organizacion exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.updateOrganizacion.limpiarBtn_Click(sender, e);
+                    break;
+                case (-1):
+                    MessageBox.Show("No se puede Actualizar\n" + "Codigo error:" + respuesta + "\nLa cedula ingresada no se encontró.", "Modificar Organizacion ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
             }
         }
         private void updateOrganizacionCancelarBtn_Click(Object sender, EventArgs e)
@@ -293,15 +358,22 @@ namespace Proyecto1_BD1
             datosCliente[1] = this.cambiarEstadoCliente.cedulaTxtBox.Text;
 
             int respuesta = funcionesClientes.UpdateEstadoCliente(datosCliente);
-            if (respuesta == 0)
+            
+            switch (respuesta)
             {
-                MessageBox.Show("Actualizado Exitosamente", "Arial", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.cambiarEstadoCliente.limpiarBtn_Click(sender, e);
-            }
-            else
-            {
-                MessageBox.Show("No se puede Actualizar\n" + "Codigo error:" + respuesta, "Arial", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                case (0):
+                    MessageBox.Show("Actualizado Exitosamente", "Modificacion de estado exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.cambiarEstadoCliente.limpiarBtn_Click(sender, e);
+                    break;
+                case (-1):
+                    MessageBox.Show("No se puede Actualizar\n" + "Codigo error:" + respuesta+"\nEl estado ingresado es invalido. Debe ser ACTIVO," +
+                        " INACTIVO o SUSPENDIDO", "Modificar estado ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                case(-2):
+                    MessageBox.Show("No se puede Actualizar\n" + "Codigo error:" + respuesta + "\nLa cedula ingresada no se encontró.", "Modificar estado ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+            }              
+            
             this.clientesTabControl.Show();
         }
         private void cambiarEstadoClienteCancelarBtn_Click(Object sender, EventArgs e)
