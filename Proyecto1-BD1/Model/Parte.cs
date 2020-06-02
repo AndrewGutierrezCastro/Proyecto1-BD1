@@ -20,6 +20,8 @@ namespace Proyecto1_BD1.Modelo
         private int id;
 
         public static List<Parte> PartesCargadas;
+        public static List<Parte> PartesXProveedorCargadas;
+        public static List<Parte> PartesXAutomovilCargadas;
 
         // methods
         public int Id { get => id; set => id = value; }
@@ -36,6 +38,65 @@ namespace Proyecto1_BD1.Modelo
             this.nombreFabricante = nombreFabricante;
             this.detalleAutomovil = detalleAutomovil;
         }
+
+        public static List<Parte> loadDataByProvider(SqlConnection connection, Parte parteSeleccionada)
+        {
+            List<Parte> data = new List<Parte>();
+
+            using (SqlCommand proceso = new SqlCommand(mostrarPartes_sp, connection))
+            {
+                SqlParameter provider = proceso.Parameters.Add("@IdProveedor", SqlDbType.Int);
+
+                SqlDataReader lector = proceso.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    data.Add(
+                        new Parte(
+                            (int)lector["Id"],
+                            (string)lector["nombre"],
+                            (string)lector["marca"],
+                            (string)lector["nombreFabricante"],
+                            (string)lector["detalle"]
+                        )
+                    );
+                }
+
+            }
+
+            PartesXProveedorCargadas = data;
+
+            return data;
+        }
+
+        public static List<Parte> loadDataByAutomovil(SqlConnection connection, int automovilId)
+        {
+            List<Parte> data = new List<Parte>();
+
+            using (SqlCommand proceso = new SqlCommand(mostrarPartes_sp, connection))
+            {
+                SqlDataReader lector = proceso.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    data.Add(
+                        new Parte(
+                            (int)lector["Id"],
+                            (string)lector["nombre"],
+                            (string)lector["marca"],
+                            (string)lector["nombreFabricante"],
+                            (string)lector["detalle"]
+                        )
+                    );
+                }
+
+            }
+
+            PartesXAutomovilCargadas = data;
+
+            return data;
+        }
+
 
         public static List<Parte> LoadData( SqlConnection connection )
         {
@@ -116,5 +177,13 @@ namespace Proyecto1_BD1.Modelo
                 }
             }
         }
+
+        public string toString()
+        {
+            return this.nombre + " - " + this.Marca;
+        }
+
     }
+
+
 }

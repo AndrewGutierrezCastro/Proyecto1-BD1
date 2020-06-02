@@ -50,13 +50,8 @@
             this.AutomovilClm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
-            this.proveedorCmb = new System.Windows.Forms.ComboBox();
+            this.parteCmb = new System.Windows.Forms.ComboBox();
             this.partesxproveedor_dataGridView = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProveedorClm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AutomovilPartesTab = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
             this.automovilCmb = new System.Windows.Forms.ComboBox();
@@ -77,6 +72,8 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.listaPersonasGrid = new System.Windows.Forms.DataGridView();
             this.listaOrganizacionesGrid = new System.Windows.Forms.DataGridView();
+            this.CodigoClm = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pestañas.SuspendLayout();
             this.clientesTab.SuspendLayout();
             this.panelClientesAux.SuspendLayout();
@@ -296,7 +293,7 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.label1);
-            this.tabPage2.Controls.Add(this.proveedorCmb);
+            this.tabPage2.Controls.Add(this.parteCmb);
             this.tabPage2.Controls.Add(this.partesxproveedor_dataGridView);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -311,61 +308,30 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(267, 14);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(92, 13);
+            this.label1.Size = new System.Drawing.Size(74, 13);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Elija un proveedor";
+            this.label1.Text = "Elija una parte\r\n";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // proveedorCmb
+            // parteCmb
             // 
-            this.proveedorCmb.FormattingEnabled = true;
-            this.proveedorCmb.Location = new System.Drawing.Point(365, 11);
-            this.proveedorCmb.Name = "proveedorCmb";
-            this.proveedorCmb.Size = new System.Drawing.Size(218, 21);
-            this.proveedorCmb.TabIndex = 2;
+            this.parteCmb.FormattingEnabled = true;
+            this.parteCmb.Location = new System.Drawing.Point(365, 11);
+            this.parteCmb.Name = "parteCmb";
+            this.parteCmb.Size = new System.Drawing.Size(218, 21);
+            this.parteCmb.TabIndex = 2;
+            this.parteCmb.SelectedIndexChanged += new System.EventHandler(this.proveedorCmb_SelectedIndexChanged);
             // 
             // partesxproveedor_dataGridView
             // 
             this.partesxproveedor_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.partesxproveedor_dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4,
-            this.ProveedorClm});
+            this.CodigoClm,
+            this.dataGridViewTextBoxColumn1});
             this.partesxproveedor_dataGridView.Location = new System.Drawing.Point(3, 38);
             this.partesxproveedor_dataGridView.Name = "partesxproveedor_dataGridView";
             this.partesxproveedor_dataGridView.Size = new System.Drawing.Size(583, 350);
             this.partesxproveedor_dataGridView.TabIndex = 1;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn1.HeaderText = "Nombre";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn2.HeaderText = "Marca";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn3.HeaderText = "Fabricante";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn4.HeaderText = "Automovil";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            // 
-            // ProveedorClm
-            // 
-            this.ProveedorClm.HeaderText = "Proveedor";
-            this.ProveedorClm.Name = "ProveedorClm";
             // 
             // AutomovilPartesTab
             // 
@@ -543,6 +509,17 @@
             this.listaOrganizacionesGrid.Size = new System.Drawing.Size(240, 150);
             this.listaOrganizacionesGrid.TabIndex = 0;
             // 
+            // CodigoClm
+            // 
+            this.CodigoClm.HeaderText = "Codigo";
+            this.CodigoClm.Name = "CodigoClm";
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Nombre";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
             // MenuGeneral
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -611,12 +588,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn FabricanteClm;
         private System.Windows.Forms.DataGridViewTextBoxColumn AutomovilClm;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox proveedorCmb;
+        private System.Windows.Forms.ComboBox parteCmb;
         private System.Windows.Forms.DataGridView partesxproveedor_dataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox automovilCmb;
         private System.Windows.Forms.DataGridView partesxautomovil_dataGridView;
@@ -624,8 +597,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ProveedorClm;
         private System.Windows.Forms.DataGridViewTextBoxColumn Proveedor_Clm;
-
+        private System.Windows.Forms.DataGridViewTextBoxColumn CodigoClm;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
     }
 }
