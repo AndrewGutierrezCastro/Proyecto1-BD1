@@ -89,6 +89,7 @@ namespace Proyecto1_BD1
 
         private void listarClientesBtn_Click(object sender, EventArgs e)
         {
+            this.clientesTabControl.Show();
             //Generar Grid
             { listaOrganizacionesGrid = new DataGridView();
             listaPersonasGrid = new DataGridView();
@@ -124,7 +125,7 @@ namespace Proyecto1_BD1
         }
         private void insertarClienteBtn_Click(object sender, EventArgs e)
         {
-            
+            this.clientesTabControl.Show();
             this.crearPersona = new CrearPersona();
             this.crearPersona.Name = "crearPersona1";
             this.crearPersona.Size = new Size(374, 316);
@@ -263,6 +264,7 @@ namespace Proyecto1_BD1
         }
         private void modificarClienteBtn_Click(object sender, EventArgs e)
         {
+            this.clientesTabControl.Show();
             this.updatePersona = new UpdatePersona();
             this.updatePersona.Name = "updatePersona1";
             this.updatePersona.Size = new Size(379, 349);
