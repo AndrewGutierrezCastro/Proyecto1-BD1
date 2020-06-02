@@ -498,6 +498,7 @@
             this.borrarParteBtn.TabIndex = 7;
             this.borrarParteBtn.Text = "Borrar Parte";
             this.borrarParteBtn.UseVisualStyleBackColor = true;
+            this.borrarParteBtn.Click += new System.EventHandler(this.borrarParteBtn_Click);
             // 
             // insertarParteBtn
             // 

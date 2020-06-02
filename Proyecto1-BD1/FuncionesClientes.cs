@@ -35,10 +35,10 @@ namespace Proyecto1_BD1
             Organizaciones = new List<Organizacion>();
             tablaPersonas = new DataTable();
             tablaOrganizaciones = new DataTable();
-        SqlDataAdapter listarPersonas = new SqlDataAdapter("SELECT TOP ("+numPersonas+") [Estado], [Cedula] ,[Nombre] ,[Direccion] ,[Numero] FROM viewPersonas", ConexionBD);
+        SqlDataAdapter listarPersonas = new SqlDataAdapter("SELECT TOP ("+numPersonas+") [Estado], [Cedula] ,[Nombre] ,[Direccion] ,[Numero] FROM ViewPersonas", ConexionBD);
             listarPersonas.Fill(TablaPersonas);
 
-            SqlDataAdapter listarOrganizaciones = new SqlDataAdapter("SELECT TOP ("+numOrganizaciones+") [Estado], [CedulaJuridica], [Nombre] ,[Ciudad] ,[Direccion] ,[Nombre_Contacto] ,[Cargo_Contacto] ,[Numero] FROM viewOrganizaciones", ConexionBD);
+            SqlDataAdapter listarOrganizaciones = new SqlDataAdapter("SELECT TOP ("+numOrganizaciones+") [Estado], [CedulaJuridica], [Nombre] ,[Ciudad] ,[Direccion] ,[Nombre_Contacto] ,[Cargo_Contacto] ,[Numero] FROM ViewOrganizaciones", ConexionBD);
             listarOrganizaciones.Fill(TablaOrganizaciones);
 
             /*

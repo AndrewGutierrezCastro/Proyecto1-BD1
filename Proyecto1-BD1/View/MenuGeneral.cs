@@ -50,9 +50,36 @@ namespace Proyecto1_BD1
             this.Close();
         }
 
-        private void MenuGeneral_Load(object sender, EventArgs e)
+        public void MenuGeneral_Load(object sender, EventArgs e)
         {
+            // carga de datos en inicio de aplicacion
+
             funcionesClientes.CargarClientesBDtoLocal();
+
+            LoadPartes( Modelo.Parte.LoadData( ConectionBD.Instance ) );
+
+        }
+
+        public void refreshPartes()
+        {
+            LoadPartes(Modelo.Parte.LoadData(ConectionBD.Instance));
+        }
+
+        private void LoadPartes( List<Modelo.Parte> datosParte )
+        {
+            this.Partes_dataGridView.Rows.Clear();
+
+            foreach (Modelo.Parte parte in datosParte)
+            {
+                this.Partes_dataGridView.Rows.Add(
+                    new Object[] {
+                        parte.Nombre,
+                        parte.Marca,
+                        parte.NombreFabricante,
+                        parte.DetalleAutomovil
+                    }
+                );
+            }
         }
 
         private void listarClientesBtn_Click(object sender, EventArgs e)
@@ -188,6 +215,19 @@ namespace Proyecto1_BD1
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void borrarParteBtn_Click(object sender, EventArgs e)
+        {
+            int selectedIndex = this.Partes_dataGridView.CurrentRow.Index;
+
+            if (selectedIndex != -1)
+            {
+                ( Modelo.Parte.PartesCargadas[selectedIndex] ).Delete( ConectionBD.Instance );
+            } else
+            {
+                MessageBox.Show("Debe seleccionar alguna parte en la tabla", "Aviso");
+            }
         }
     }
 }
