@@ -13,6 +13,8 @@ namespace Proyecto1_BD1
 {
 	public partial class ConectarServidorForm : Form
 	{
+        public static MenuGeneral menu;
+
         string databaseName = "tarea_programada_1_db";
 
         string[] testingDevices =
@@ -61,8 +63,8 @@ namespace Proyecto1_BD1
 				{
 					AbrirConexionBtn.Enabled = false;
 					this.Hide();
-					MenuGeneral menuGeneral = new MenuGeneral();
-					menuGeneral.ShowDialog();
+					menu = new MenuGeneral();
+                    menu.ShowDialog();
 					this.Close();
 				}
 				
