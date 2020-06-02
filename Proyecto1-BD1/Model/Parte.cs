@@ -13,7 +13,7 @@ namespace Proyecto1_BD1.Modelo
     {
         // db linking
         public static String mostrarPartes_sp = "ReadPartes";
-        public static String deletePartes_sp = "DeleteParte";
+        public static String deletePartes_sp  = "DeleteParte";
 
         // atributos
         private string nombre, marca, nombreFabricante, detalleAutomovil;
@@ -86,7 +86,7 @@ namespace Proyecto1_BD1.Modelo
 	                -2 = participa en una orden
                 */
 
-                int outResult = int.Parse( idParameter.Value.ToString() );
+                int outResult = int.Parse( resultParameter.Value.ToString() );
 
                 if ( outResult == -1 )
                 {
