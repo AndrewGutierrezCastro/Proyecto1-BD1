@@ -32,7 +32,7 @@
             this.nombreTxtBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.ciudadTxtBox = new System.Windows.Forms.TextBox();
-            this.cedulaTxtBox = new System.Windows.Forms.TextBox();
+            this.cedulaJuriTxtBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.numeroTxtBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -79,12 +79,12 @@
             this.ciudadTxtBox.Size = new System.Drawing.Size(100, 20);
             this.ciudadTxtBox.TabIndex = 3;
             // 
-            // cedulaTxtBox
+            // cedulaJuriTxtBox
             // 
-            this.cedulaTxtBox.Location = new System.Drawing.Point(73, 75);
-            this.cedulaTxtBox.Name = "cedulaTxtBox";
-            this.cedulaTxtBox.Size = new System.Drawing.Size(100, 20);
-            this.cedulaTxtBox.TabIndex = 5;
+            this.cedulaJuriTxtBox.Location = new System.Drawing.Point(73, 75);
+            this.cedulaJuriTxtBox.Name = "cedulaJuriTxtBox";
+            this.cedulaJuriTxtBox.Size = new System.Drawing.Size(100, 20);
+            this.cedulaJuriTxtBox.TabIndex = 5;
             // 
             // label3
             // 
@@ -203,14 +203,14 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.numeroTxtBox);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.cedulaTxtBox);
+            this.Controls.Add(this.cedulaJuriTxtBox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.ciudadTxtBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.nombreTxtBox);
             this.Controls.Add(this.label1);
             this.Name = "CrearOrganizacion";
-            this.Size = new System.Drawing.Size(637, 316);
+            this.Size = new System.Drawing.Size(587, 316);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -222,7 +222,7 @@
         public System.Windows.Forms.TextBox nombreTxtBox;
         private System.Windows.Forms.Label label2;
         public System.Windows.Forms.TextBox ciudadTxtBox;
-        public System.Windows.Forms.TextBox cedulaTxtBox;
+        public System.Windows.Forms.TextBox cedulaJuriTxtBox;
         private System.Windows.Forms.Label label3;
         public System.Windows.Forms.TextBox numeroTxtBox;
         private System.Windows.Forms.Label label4;

@@ -19,7 +19,7 @@ namespace Proyecto1_BD1
 
         public void limpiarBtn_Click(object sender, EventArgs e)
         {
-            cedulaTxtBox.Text = "";
+            cedulaJuriTxtBox.Text = "";
             nombreTxtBox.Text = "";
             ciudadTxtBox.Text = "";
             numeroTxtBox.Text = "";

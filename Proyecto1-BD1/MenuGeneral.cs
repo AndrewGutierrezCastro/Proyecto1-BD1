@@ -125,14 +125,15 @@ namespace Proyecto1_BD1
             datosPersona[2] += " " + this.crearPersona.apellidosTxtBox.Text;
             datosPersona[3] = this.crearPersona.direccionTxtBox.Text;
             datosPersona[4] = this.crearPersona.numeroTxtBox.Text;
-            if (funcionesClientes.CrearNuevaPersona(datosPersona) == 0)
+            int respuesta = funcionesClientes.CrearNuevaPersona(datosPersona);
+            if ( respuesta == 0)
             {   
                 MessageBox.Show(datosPersona[2]+"\nAgregado Exitosamente", "Arial", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.crearPersona.limpiarBtn_Click(sender, e);
             }
             else
             {
-                MessageBox.Show(datosPersona[2] + "\nNo se puede agregar", "Arial", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(datosPersona[2] + "\nNo se puede agregar\n"+"Codigo error:"+respuesta, "Arial", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void crearPersonaCancelarBtn_Click(Object sender, EventArgs e)
@@ -141,7 +142,24 @@ namespace Proyecto1_BD1
         }
         private void crearOrganizacionAceptarBtn_Click(Object sender, EventArgs e)
         {
-
+            String[] datosOrganizacion = new String[] { "ACTIVO", "CedulaJ", "Nombre", "Ciudad", "Direccion", "NombreCon", "CargoCon", "Numero" };
+            datosOrganizacion[1] = this.crearOrganizacion.cedulaJuriTxtBox.Text;
+            datosOrganizacion[2] = this.crearOrganizacion.nombreTxtBox.Text;
+            datosOrganizacion[3] = this.crearOrganizacion.ciudadTxtBox.Text;
+            datosOrganizacion[4] = this.crearOrganizacion.direccionTxtBox.Text;
+            datosOrganizacion[5] = this.crearOrganizacion.nombreContacTxtBox.Text;
+            datosOrganizacion[6] = this.crearOrganizacion.cargoContacTxtBox.Text;
+            datosOrganizacion[7] = this.crearOrganizacion.numeroTxtBox.Text;
+            int respuesta = funcionesClientes.CrearNuevaOrganizacion(datosOrganizacion);
+            if ( respuesta == 0)
+            {
+                MessageBox.Show(datosOrganizacion[2] + "\nAgregado Exitosamente", "Arial", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.crearPersona.limpiarBtn_Click(sender, e);
+            }
+            else
+            {
+                MessageBox.Show(datosOrganizacion[2] + "\nNo se puede agregar\n" + "Codigo error:" + respuesta, "Arial", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         private void crearOrganizacionCancelarBtn_Click(Object sender, EventArgs e)
         {

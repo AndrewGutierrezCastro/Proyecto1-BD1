@@ -144,9 +144,107 @@ namespace Proyecto1_BD1
                 }
 
             }
-            
-            return 0;
         }
 
-    }
+        public int CrearNuevaOrganizacion(String[] datosOrganizacion)
+        {
+            bool existeOrganizacion(String[] pDatosOrganizacion)
+            {
+                foreach (Organizacion organizacion in organizaciones)
+                {
+                    if (organizacion.CedulaJuridica.StartsWith(pDatosOrganizacion[1]))
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+            /*
+             *POSIBLES RESPUESTAS
+	             0 = caso exitoso
+	            -1 = cedulaJuridica invalida
+	            -2 = nombre invalida
+	            -3 = Direccion invalido
+	            -4 = Ciudad  invalida
+	            -5 = Numero invalido
+	            -6 = NombreContacto invalido
+	            -7 = Cargo de Contacto invalido
+	            -8 = Estado invalido
+	            -9 = Organizacion ya existe
+	         *"Estado", "Cedula", "Nombre", "Direccion", "Numero"
+	        */
+            if (datosOrganizacion[1] == "")
+            {
+                return -1;
+            }
+            else if (datosOrganizacion[2] == "")
+            {
+                return -2;
+            }
+            else if (datosOrganizacion[3] == "")
+            {
+                return -3;
+            }
+            else if (datosOrganizacion[4] == "")
+            {
+                return -4;
+            }
+            else if (datosOrganizacion[5] == "")
+            {
+                return -6;
+            }
+            else if (datosOrganizacion[6] == "")
+            {
+                return -7;
+            }
+            else if(datosOrganizacion[7] == "")
+            {
+                return -5;
+            }
+            if (existeOrganizacion(datosOrganizacion))
+            {
+                return -9;
+            }
+            else
+            {
+                //"Estado", "CedulaJ", "Nombre", "Ciudad", "Direccion", "NombreCon", "CargoCon", "Numero" 
+                /*  @CedulaJuridica nchar(32), == 1
+                    @Nombre nchar(128), == 2
+                    @Direccion nchar(256), == 4
+                    @Ciudad nchar(64), == 3
+                    @Numero nchar(24), == 7
+                    @NombreContacto nchar(128), == 5
+                    @CargoContacto nchar(64), == 6
+                    @Estado nchar(10), == 0
+                 */
+                using (this.ConexionBD)
+                {
+                    using (SqlCommand comandoCrearOrganizacion = new SqlCommand("CreateOrganizacion", this.ConexionBD))
+                    {
+                        comandoCrearOrganizacion.CommandType = CommandType.StoredProcedure;
+                        comandoCrearOrganizacion.Parameters.Add("@Estado", SqlDbType.VarChar).Value = datosOrganizacion[0];
+                        comandoCrearOrganizacion.Parameters.Add("@CedulaJuridica", SqlDbType.VarChar).Value = datosOrganizacion[1];
+                        comandoCrearOrganizacion.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = datosOrganizacion[2];
+                        comandoCrearOrganizacion.Parameters.Add("@Direccion", SqlDbType.VarChar).Value = datosOrganizacion[4];
+                        comandoCrearOrganizacion.Parameters.Add("@Ciudad", SqlDbType.VarChar).Value = datosOrganizacion[3];
+                        comandoCrearOrganizacion.Parameters.Add("@NombreContacto", SqlDbType.VarChar).Value = datosOrganizacion[5];
+                        comandoCrearOrganizacion.Parameters.Add("@CargoContacto", SqlDbType.VarChar).Value = datosOrganizacion[6];
+                        comandoCrearOrganizacion.Parameters.Add("@Numero", SqlDbType.VarChar).Value = datosOrganizacion[7];
+                        comandoCrearOrganizacion.Parameters.Add("@RespuestaOperacion", SqlDbType.Int).Direction = ParameterDirection.Output;
+                        comandoCrearOrganizacion.ExecuteNonQuery();
+
+                        int respuestaOperacion = int.Parse(comandoCrearOrganizacion.Parameters["@RespuestaOperacion"].Value.ToString());
+                        if (respuestaOperacion == 0)
+                        {
+                            CargarClientesBDtoLocal();
+                        }
+                        return respuestaOperacion;
+
+                    }
+                }
+
+            }
+        }
+    }   
 }
