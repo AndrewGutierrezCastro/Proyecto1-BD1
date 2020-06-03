@@ -28,6 +28,8 @@ namespace Proyecto1_BD1
         private FuncionesOrdenes funcionesOrdenes = new FuncionesOrdenes();
         public ConectionBD conectionBD;
 
+        public TabControl controlDePestanas = new TabControl();
+
         Ventana_Asociacion_Parte_Automovil ventanaAsociacionParteAutomovil = 
             new Ventana_Asociacion_Parte_Automovil();
 
@@ -624,6 +626,8 @@ namespace Proyecto1_BD1
         {
             // llenado de tabla de proveedores segun la parte elegida
 
+            this.partesxproveedor_dataGridView.Rows.Clear();
+
             int selectedIndex = this.parteCmb.SelectedIndex;
 
             if (selectedIndex != -1)
@@ -832,6 +836,11 @@ namespace Proyecto1_BD1
             }
 
 
+        }
+
+        private void listarPartesBtn_Click(object sender, EventArgs e)
+        {
+            this.
         }
     }
 }

@@ -78,6 +78,13 @@
             this.label3 = new System.Windows.Forms.Label();
             this.ProveedorCmb = new System.Windows.Forms.ComboBox();
             this.PartesCmb = new System.Windows.Forms.ComboBox();
+            this.ProveedoresPartestab = new System.Windows.Forms.TabPage();
+            this.partesProveedorDataGrid = new System.Windows.Forms.DataGridView();
+            this.NombreProveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NombreParte = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PorcentajeGanancia = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrecioFinal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel3 = new System.Windows.Forms.Panel();
             this.listarPartesBtn = new System.Windows.Forms.Button();
             this.actualizarPreciosParteProveedorBtn = new System.Windows.Forms.Button();
@@ -94,13 +101,6 @@
             this.localizarProveedorBtn = new System.Windows.Forms.Button();
             this.listaPersonasGrid = new System.Windows.Forms.DataGridView();
             this.listaOrganizacionesGrid = new System.Windows.Forms.DataGridView();
-            this.ProveedoresPartestab = new System.Windows.Forms.TabPage();
-            this.partesProveedorDataGrid = new System.Windows.Forms.DataGridView();
-            this.NombreProveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NombreParte = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PorcentajeGanancia = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PrecioFinal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pestañas.SuspendLayout();
             this.clientesTab.SuspendLayout();
             this.panelClientesAux.SuspendLayout();
@@ -115,14 +115,14 @@
             this.AutomovilPartesTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.partesxautomovil_dataGridView)).BeginInit();
             this.tabPage1.SuspendLayout();
+            this.ProveedoresPartestab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.partesProveedorDataGrid)).BeginInit();
             this.panel3.SuspendLayout();
             this.OrdenesTab.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.listaPersonasGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.listaOrganizacionesGrid)).BeginInit();
-            this.ProveedoresPartestab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.partesProveedorDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // cerrarConexionBtn
@@ -606,6 +606,57 @@
             this.PartesCmb.TabIndex = 0;
             this.PartesCmb.SelectedIndexChanged += new System.EventHandler(this.PartesCmb_SelectedIndexChanged);
             // 
+            // ProveedoresPartestab
+            // 
+            this.ProveedoresPartestab.Controls.Add(this.partesProveedorDataGrid);
+            this.ProveedoresPartestab.Location = new System.Drawing.Point(4, 22);
+            this.ProveedoresPartestab.Name = "ProveedoresPartestab";
+            this.ProveedoresPartestab.Padding = new System.Windows.Forms.Padding(3);
+            this.ProveedoresPartestab.Size = new System.Drawing.Size(589, 391);
+            this.ProveedoresPartestab.TabIndex = 4;
+            this.ProveedoresPartestab.Text = "Partes ofrecidas por Proveedores";
+            this.ProveedoresPartestab.UseVisualStyleBackColor = true;
+            // 
+            // partesProveedorDataGrid
+            // 
+            this.partesProveedorDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.partesProveedorDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.partesProveedorDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.NombreProveedor,
+            this.NombreParte,
+            this.PorcentajeGanancia,
+            this.Precio,
+            this.PrecioFinal});
+            this.partesProveedorDataGrid.Location = new System.Drawing.Point(4, 3);
+            this.partesProveedorDataGrid.Name = "partesProveedorDataGrid";
+            this.partesProveedorDataGrid.Size = new System.Drawing.Size(582, 382);
+            this.partesProveedorDataGrid.TabIndex = 0;
+            // 
+            // NombreProveedor
+            // 
+            this.NombreProveedor.HeaderText = "Nombre de Proveedor";
+            this.NombreProveedor.Name = "NombreProveedor";
+            // 
+            // NombreParte
+            // 
+            this.NombreParte.HeaderText = "Nombre de Parte";
+            this.NombreParte.Name = "NombreParte";
+            // 
+            // PorcentajeGanancia
+            // 
+            this.PorcentajeGanancia.HeaderText = "Porcentaje de Ganancia";
+            this.PorcentajeGanancia.Name = "PorcentajeGanancia";
+            // 
+            // Precio
+            // 
+            this.Precio.HeaderText = "Precio";
+            this.Precio.Name = "Precio";
+            // 
+            // PrecioFinal
+            // 
+            this.PrecioFinal.HeaderText = "Precio Final";
+            this.PrecioFinal.Name = "PrecioFinal";
+            // 
             // panel3
             // 
             this.panel3.Controls.Add(this.listarPartesBtn);
@@ -627,6 +678,7 @@
             this.listarPartesBtn.TabIndex = 11;
             this.listarPartesBtn.Text = "Listar partes: modelo y año de manufactura";
             this.listarPartesBtn.UseVisualStyleBackColor = true;
+            this.listarPartesBtn.Click += new System.EventHandler(this.listarPartesBtn_Click);
             // 
             // actualizarPreciosParteProveedorBtn
             // 
@@ -755,57 +807,6 @@
             this.listaOrganizacionesGrid.Size = new System.Drawing.Size(240, 150);
             this.listaOrganizacionesGrid.TabIndex = 0;
             // 
-            // ProveedoresPartestab
-            // 
-            this.ProveedoresPartestab.Controls.Add(this.partesProveedorDataGrid);
-            this.ProveedoresPartestab.Location = new System.Drawing.Point(4, 22);
-            this.ProveedoresPartestab.Name = "ProveedoresPartestab";
-            this.ProveedoresPartestab.Padding = new System.Windows.Forms.Padding(3);
-            this.ProveedoresPartestab.Size = new System.Drawing.Size(589, 391);
-            this.ProveedoresPartestab.TabIndex = 4;
-            this.ProveedoresPartestab.Text = "Partes ofrecidas por Proveedores";
-            this.ProveedoresPartestab.UseVisualStyleBackColor = true;
-            // 
-            // partesProveedorDataGrid
-            // 
-            this.partesProveedorDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.partesProveedorDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.partesProveedorDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.NombreProveedor,
-            this.NombreParte,
-            this.PorcentajeGanancia,
-            this.Precio,
-            this.PrecioFinal});
-            this.partesProveedorDataGrid.Location = new System.Drawing.Point(4, 3);
-            this.partesProveedorDataGrid.Name = "partesProveedorDataGrid";
-            this.partesProveedorDataGrid.Size = new System.Drawing.Size(582, 382);
-            this.partesProveedorDataGrid.TabIndex = 0;
-            // 
-            // NombreProveedor
-            // 
-            this.NombreProveedor.HeaderText = "Nombre de Proveedor";
-            this.NombreProveedor.Name = "NombreProveedor";
-            // 
-            // NombreParte
-            // 
-            this.NombreParte.HeaderText = "Nombre de Parte";
-            this.NombreParte.Name = "NombreParte";
-            // 
-            // PorcentajeGanancia
-            // 
-            this.PorcentajeGanancia.HeaderText = "Porcentaje de Ganancia";
-            this.PorcentajeGanancia.Name = "PorcentajeGanancia";
-            // 
-            // Precio
-            // 
-            this.Precio.HeaderText = "Precio";
-            this.Precio.Name = "Precio";
-            // 
-            // PrecioFinal
-            // 
-            this.PrecioFinal.HeaderText = "Precio Final";
-            this.PrecioFinal.Name = "PrecioFinal";
-            // 
             // MenuGeneral
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -835,14 +836,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.partesxautomovil_dataGridView)).EndInit();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.ProveedoresPartestab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.partesProveedorDataGrid)).EndInit();
             this.panel3.ResumeLayout(false);
             this.OrdenesTab.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.listaPersonasGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.listaOrganizacionesGrid)).EndInit();
-            this.ProveedoresPartestab.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.partesProveedorDataGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
