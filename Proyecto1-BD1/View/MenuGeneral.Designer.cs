@@ -53,8 +53,6 @@
             this.parteCmb = new System.Windows.Forms.ComboBox();
             this.partesxproveedor_dataGridView = new System.Windows.Forms.DataGridView();
             this.AutomovilPartesTab = new System.Windows.Forms.TabPage();
-            this.label2 = new System.Windows.Forms.Label();
-            this.automovilCmb = new System.Windows.Forms.ComboBox();
             this.partesxautomovil_dataGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -74,6 +72,24 @@
             this.listaOrganizacionesGrid = new System.Windows.Forms.DataGridView();
             this.CodigoClm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.PartesCmb = new System.Windows.Forms.ComboBox();
+            this.ProveedorCmb = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.precioParteTxt = new System.Windows.Forms.TextBox();
+            this.PrecioFinalTxt = new System.Windows.Forms.TextBox();
+            this.PorcentajeGananciaTxt = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.guardarBtn = new System.Windows.Forms.Button();
+            this.asociarProveedorParteBtn = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.modeloTxt = new System.Windows.Forms.TextBox();
+            this.annoTxt = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.mostrarPartesAutobtn = new System.Windows.Forms.Button();
             this.pestañas.SuspendLayout();
             this.clientesTab.SuspendLayout();
             this.panelClientesAux.SuspendLayout();
@@ -91,6 +107,7 @@
             this.OrdenesTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.listaPersonasGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.listaOrganizacionesGrid)).BeginInit();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // cerrarConexionBtn
@@ -234,6 +251,7 @@
             this.ProveedorPartesTab.Controls.Add(this.Partes_SubTab);
             this.ProveedorPartesTab.Controls.Add(this.tabPage2);
             this.ProveedorPartesTab.Controls.Add(this.AutomovilPartesTab);
+            this.ProveedorPartesTab.Controls.Add(this.tabPage1);
             this.ProveedorPartesTab.Location = new System.Drawing.Point(161, 7);
             this.ProveedorPartesTab.Name = "ProveedorPartesTab";
             this.ProveedorPartesTab.SelectedIndex = 0;
@@ -300,7 +318,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(589, 391);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Partes por Proveedor";
+            this.tabPage2.Text = "Provedores de una parte";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // label1
@@ -335,8 +353,11 @@
             // 
             // AutomovilPartesTab
             // 
+            this.AutomovilPartesTab.Controls.Add(this.mostrarPartesAutobtn);
+            this.AutomovilPartesTab.Controls.Add(this.annoTxt);
+            this.AutomovilPartesTab.Controls.Add(this.label8);
+            this.AutomovilPartesTab.Controls.Add(this.modeloTxt);
             this.AutomovilPartesTab.Controls.Add(this.label2);
-            this.AutomovilPartesTab.Controls.Add(this.automovilCmb);
             this.AutomovilPartesTab.Controls.Add(this.partesxautomovil_dataGridView);
             this.AutomovilPartesTab.Location = new System.Drawing.Point(4, 22);
             this.AutomovilPartesTab.Name = "AutomovilPartesTab";
@@ -345,25 +366,6 @@
             this.AutomovilPartesTab.TabIndex = 2;
             this.AutomovilPartesTab.Text = "Partes Por Automovil";
             this.AutomovilPartesTab.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(236, 15);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(124, 13);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Elija un tipo de automovil";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
-            // 
-            // automovilCmb
-            // 
-            this.automovilCmb.FormattingEnabled = true;
-            this.automovilCmb.Location = new System.Drawing.Point(366, 12);
-            this.automovilCmb.Name = "automovilCmb";
-            this.automovilCmb.Size = new System.Drawing.Size(205, 21);
-            this.automovilCmb.TabIndex = 5;
-            this.automovilCmb.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // partesxautomovil_dataGridView
             // 
@@ -448,6 +450,7 @@
             this.asociarParteAutomovil.TabIndex = 9;
             this.asociarParteAutomovil.Text = "Asociar Parte - Automovil";
             this.asociarParteAutomovil.UseVisualStyleBackColor = true;
+            this.asociarParteAutomovil.Click += new System.EventHandler(this.asociarParteAutomovil_Click);
             // 
             // asociarParteProveedorBtn
             // 
@@ -520,6 +523,179 @@
             this.dataGridViewTextBoxColumn1.HeaderText = "Nombre";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.asociarProveedorParteBtn);
+            this.tabPage1.Controls.Add(this.guardarBtn);
+            this.tabPage1.Controls.Add(this.label7);
+            this.tabPage1.Controls.Add(this.label6);
+            this.tabPage1.Controls.Add(this.label5);
+            this.tabPage1.Controls.Add(this.PorcentajeGananciaTxt);
+            this.tabPage1.Controls.Add(this.PrecioFinalTxt);
+            this.tabPage1.Controls.Add(this.precioParteTxt);
+            this.tabPage1.Controls.Add(this.label4);
+            this.tabPage1.Controls.Add(this.label3);
+            this.tabPage1.Controls.Add(this.ProveedorCmb);
+            this.tabPage1.Controls.Add(this.PartesCmb);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(589, 391);
+            this.tabPage1.TabIndex = 3;
+            this.tabPage1.Text = "Precios de Partes de Proveedores";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // PartesCmb
+            // 
+            this.PartesCmb.FormattingEnabled = true;
+            this.PartesCmb.Location = new System.Drawing.Point(41, 116);
+            this.PartesCmb.Name = "PartesCmb";
+            this.PartesCmb.Size = new System.Drawing.Size(195, 21);
+            this.PartesCmb.TabIndex = 0;
+            this.PartesCmb.SelectedIndexChanged += new System.EventHandler(this.PartesCmb_SelectedIndexChanged);
+            // 
+            // ProveedorCmb
+            // 
+            this.ProveedorCmb.FormattingEnabled = true;
+            this.ProveedorCmb.Location = new System.Drawing.Point(41, 243);
+            this.ProveedorCmb.Name = "ProveedorCmb";
+            this.ProveedorCmb.Size = new System.Drawing.Size(195, 21);
+            this.ProveedorCmb.TabIndex = 1;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(77, 93);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(111, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Seleccione una parte:";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(77, 227);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(126, 13);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Seleccione un proveedor";
+            // 
+            // precioParteTxt
+            // 
+            this.precioParteTxt.Location = new System.Drawing.Point(369, 103);
+            this.precioParteTxt.Name = "precioParteTxt";
+            this.precioParteTxt.Size = new System.Drawing.Size(132, 20);
+            this.precioParteTxt.TabIndex = 4;
+            this.precioParteTxt.TextChanged += new System.EventHandler(this.precioParteTxt_TextChanged);
+            // 
+            // PrecioFinalTxt
+            // 
+            this.PrecioFinalTxt.Enabled = false;
+            this.PrecioFinalTxt.Location = new System.Drawing.Point(369, 243);
+            this.PrecioFinalTxt.Name = "PrecioFinalTxt";
+            this.PrecioFinalTxt.ReadOnly = true;
+            this.PrecioFinalTxt.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.PrecioFinalTxt.Size = new System.Drawing.Size(132, 20);
+            this.PrecioFinalTxt.TabIndex = 5;
+            this.PrecioFinalTxt.TextChanged += new System.EventHandler(this.PrecioFinalTxt_TextChanged);
+            // 
+            // PorcentajeGananciaTxt
+            // 
+            this.PorcentajeGananciaTxt.Location = new System.Drawing.Point(369, 170);
+            this.PorcentajeGananciaTxt.Name = "PorcentajeGananciaTxt";
+            this.PorcentajeGananciaTxt.Size = new System.Drawing.Size(132, 20);
+            this.PorcentajeGananciaTxt.TabIndex = 6;
+            this.PorcentajeGananciaTxt.TextChanged += new System.EventHandler(this.PorcentajeGananciaTxt_TextChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(386, 81);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(93, 13);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Precio de la parte:";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(378, 149);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(123, 13);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "Porcentaje de ganancia:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(378, 223);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(65, 13);
+            this.label7.TabIndex = 9;
+            this.label7.Text = "Precio Final:";
+            // 
+            // guardarBtn
+            // 
+            this.guardarBtn.Location = new System.Drawing.Point(357, 316);
+            this.guardarBtn.Name = "guardarBtn";
+            this.guardarBtn.Size = new System.Drawing.Size(164, 23);
+            this.guardarBtn.TabIndex = 10;
+            this.guardarBtn.Text = "Guardar";
+            this.guardarBtn.UseVisualStyleBackColor = true;
+            // 
+            // asociarProveedorParteBtn
+            // 
+            this.asociarProveedorParteBtn.Location = new System.Drawing.Point(57, 305);
+            this.asociarProveedorParteBtn.Name = "asociarProveedorParteBtn";
+            this.asociarProveedorParteBtn.Size = new System.Drawing.Size(166, 23);
+            this.asociarProveedorParteBtn.TabIndex = 11;
+            this.asociarProveedorParteBtn.Text = "Asociar";
+            this.asociarProveedorParteBtn.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(15, 5);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(42, 13);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Modelo";
+            // 
+            // modeloTxt
+            // 
+            this.modeloTxt.Location = new System.Drawing.Point(64, 5);
+            this.modeloTxt.Name = "modeloTxt";
+            this.modeloTxt.Size = new System.Drawing.Size(135, 20);
+            this.modeloTxt.TabIndex = 6;
+            // 
+            // annoTxt
+            // 
+            this.annoTxt.Location = new System.Drawing.Point(274, 6);
+            this.annoTxt.Name = "annoTxt";
+            this.annoTxt.Size = new System.Drawing.Size(135, 20);
+            this.annoTxt.TabIndex = 8;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(225, 6);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(26, 13);
+            this.label8.TabIndex = 7;
+            this.label8.Text = "Año";
+            // 
+            // mostrarPartesAutobtn
+            // 
+            this.mostrarPartesAutobtn.Location = new System.Drawing.Point(449, 10);
+            this.mostrarPartesAutobtn.Name = "mostrarPartesAutobtn";
+            this.mostrarPartesAutobtn.Size = new System.Drawing.Size(125, 23);
+            this.mostrarPartesAutobtn.TabIndex = 9;
+            this.mostrarPartesAutobtn.Text = "Buscar";
+            this.mostrarPartesAutobtn.UseVisualStyleBackColor = true;
+            this.mostrarPartesAutobtn.Click += new System.EventHandler(this.mostrarPartesAutobtn_Click);
+            // 
             // MenuGeneral
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -550,6 +726,8 @@
             this.OrdenesTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.listaPersonasGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.listaOrganizacionesGrid)).EndInit();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -590,8 +768,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox parteCmb;
         private System.Windows.Forms.DataGridView partesxproveedor_dataGridView;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox automovilCmb;
         private System.Windows.Forms.DataGridView partesxautomovil_dataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
@@ -600,5 +776,23 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Proveedor_Clm;
         private System.Windows.Forms.DataGridViewTextBoxColumn CodigoClm;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.ComboBox ProveedorCmb;
+        private System.Windows.Forms.ComboBox PartesCmb;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox PorcentajeGananciaTxt;
+        private System.Windows.Forms.TextBox PrecioFinalTxt;
+        private System.Windows.Forms.TextBox precioParteTxt;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button guardarBtn;
+        private System.Windows.Forms.Button asociarProveedorParteBtn;
+        private System.Windows.Forms.TextBox annoTxt;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox modeloTxt;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button mostrarPartesAutobtn;
     }
 }

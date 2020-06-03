@@ -44,6 +44,9 @@ namespace Proyecto1_BD1.Model
         {
             List<Proveedor> data = new List<Proveedor>();
 
+            connection.Close();
+            connection.Open();
+
             using (SqlCommand comando = new SqlCommand(readProveedoresPorParte, connection))
             {
                 comando.CommandType = CommandType.StoredProcedure;
@@ -65,6 +68,7 @@ namespace Proyecto1_BD1.Model
                      ));
                 }
 
+               
             }
 
             ProveedoresPorParteCargados = data;

@@ -13,7 +13,9 @@ namespace Proyecto1_BD1.Modelo
     {
         // db linking
         public static String mostrarPartes_sp = "ReadPartes";
+        public static String readPartesPorAutomovil_sp = "ReadPartesPorAutomovil";
         public static String deletePartes_sp  = "DeleteParte";
+        public static String linkParteAutomovil_sp = "LinkParteTipoAutomovil";
 
         // atributos
         private string nombre, marca, nombreFabricante, detalleAutomovil;
@@ -69,38 +71,60 @@ namespace Proyecto1_BD1.Modelo
             return data;
         }
 
-        public static List<Parte> loadDataByAutomovil(SqlConnection connection, int automovilId)
+        public static int loadDataByAutomovil(SqlConnection connection, string modelo, string anno)
         {
             List<Parte> data = new List<Parte>();
+            connection.Close();
+            connection.Open();
 
-            using (SqlCommand proceso = new SqlCommand(mostrarPartes_sp, connection))
+            int res = -1;
+
+            using (SqlCommand proceso = new SqlCommand(readPartesPorAutomovil_sp, connmection))
             {
+
+                SqlParameter pmodelo = proceso.Parameters.Add("@Modelo", SqlDbType.NChar);
+                SqlParameter panno = proceso.Parameters.Add("@Anno", SqlDbType.NChar);
+                SqlParameter respuesta = proceso.Parameters.Add("@RespuestaOperacion", SqlDbType.Int);
+
+                pmodelo.Value = modelo;
+                panno.Value = anno;
+                respuesta.Value = 0;
+                respuesta.Direction = ParameterDirection.Output;
+
                 SqlDataReader lector = proceso.ExecuteReader();
 
-                while (lector.Read())
-                {
-                    data.Add(
-                        new Parte(
-                            (int)lector["Id"],
-                            (string)lector["nombre"],
-                            (string)lector["marca"],
-                            (string)lector["nombreFabricante"],
-                            (string)lector["detalle"]
-                        )
-                    );
-                }
+                res = int.Parse(respuesta.ToString());
 
+                if ( res == 0)
+                {
+                    while (lector.Read())
+                    {
+                        data.Add(
+                            new Parte(
+                                (int)lector["Id"],
+                                (string)lector["nombre"],
+                                (string)lector["marca"],
+                                (string)lector["nombreFabricante"],
+                                (string)lector["detalle"]
+                            )
+                        );
+                    }
+                }
             }
 
             PartesXAutomovilCargadas = data;
 
-            return data;
+            return res;
+
         }
 
 
         public static List<Parte> LoadData( SqlConnection connection )
         {
             List<Parte> data = new List<Parte>();
+
+            connection.Close();
+            connection.Open();
 
             using (SqlCommand proceso = new SqlCommand(mostrarPartes_sp, connection))
             {
@@ -176,6 +200,32 @@ namespace Proyecto1_BD1.Modelo
                    
                 }
             }
+        }
+
+        public int LinkAutomovil(SqlConnection connection, Model.Automovil automovil)
+        {
+
+            connection.Close();
+            connection.Open();
+
+            using (SqlCommand proceso = new SqlCommand(linkParteAutomovil_sp, connection))
+            {
+                proceso.CommandType = CommandType.StoredProcedure;
+
+                SqlParameter idParameter = proceso.Parameters.Add("@IdParte", SqlDbType.Int);
+                SqlParameter idAutomovil = proceso.Parameters.Add("@IdAutomovil", SqlDbType.Int);
+                SqlParameter resultParameter = proceso.Parameters.Add("@RespuestaOperacion", SqlDbType.Int);
+
+                idParameter.Value = this.id;
+                idAutomovil.Value = automovil.Id;
+                resultParameter.Direction = ParameterDirection.Output;
+
+                int result = proceso.ExecuteNonQuery();
+
+                return int.Parse(resultParameter.Value.ToString());
+            }
+
+            return -1;
         }
 
         public string toString()

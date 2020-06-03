@@ -23,6 +23,11 @@ namespace Proyecto1_BD1
         private DataGridView listaOrganizacionesGrid;
         private FuncionesClientes funcionesClientes = new FuncionesClientes(ConectionBD.Instance);
         public ConectionBD conectionBD;
+
+        Ventana_Asociacion_Parte_Automovil ventanaAsociacionParteAutomovil = 
+            new Ventana_Asociacion_Parte_Automovil();
+
+
         public MenuGeneral()
         {
             InitializeComponent();
@@ -61,15 +66,18 @@ namespace Proyecto1_BD1
             funcionesClientes.conectionBD = conectionBD;
             funcionesClientes.CargarClientesBDtoLocal();
 
+            Model.Automovil.loadData(ConectionBD.Instance);
+
             refreshPartes();
 
         }
+
+        
 
         public void refreshPartes()
         {
 
             List<Modelo.Parte> data = Modelo.Parte.LoadData(ConectionBD.Instance);
-
             LoadPartes(data, Partes_dataGridView);
             LoadOpcionesParte( data, parteCmb );
 
@@ -417,8 +425,50 @@ namespace Proyecto1_BD1
 
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void loadPartesAuto()
         {
+            partesxautomovil_dataGridView.Rows.Clear();
+
+            string anno = annoTxt.Text;
+            string modelo = modeloTxt.Text;
+
+            if (!anno.Equals("") && !modelo.Equals(""))
+            {
+
+                int res =
+                    Modelo.Parte.loadDataByAutomovil(
+                        ConectionBD.Instance, modelo, anno);
+
+                if (res == 0)
+                {
+                    List<Modelo.Parte> data = Modelo.Parte.PartesXAutomovilCargadas;
+
+                    foreach (Modelo.Parte parte in data)
+                    {
+                        partesxautomovil_dataGridView.Rows.Add(
+                            new Object[]
+                            {
+                            parte.Nombre,
+                            parte.Marca,
+                            parte.NombreFabricante,
+                            parte.DetalleAutomovil
+
+                            }
+
+                        );
+                    }
+                }
+                else if (res == -1)
+                {
+
+                }
+
+            }
+            else
+            {
+                partesxautomovil_dataGridView.Rows.Clear();
+            }
+
 
         }
 
@@ -465,6 +515,91 @@ namespace Proyecto1_BD1
                     );
                 }
             } 
+        }
+
+        public int mostrarDialogo( string caption, UserControl userForm )
+        {
+            Form prompt = new Form();
+            prompt.Text = caption;
+            prompt.Width = userForm.Width;
+            prompt.Height = userForm.Height;
+            prompt.Controls.Add(userForm);
+   
+            prompt.ShowDialog();
+            return (int) 1;
+        }
+
+        private void asociarParteAutomovil_Click(object sender, EventArgs e)
+        {
+            this.ventanaAsociacionParteAutomovil.reset();
+            this.ventanaAsociacionParteAutomovil.cargarDialogo();
+            mostrarDialogo("Asociacion de Parte con tipo de automovil", this.ventanaAsociacionParteAutomovil);
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PrecioFinalTxt_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PartesCmb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void actualizarPrecio()
+        {
+            float precio = 0;
+            float porcentaje = 0;
+
+            try
+            {
+                precio = float.Parse(precioParteTxt.Text);
+
+            } catch (FormatException e)
+            {
+                precio = 0;
+            }
+
+            try
+            {
+                porcentaje = float.Parse(PorcentajeGananciaTxt.Text);
+
+            }
+            catch (FormatException e)
+            {
+                porcentaje = 0;
+            }
+
+           float precioFinal = (precio + precio * porcentaje);
+
+            PrecioFinalTxt.Text = precioFinal.ToString();
+
+        }
+
+        private void precioParteTxt_TextChanged(object sender, EventArgs e)
+        {
+            actualizarPrecio();
+        }
+
+        private void PorcentajeGananciaTxt_TextChanged(object sender, EventArgs e)
+        {
+            actualizarPrecio();
+        }
+
+        private void mostrarPartesAutobtn_Click(object sender, EventArgs e)
+        {
+            partesxautomovil_dataGridView.Rows.Clear();
+            loadPartesAuto();
         }
     }
 }

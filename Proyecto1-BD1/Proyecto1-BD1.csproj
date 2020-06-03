@@ -53,6 +53,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Automovil.cs" />
     <Compile Include="Model\OrdenDetalle.cs" />
     <Compile Include="Model\Orden.cs" />
     <Compile Include="Model\Parte.cs" />
@@ -106,6 +107,12 @@
     <Compile Include="View\UpdatePersona.Designer.cs">
       <DependentUpon>UpdatePersona.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Ventana_Asociacion_Parte_Automovil.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Ventana_Asociacion_Parte_Automovil.Designer.cs">
+      <DependentUpon>Ventana_Asociacion_Parte_Automovil.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="View\CambiarEstadoCliente.resx">
       <DependentUpon>CambiarEstadoCliente.cs</DependentUpon>
     </EmbeddedResource>
@@ -135,6 +142,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\UpdatePersona.resx">
       <DependentUpon>UpdatePersona.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Ventana_Asociacion_Parte_Automovil.resx">
+      <DependentUpon>Ventana_Asociacion_Parte_Automovil.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
