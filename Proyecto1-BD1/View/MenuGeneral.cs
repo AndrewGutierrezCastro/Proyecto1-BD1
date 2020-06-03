@@ -840,7 +840,7 @@ namespace Proyecto1_BD1
 
         private void listarPartesBtn_Click(object sender, EventArgs e)
         {
-            this.
+           
         }
     }
 }

@@ -84,26 +84,30 @@ namespace Proyecto1_BD1.Modelo
         public static int loadDataByAutomovil(SqlConnection connection, string modelo, string anno)
         {
             List<Parte> data = new List<Parte>();
-            connection.Close();
-            connection.Open();
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+                connection.Open();
+            }
+            else
+            {
+                connection.Open();
+            }
 
             int res = -1;
 
             using (SqlCommand proceso = new SqlCommand(readPartesPorAutomovil_sp, connection))
             {
 
-                SqlParameter pmodelo = proceso.Parameters.Add("@Modelo", SqlDbType.NChar);
-                SqlParameter panno = proceso.Parameters.Add("@Anno", SqlDbType.NChar);
-                SqlParameter respuesta = proceso.Parameters.Add("@RespuestaOperacion", SqlDbType.Int);
+                SqlParameter pmodelo = proceso.Parameters.AddWithValue("@Modelo", modelo);
+                SqlParameter panno = proceso.Parameters.AddWithValue("@Anno", anno);
+                SqlParameter respuesta = proceso.Parameters.AddWithValue("@RespuestaOperacion", 0);
 
-                pmodelo.Value = modelo;
-                panno.Value = anno;
-                respuesta.Value = 0;
-                respuesta.Direction = ParameterDirection.Output;
+                respuesta.Direction = ParameterDirection.ReturnValue;
 
                 SqlDataReader lector = proceso.ExecuteReader();
 
-                res = int.Parse(respuesta.ToString());
+                res = int.Parse(respuesta.Value.ToString());
 
                 if ( res == 0)
                 {
@@ -118,7 +122,7 @@ namespace Proyecto1_BD1.Modelo
                                 (string) lector["detalle"]
 
                             )
-                        );
+                        ); 
                     }
                 }
             }
