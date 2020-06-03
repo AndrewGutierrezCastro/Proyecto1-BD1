@@ -67,22 +67,28 @@ namespace Proyecto1_BD1
 
             funcionesClientes.CargarClientesBDtoLocal();
 
-            LoadPartes(Modelo.Parte.LoadData(ConectionBD.Instance));
+            refreshPartes();
 
         }
 
         public void refreshPartes()
         {
-            LoadPartes(Modelo.Parte.LoadData(ConectionBD.Instance));
+
+            List<Modelo.Parte> data = Modelo.Parte.LoadData(ConectionBD.Instance);
+
+            LoadPartes(data, Partes_dataGridView);
+            LoadOpcionesParte( data, parteCmb );
+
         }
 
-        private void LoadPartes(List<Modelo.Parte> datosParte)
+
+        private void LoadPartes(List<Modelo.Parte> datosParte, DataGridView dataGrid)
         {
-            this.Partes_dataGridView.Rows.Clear();
+            dataGrid.Rows.Clear();
 
             foreach (Modelo.Parte parte in datosParte)
             {
-                this.Partes_dataGridView.Rows.Add(
+                dataGrid.Rows.Add(
                     new Object[] {
                         parte.Nombre,
                         parte.Marca,
@@ -93,7 +99,18 @@ namespace Proyecto1_BD1
             }
         }
 
-        //CLIENTES
+        private void LoadOpcionesParte(List<Modelo.Parte> datosParte, ComboBox opcionesParte)
+        {
+
+            opcionesParte.Items.Clear();
+
+            foreach (Modelo.Parte parte in datosParte)
+            {
+                opcionesParte.Items.Add( parte.toString() );
+            }
+          
+        }
+
         private void listarClientesBtn_Click(object sender, EventArgs e)
         {
             this.clientesTabControl.Show();
@@ -472,5 +489,31 @@ namespace Proyecto1_BD1
             }
         }
 
+        private void proveedorCmb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // llenado de tabla de proveedores segun la parte elegida
+
+            int selectedIndex = this.parteCmb.SelectedIndex;
+
+            if (selectedIndex != -1)
+            {
+                List<Model.Proveedor> data = Model.Proveedor.loadProveedorPorParte(
+                    ConectionBD.Instance,
+                    Modelo.Parte.PartesCargadas[selectedIndex]
+                );
+
+                foreach (Model.Proveedor proveedor in data)
+                {
+
+                    this.partesxproveedor_dataGridView.Rows.Add(
+                        new object[]
+                        {
+                        proveedor.Nombre,
+                        proveedor.Codigo
+                        }
+                    );
+                }
+            } 
+        }
     }
 }

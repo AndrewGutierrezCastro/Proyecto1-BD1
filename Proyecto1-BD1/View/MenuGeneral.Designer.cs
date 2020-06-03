@@ -50,13 +50,10 @@
             this.AutomovilClm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
-            this.proveedorCmb = new System.Windows.Forms.ComboBox();
+            this.parteCmb = new System.Windows.Forms.ComboBox();
             this.partesxproveedor_dataGridView = new System.Windows.Forms.DataGridView();
+            this.CodigoClm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProveedorClm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AutomovilPartesTab = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
             this.automovilCmb = new System.Windows.Forms.ComboBox();
@@ -74,14 +71,14 @@
             this.borrarParteBtn = new System.Windows.Forms.Button();
             this.insertarParteBtn = new System.Windows.Forms.Button();
             this.OrdenesTab = new System.Windows.Forms.TabPage();
+            this.ordenesPanelAux = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.agregarPartesOrdenBtn = new System.Windows.Forms.Button();
+            this.insertarNuevaOrdenBtn = new System.Windows.Forms.Button();
+            this.localizarProveedorBtn = new System.Windows.Forms.Button();
             this.listaPersonasGrid = new System.Windows.Forms.DataGridView();
             this.listaOrganizacionesGrid = new System.Windows.Forms.DataGridView();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.localizarProveedorBtn = new System.Windows.Forms.Button();
-            this.ordenesPanelAux = new System.Windows.Forms.Panel();
             this.pestañas.SuspendLayout();
             this.clientesTab.SuspendLayout();
             this.panelClientesAux.SuspendLayout();
@@ -98,9 +95,9 @@
             this.panel3.SuspendLayout();
             this.OrdenesTab.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.listaPersonasGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.listaOrganizacionesGrid)).BeginInit();
-            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // cerrarConexionBtn
@@ -303,7 +300,7 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.label1);
-            this.tabPage2.Controls.Add(this.proveedorCmb);
+            this.tabPage2.Controls.Add(this.parteCmb);
             this.tabPage2.Controls.Add(this.partesxproveedor_dataGridView);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -318,61 +315,41 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(267, 14);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(92, 13);
+            this.label1.Size = new System.Drawing.Size(74, 13);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Elija un proveedor";
+            this.label1.Text = "Elija una parte\r\n";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // proveedorCmb
+            // parteCmb
             // 
-            this.proveedorCmb.FormattingEnabled = true;
-            this.proveedorCmb.Location = new System.Drawing.Point(365, 11);
-            this.proveedorCmb.Name = "proveedorCmb";
-            this.proveedorCmb.Size = new System.Drawing.Size(218, 21);
-            this.proveedorCmb.TabIndex = 2;
+            this.parteCmb.FormattingEnabled = true;
+            this.parteCmb.Location = new System.Drawing.Point(365, 11);
+            this.parteCmb.Name = "parteCmb";
+            this.parteCmb.Size = new System.Drawing.Size(218, 21);
+            this.parteCmb.TabIndex = 2;
+            this.parteCmb.SelectedIndexChanged += new System.EventHandler(this.proveedorCmb_SelectedIndexChanged);
             // 
             // partesxproveedor_dataGridView
             // 
             this.partesxproveedor_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.partesxproveedor_dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4,
-            this.ProveedorClm});
+            this.CodigoClm,
+            this.dataGridViewTextBoxColumn1});
             this.partesxproveedor_dataGridView.Location = new System.Drawing.Point(3, 38);
             this.partesxproveedor_dataGridView.Name = "partesxproveedor_dataGridView";
             this.partesxproveedor_dataGridView.Size = new System.Drawing.Size(583, 350);
             this.partesxproveedor_dataGridView.TabIndex = 1;
+            // 
+            // CodigoClm
+            // 
+            this.CodigoClm.HeaderText = "Codigo";
+            this.CodigoClm.Name = "CodigoClm";
             // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewTextBoxColumn1.HeaderText = "Nombre";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn2.HeaderText = "Marca";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn3.HeaderText = "Fabricante";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn4.HeaderText = "Automovil";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            // 
-            // ProveedorClm
-            // 
-            this.ProveedorClm.HeaderText = "Proveedor";
-            this.ProveedorClm.Name = "ProveedorClm";
             // 
             // AutomovilPartesTab
             // 
@@ -530,6 +507,13 @@
             this.OrdenesTab.Text = "Ordenes";
             this.OrdenesTab.UseVisualStyleBackColor = true;
             // 
+            // ordenesPanelAux
+            // 
+            this.ordenesPanelAux.Location = new System.Drawing.Point(159, 7);
+            this.ordenesPanelAux.Name = "ordenesPanelAux";
+            this.ordenesPanelAux.Size = new System.Drawing.Size(592, 361);
+            this.ordenesPanelAux.TabIndex = 1;
+            // 
             // panel4
             // 
             this.panel4.Controls.Add(this.panel2);
@@ -537,6 +521,44 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(148, 361);
             this.panel4.TabIndex = 0;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.agregarPartesOrdenBtn);
+            this.panel2.Controls.Add(this.insertarNuevaOrdenBtn);
+            this.panel2.Controls.Add(this.localizarProveedorBtn);
+            this.panel2.Location = new System.Drawing.Point(3, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(138, 133);
+            this.panel2.TabIndex = 1;
+            // 
+            // agregarPartesOrdenBtn
+            // 
+            this.agregarPartesOrdenBtn.Location = new System.Drawing.Point(3, 100);
+            this.agregarPartesOrdenBtn.Name = "agregarPartesOrdenBtn";
+            this.agregarPartesOrdenBtn.Size = new System.Drawing.Size(126, 24);
+            this.agregarPartesOrdenBtn.TabIndex = 6;
+            this.agregarPartesOrdenBtn.Text = "Agregar partes a orden";
+            this.agregarPartesOrdenBtn.UseVisualStyleBackColor = true;
+            // 
+            // insertarNuevaOrdenBtn
+            // 
+            this.insertarNuevaOrdenBtn.Location = new System.Drawing.Point(3, 50);
+            this.insertarNuevaOrdenBtn.Name = "insertarNuevaOrdenBtn";
+            this.insertarNuevaOrdenBtn.Size = new System.Drawing.Size(126, 24);
+            this.insertarNuevaOrdenBtn.TabIndex = 5;
+            this.insertarNuevaOrdenBtn.Text = "Insertar nueva orden";
+            this.insertarNuevaOrdenBtn.UseVisualStyleBackColor = true;
+            // 
+            // localizarProveedorBtn
+            // 
+            this.localizarProveedorBtn.Location = new System.Drawing.Point(3, 4);
+            this.localizarProveedorBtn.Name = "localizarProveedorBtn";
+            this.localizarProveedorBtn.Size = new System.Drawing.Size(126, 24);
+            this.localizarProveedorBtn.TabIndex = 4;
+            this.localizarProveedorBtn.Text = "Localizar proveedor";
+            this.localizarProveedorBtn.UseVisualStyleBackColor = true;
+            this.localizarProveedorBtn.Click += new System.EventHandler(this.localizarProveedorBtn_Click);
             // 
             // listaPersonasGrid
             // 
@@ -551,51 +573,6 @@
             this.listaOrganizacionesGrid.Name = "listaOrganizacionesGrid";
             this.listaOrganizacionesGrid.Size = new System.Drawing.Size(240, 150);
             this.listaOrganizacionesGrid.TabIndex = 0;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.button2);
-            this.panel2.Controls.Add(this.button3);
-            this.panel2.Controls.Add(this.localizarProveedorBtn);
-            this.panel2.Location = new System.Drawing.Point(3, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(138, 133);
-            this.panel2.TabIndex = 1;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(3, 100);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(126, 24);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "Agregar partes a orden";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(3, 50);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(126, 24);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "Insertar nueva orden";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // localizarProveedorBtn
-            // 
-            this.localizarProveedorBtn.Location = new System.Drawing.Point(3, 4);
-            this.localizarProveedorBtn.Name = "localizarProveedorBtn";
-            this.localizarProveedorBtn.Size = new System.Drawing.Size(126, 24);
-            this.localizarProveedorBtn.TabIndex = 4;
-            this.localizarProveedorBtn.Text = "Localizar proveedor";
-            this.localizarProveedorBtn.UseVisualStyleBackColor = true;
-            this.localizarProveedorBtn.Click += new System.EventHandler(this.localizarProveedorBtn_Click);
-            // 
-            // ordenesPanelAux
-            // 
-            this.ordenesPanelAux.Location = new System.Drawing.Point(159, 7);
-            this.ordenesPanelAux.Name = "ordenesPanelAux";
-            this.ordenesPanelAux.Size = new System.Drawing.Size(592, 361);
-            this.ordenesPanelAux.TabIndex = 1;
             // 
             // MenuGeneral
             // 
@@ -627,9 +604,9 @@
             this.panel3.ResumeLayout(false);
             this.OrdenesTab.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.listaPersonasGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.listaOrganizacionesGrid)).EndInit();
-            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -668,12 +645,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn FabricanteClm;
         private System.Windows.Forms.DataGridViewTextBoxColumn AutomovilClm;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox proveedorCmb;
+        private System.Windows.Forms.ComboBox parteCmb;
         private System.Windows.Forms.DataGridView partesxproveedor_dataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox automovilCmb;
         private System.Windows.Forms.DataGridView partesxautomovil_dataGridView;
@@ -681,12 +654,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ProveedorClm;
         private System.Windows.Forms.DataGridViewTextBoxColumn Proveedor_Clm;
         private System.Windows.Forms.Panel ordenesPanelAux;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button agregarPartesOrdenBtn;
+        private System.Windows.Forms.Button insertarNuevaOrdenBtn;
         private System.Windows.Forms.Button localizarProveedorBtn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CodigoClm;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
     }
 }
