@@ -11,8 +11,11 @@ namespace Proyecto1_BD1.Model
 {
     class Proveedor
     {
+        private static string readProveedores = "ReadProveedores";
         private static string readProveedoresPorParte = "ReadProveedoresPorParte";
-        public static List<Proveedor> ProveedoresPorParteCargados;
+
+        public static List<Proveedor> ProveedoresPorParteCargados = new List<Proveedor>();
+        public static List<Proveedor> ProveedoresCargados = new List<Proveedor>();
 
         private int id, codigo;
         private string nombre, direccion, ciudad, nombreContacto;
@@ -34,8 +37,16 @@ namespace Proyecto1_BD1.Model
             this.nombreContacto = nombreContacto;
         }
 
-        public Proveedor(string nombre, int codigo)
+        public Proveedor(int id, string nombre, int codigo)
         {
+            this.id = id;
+            this.nombre = nombre;
+            this.codigo = codigo;
+        }
+
+        public Proveedor( string nombre, int codigo)
+        {
+   
             this.nombre = nombre;
             this.codigo = codigo;
         }
@@ -75,6 +86,45 @@ namespace Proyecto1_BD1.Model
             return data;
         }
 
+        public static List<Proveedor> loadProveedores(SqlConnection connection)
+        {
+
+            List<Proveedor> data = new List<Proveedor>();
+
+            connection.Close();
+            connection.Open();
+
+            using ( SqlCommand comando = new SqlCommand( readProveedores, connection ) )
+            {
+
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+
+                    data.Add(
+                        new Proveedor(
+                            (int) lector["Id"],
+                            (string) lector["Nombre"],
+                            (int) lector["Codigo"]
+                        )
+                   );
+
+                }
+
+                ProveedoresCargados = data;
+
+            }
+
+            return data;
+
+        }
+
+
+        public string toString()
+        {
+            return this.codigo + "-" + this.nombre;
+        }
          
     }
 }

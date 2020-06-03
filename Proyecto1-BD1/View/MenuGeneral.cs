@@ -30,6 +30,8 @@ namespace Proyecto1_BD1
         Ventana_Asociacion_Parte_Automovil ventanaAsociacionParteAutomovil = 
             new Ventana_Asociacion_Parte_Automovil();
 
+        VentanaInsertarParte ventanaInsertarParte = new VentanaInsertarParte();
+
 
         public MenuGeneral()
         {
@@ -71,11 +73,12 @@ namespace Proyecto1_BD1
             funcionesOrdenes.ConexionSqlBd = ConectionBD.Instance;
 
             funcionesClientes.CargarClientesBDtoLocal();
-
             Model.Automovil.loadData(ConectionBD.Instance);
 
             refreshPartes();
 
+            List<Model.Proveedor> dataP = Model.Proveedor.loadProveedores(ConectionBD.Instance);
+            LoadOpcionesProveedor(dataP, ProveedorCmb);
         }
 
         
@@ -84,11 +87,22 @@ namespace Proyecto1_BD1
         {
 
             List<Modelo.Parte> data = Modelo.Parte.LoadData(ConectionBD.Instance);
-            LoadPartes(data, Partes_dataGridView);
-            LoadOpcionesParte( data, parteCmb );
+            
 
+            LoadPartes(data, Partes_dataGridView);
+
+            LoadOpcionesParte( data, parteCmb );
+            LoadOpcionesParte( data, PartesCmb);
+
+ 
         }
 
+        public void cargarProveedorParteEdicion()
+        {
+
+
+
+        }
 
         private void LoadPartes(List<Modelo.Parte> datosParte, DataGridView dataGrid)
         {
@@ -100,8 +114,7 @@ namespace Proyecto1_BD1
                     new Object[] {
                         parte.Nombre,
                         parte.Marca,
-                        parte.NombreFabricante,
-                        parte.DetalleAutomovil
+                        parte.NombreFabricante
                     }
                 );
             }
@@ -117,6 +130,18 @@ namespace Proyecto1_BD1
                 opcionesParte.Items.Add( parte.toString() );
             }
           
+        }
+
+        private void LoadOpcionesProveedor(List<Model.Proveedor> data, ComboBox opcionesParte)
+        {
+
+            opcionesParte.Items.Clear();
+
+            foreach (Model.Proveedor proveedor in data)
+            {
+                opcionesParte.Items.Add(proveedor.toString());
+            }
+
         }
 
         private void listarClientesBtn_Click(object sender, EventArgs e)
@@ -595,6 +620,7 @@ namespace Proyecto1_BD1
 
         }
 
+
         private void PrecioFinalTxt_TextChanged(object sender, EventArgs e)
         {
 
@@ -608,7 +634,7 @@ namespace Proyecto1_BD1
         private void actualizarPrecio()
         {
             float precio = 0;
-            float porcentaje = 0;
+            decimal porcentaje = 0;
 
             try
             {
@@ -621,7 +647,7 @@ namespace Proyecto1_BD1
 
             try
             {
-                porcentaje = float.Parse(PorcentajeGananciaTxt.Text);
+                porcentaje = decimal.Parse(PorcentajeGananciaTxt.Text);
 
             }
             catch (FormatException e)
@@ -629,7 +655,7 @@ namespace Proyecto1_BD1
                 porcentaje = 0;
             }
 
-           float precioFinal = (precio + precio * porcentaje);
+           float precioFinal = (precio + precio * (float) (1 / porcentaje));
 
             PrecioFinalTxt.Text = precioFinal.ToString();
 
@@ -649,6 +675,107 @@ namespace Proyecto1_BD1
         {
             partesxautomovil_dataGridView.Rows.Clear();
             loadPartesAuto();
+        }
+
+        private void insertarParteBtn_Click(object sender, EventArgs e)
+        {
+            this.ventanaInsertarParte.reset();
+            mostrarDialogo("Insertar nueva parte", this.ventanaInsertarParte);
+        }
+
+        private void ProveedorCmb_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void asociarProveedorParteBtn_Click(object sender, EventArgs e)
+        {
+
+            int indiceParte = PartesCmb.SelectedIndex;
+            int indiceProveedor = ProveedorCmb.SelectedIndex;
+
+            decimal precio = 0, precioF = 0, porcentaje = 0;
+            bool flag = false;
+
+            try
+            {
+                precio = decimal.Parse(precioParteTxt.Text);
+            } catch (FormatException ex)
+            {
+                flag = true;
+            }
+            
+            try { 
+            precioF = decimal.Parse(PrecioFinalTxt.Text);
+            } catch (FormatException ex)
+            {
+                flag = true;
+            }
+
+            try
+            {
+                porcentaje = decimal.Parse(PorcentajeGananciaTxt.Text);
+            }
+            catch (FormatException exe)
+            {
+                flag = true;
+            }
+
+
+            if (flag)
+            {
+                MessageBox.Show("Verifique los campos de precios para la parte del proveedor", "Informacion de usuario", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            } 
+            else if (indiceParte == -1 || indiceProveedor == -1)
+            {
+                MessageBox.Show("Debe seleccionar el proveedor y la parte correspondiente", "Informacion de usuario", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+
+                Modelo.Parte parte = Modelo.Parte.PartesCargadas[indiceParte];
+
+                int res = parte.LinkProveedor(
+                    Model.Proveedor.ProveedoresCargados[indiceProveedor].Id, 
+                    precio, 
+                    porcentaje, 
+                    precioF
+                );
+
+                /*
+	                POSIBLES RESPUESTAS
+	                 0 = caso exitoso
+	                -1 = parte no existente
+	                -2 = proveedor no existente
+	                -3 = parte y proveedor no existente
+                */
+
+                if ( res == -1 )
+                {
+                    MessageBox.Show("Parte no existente",
+                        "Informacion de usuario", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                } 
+                else if (res == -2)
+                {
+                    MessageBox.Show("Proveedor no existente",
+                        "Informacion de usuario", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (res == -3)
+                {
+                    MessageBox.Show("Proveedor y parte no existente",
+                       "Informacion de usuario", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("Parte para el proveedor ha sido agregada",
+                       "Informacion de usuario", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+
+
+            }
+
+
         }
     }
 }

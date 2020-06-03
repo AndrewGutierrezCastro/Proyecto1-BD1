@@ -114,6 +114,12 @@
     <Compile Include="View\UpdatePersona.Designer.cs">
       <DependentUpon>UpdatePersona.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\VentanaInsertarParte.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\VentanaInsertarParte.Designer.cs">
+      <DependentUpon>VentanaInsertarParte.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Ventana_Asociacion_Parte_Automovil.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -152,6 +158,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\UpdatePersona.resx">
       <DependentUpon>UpdatePersona.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\VentanaInsertarParte.resx">
+      <DependentUpon>VentanaInsertarParte.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Ventana_Asociacion_Parte_Automovil.resx">
       <DependentUpon>Ventana_Asociacion_Parte_Automovil.cs</DependentUpon>

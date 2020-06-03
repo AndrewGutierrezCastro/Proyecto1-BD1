@@ -12,10 +12,12 @@ namespace Proyecto1_BD1.Modelo
     class Parte
     {
         // db linking
+        public static String insertarParte = "CreateParte";
         public static String mostrarPartes_sp = "ReadPartes";
         public static String readPartesPorAutomovil_sp = "ReadPartesPorAutomovil";
         public static String deletePartes_sp  = "DeleteParte";
         public static String linkParteAutomovil_sp = "LinkParteTipoAutomovil";
+        public static String linkParteProveedor = "LinkParteProveedor";
 
         // atributos
         private string nombre, marca, nombreFabricante, detalleAutomovil;
@@ -39,6 +41,14 @@ namespace Proyecto1_BD1.Modelo
             this.marca = marca;
             this.nombreFabricante = nombreFabricante;
             this.detalleAutomovil = detalleAutomovil;
+        }
+
+        public Parte(int id, string nombre, string marca, string nombreFabricante)
+        {
+            this.id = id;
+            this.nombre = nombre;
+            this.marca = marca;
+            this.nombreFabricante = nombreFabricante;
         }
 
         public static List<Parte> loadDataByProvider(SqlConnection connection, Parte parteSeleccionada)
@@ -105,7 +115,8 @@ namespace Proyecto1_BD1.Modelo
                                 (string)lector["nombre"],
                                 (string)lector["marca"],
                                 (string)lector["nombreFabricante"],
-                                (string)lector["detalle"]
+                                (string) lector["detalle"]
+
                             )
                         );
                     }
@@ -137,8 +148,7 @@ namespace Proyecto1_BD1.Modelo
                             (int) lector["Id"],
                             (string) lector["nombre"],
                             (string) lector["marca"],
-                            (string) lector["nombreFabricante"],
-                            (string) lector["detalle"]
+                            (string) lector["nombreFabricante"]
                         )
                     );
                 }
@@ -226,6 +236,74 @@ namespace Proyecto1_BD1.Modelo
             }
 
             return -1;
+        }
+
+        public int LinkProveedor( int idProveedor, decimal precio, decimal porcentaje, decimal precioFinal )
+        {
+            /*
+             
+                @IdParte int,
+	            @IdProveedor int, 
+	            @Precio decimal(9,2),
+	            @PorcentajeGanancia decimal(9,2),
+	            @PrecioFinal decimal(9,2),
+	            @RespuestaOperacion int OUTPUT
+           */
+
+            ConectionBD.Instance.Close();
+            ConectionBD.Instance.Open();
+
+            using (SqlCommand proceso = new SqlCommand(linkParteProveedor, ConectionBD.Instance))
+            {
+                proceso.CommandType = CommandType.StoredProcedure;
+
+                SqlParameter idParteP = proceso.Parameters.Add("@IdParte", SqlDbType.Int);
+                SqlParameter idProveedorP = proceso.Parameters.Add("@IdProveedor", SqlDbType.Int);
+                SqlParameter precioP = proceso.Parameters.Add("@Precio", SqlDbType.Decimal);
+                SqlParameter precioFinalP = proceso.Parameters.Add("@PrecioFinal", SqlDbType.Decimal);
+                SqlParameter porcentajeP = proceso.Parameters.Add("@PorcentajeGanancia", SqlDbType.Decimal);
+
+
+                SqlParameter resultParameter = proceso.Parameters.Add("@RespuestaOperacion", SqlDbType.Int);
+
+                idProveedorP.Value = idProveedor;
+                idParteP.Value = this.id;
+                precioP.Value = precio;
+                precioFinalP.Value = precioFinal;
+                porcentajeP.Value = porcentaje;
+                resultParameter.Direction = ParameterDirection.Output;
+
+                int result = proceso.ExecuteNonQuery();
+
+                return int.Parse(resultParameter.Value.ToString());
+            }
+
+        }
+
+        public int createParte(SqlConnection connection)
+        {
+            connection.Close();
+            connection.Open();
+
+            using (SqlCommand proceso = new SqlCommand(insertarParte, connection))
+            {
+                proceso.CommandType = CommandType.StoredProcedure;
+
+                SqlParameter nombre = proceso.Parameters.Add("@Nombre", SqlDbType.NChar);
+                SqlParameter marca = proceso.Parameters.Add("@Marca", SqlDbType.NChar);
+                SqlParameter fabricante = proceso.Parameters.Add("@NombreFabricante", SqlDbType.NChar);
+                SqlParameter resultado = proceso.Parameters.Add("@RespuestaOperacion", SqlDbType.Int);
+
+                nombre.Value = this.nombre;
+                marca.Value = this.marca;
+                fabricante.Value = this.nombreFabricante;
+                resultado.Direction = ParameterDirection.Output;
+
+                int result = proceso.ExecuteNonQuery();
+
+                return int.Parse(resultado.Value.ToString());
+            }
+
         }
 
         public string toString()
