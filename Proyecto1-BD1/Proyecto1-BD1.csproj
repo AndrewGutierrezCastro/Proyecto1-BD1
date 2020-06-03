@@ -61,6 +61,7 @@
     <Compile Include="Model\Cliente.cs" />
     <Compile Include="ConnectionBD.cs" />
     <Compile Include="Model\Proveedor.cs" />
+    <Compile Include="Model\ProveedorPartes.cs" />
     <Compile Include="View\CambiarEstadoCliente.cs">
       <SubType>UserControl</SubType>
     </Compile>

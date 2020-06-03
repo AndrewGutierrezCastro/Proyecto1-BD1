@@ -80,9 +80,33 @@ namespace Proyecto1_BD1
 
             List<Model.Proveedor> dataP = Model.Proveedor.loadProveedores(ConectionBD.Instance);
             LoadOpcionesProveedor(dataP, ProveedorCmb);
+
+
+            loadProveedorPartes();
+
         }
 
-        
+        private void loadProveedorPartes()
+        {
+            List<Model.ProveedorPartes> data = Model.ProveedorPartes.loadData();
+
+            this.partesProveedorDataGrid.Rows.Clear();
+
+            foreach (Model.ProveedorPartes objeto in data)
+            {
+                this.partesProveedorDataGrid.Rows.Add(
+                    new object[]
+                    {
+                        objeto.nombreProveedor, 
+                        objeto.nombreParte,
+                        objeto.porcentajeGanancia, 
+                        objeto.precio,
+                        objeto.precioFinal
+                    }    
+                );
+            }
+
+        }
 
         public void refreshPartes()
         {
@@ -101,7 +125,7 @@ namespace Proyecto1_BD1
         public void cargarProveedorParteEdicion()
         {
 
-
+            // todo
 
         }
 
