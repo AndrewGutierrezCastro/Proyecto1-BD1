@@ -912,7 +912,9 @@ namespace Proyecto1_BD1
             PartesCmb.Enabled = false;
             ProveedorCmb.Enabled = false;
 
-            currentProviderParte = this.partesProveedorDataGrid.CurrentRow.Index;
+            currentProviderParte = this.partesProveedorDataGrid.CurrentRow.Index != -1 ? Model.ProveedorPartes.proveedoresPartesCargadas[this.partesProveedorDataGrid.CurrentRow.Index].id : 0 ;
+
+
             asociarProveedorParteBtn.Text = "Guardar edicion";
 
             int indiceSeleccionado = 

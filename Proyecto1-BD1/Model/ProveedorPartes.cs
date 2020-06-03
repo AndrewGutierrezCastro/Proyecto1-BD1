@@ -114,20 +114,20 @@ namespace Proyecto1_BD1.Model
 
             using (SqlCommand comando = new SqlCommand(updatePrecios, connection))
             {
-                SqlParameter idProveedorParte = comando.Parameters.AddWithValue("@IdProveedorParte", id);
-                SqlParameter precio = comando.Parameters.Add("@Precio", SqlDbType.Decimal);
-                SqlParameter porcentaje = comando.Parameters.Add("@PorcentajeGanancia", SqlDbType.Decimal);
-                SqlParameter precioFinal = comando.Parameters.Add("@PrecioFinal", SqlDbType.Decimal);
-                SqlParameter resultado = comando.Parameters.Add("@ResultadoOperacion", SqlDbType.Int);
+                comando.CommandType = CommandType.StoredProcedure;
 
-                precio.Value = this.precio;
-                porcentaje.Value = this.porcentajeGanancia;
-                precioFinal.Value = this.precioFinal;
+                SqlParameter idProveedorParte = comando.Parameters.AddWithValue("@IdProveedorParte", id);
+                SqlParameter precio = comando.Parameters.AddWithValue("@Precio", this.precio);
+                SqlParameter porcentaje = comando.Parameters.AddWithValue("@PorcentajeGanancia", this.porcentajeGanancia);
+                SqlParameter precioFinal = comando.Parameters.AddWithValue("@PrecioFinal", this.precioFinal);
+                SqlParameter resultado = comando.Parameters.AddWithValue("@ResultadoOperacion", 0);
+
+
                 resultado.Direction = ParameterDirection.Output;
 
                 int result = comando.ExecuteNonQuery();
 
-                return int.Parse(resultado.ToString());
+                return int.Parse(resultado.Value.ToString());
 
             }
 
