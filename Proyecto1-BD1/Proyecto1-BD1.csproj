@@ -53,11 +53,13 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\FuncionesOrdenes.cs" />
     <Compile Include="Model\OrdenDetalle.cs" />
     <Compile Include="Model\Orden.cs" />
     <Compile Include="Model\Parte.cs" />
     <Compile Include="Model\Cliente.cs" />
     <Compile Include="ConnectionBD.cs" />
+    <Compile Include="Model\Proveedor.cs" />
     <Compile Include="View\CambiarEstadoCliente.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -83,6 +85,12 @@
       <DependentUpon>DialogoDeConexion.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\FuncionesClientes.cs" />
+    <Compile Include="View\LocalizarProveedor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\LocalizarProveedor.Designer.cs">
+      <DependentUpon>LocalizarProveedor.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\MenuGeneral.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,6 +124,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\DialogoDeConexion.resx">
       <DependentUpon>DialogoDeConexion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\LocalizarProveedor.resx">
+      <DependentUpon>LocalizarProveedor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\MenuGeneral.resx">
       <DependentUpon>MenuGeneral.cs</DependentUpon>

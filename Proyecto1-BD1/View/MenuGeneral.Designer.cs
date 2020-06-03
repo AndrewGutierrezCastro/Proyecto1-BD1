@@ -77,6 +77,11 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.listaPersonasGrid = new System.Windows.Forms.DataGridView();
             this.listaOrganizacionesGrid = new System.Windows.Forms.DataGridView();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.localizarProveedorBtn = new System.Windows.Forms.Button();
+            this.ordenesPanelAux = new System.Windows.Forms.Panel();
             this.pestañas.SuspendLayout();
             this.clientesTab.SuspendLayout();
             this.panelClientesAux.SuspendLayout();
@@ -92,8 +97,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.partesxautomovil_dataGridView)).BeginInit();
             this.panel3.SuspendLayout();
             this.OrdenesTab.SuspendLayout();
+            this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.listaPersonasGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.listaOrganizacionesGrid)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // cerrarConexionBtn
@@ -513,6 +520,7 @@
             // 
             // OrdenesTab
             // 
+            this.OrdenesTab.Controls.Add(this.ordenesPanelAux);
             this.OrdenesTab.Controls.Add(this.panel4);
             this.OrdenesTab.Location = new System.Drawing.Point(4, 22);
             this.OrdenesTab.Name = "OrdenesTab";
@@ -524,9 +532,10 @@
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.panel2);
             this.panel4.Location = new System.Drawing.Point(4, 7);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(200, 361);
+            this.panel4.Size = new System.Drawing.Size(148, 361);
             this.panel4.TabIndex = 0;
             // 
             // listaPersonasGrid
@@ -543,10 +552,56 @@
             this.listaOrganizacionesGrid.Size = new System.Drawing.Size(240, 150);
             this.listaOrganizacionesGrid.TabIndex = 0;
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.button2);
+            this.panel2.Controls.Add(this.button3);
+            this.panel2.Controls.Add(this.localizarProveedorBtn);
+            this.panel2.Location = new System.Drawing.Point(3, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(138, 133);
+            this.panel2.TabIndex = 1;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(3, 100);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(126, 24);
+            this.button2.TabIndex = 6;
+            this.button2.Text = "Agregar partes a orden";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(3, 50);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(126, 24);
+            this.button3.TabIndex = 5;
+            this.button3.Text = "Insertar nueva orden";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // localizarProveedorBtn
+            // 
+            this.localizarProveedorBtn.Location = new System.Drawing.Point(3, 4);
+            this.localizarProveedorBtn.Name = "localizarProveedorBtn";
+            this.localizarProveedorBtn.Size = new System.Drawing.Size(126, 24);
+            this.localizarProveedorBtn.TabIndex = 4;
+            this.localizarProveedorBtn.Text = "Localizar proveedor";
+            this.localizarProveedorBtn.UseVisualStyleBackColor = true;
+            this.localizarProveedorBtn.Click += new System.EventHandler(this.localizarProveedorBtn_Click);
+            // 
+            // ordenesPanelAux
+            // 
+            this.ordenesPanelAux.Location = new System.Drawing.Point(159, 7);
+            this.ordenesPanelAux.Name = "ordenesPanelAux";
+            this.ordenesPanelAux.Size = new System.Drawing.Size(592, 361);
+            this.ordenesPanelAux.TabIndex = 1;
+            // 
             // MenuGeneral
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(780, 511);
             this.Controls.Add(this.pestañas);
             this.Controls.Add(this.cerrarConexionBtn);
@@ -571,8 +626,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.partesxautomovil_dataGridView)).EndInit();
             this.panel3.ResumeLayout(false);
             this.OrdenesTab.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.listaPersonasGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.listaOrganizacionesGrid)).EndInit();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -626,6 +683,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProveedorClm;
         private System.Windows.Forms.DataGridViewTextBoxColumn Proveedor_Clm;
-
+        private System.Windows.Forms.Panel ordenesPanelAux;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button localizarProveedorBtn;
     }
 }
