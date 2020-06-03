@@ -28,6 +28,9 @@ namespace Proyecto1_BD1
         private FuncionesOrdenes funcionesOrdenes = new FuncionesOrdenes();
         public ConectionBD conectionBD;
 
+        public static bool editionMode = false;
+        public int currentProviderParte = -1;
+
         public TabControl controlDePestanas = new TabControl();
 
         Ventana_Asociacion_Parte_Automovil ventanaAsociacionParteAutomovil = 
@@ -114,8 +117,7 @@ namespace Proyecto1_BD1
         {
 
             List<Modelo.Parte> data = Modelo.Parte.LoadData(ConectionBD.Instance);
-            
-
+ 
             LoadPartes(data, Partes_dataGridView);
 
             LoadOpcionesParte( data, parteCmb );
@@ -715,7 +717,7 @@ namespace Proyecto1_BD1
                 porcentaje = 0;
             }
 
-           float precioFinal = (precio + precio * (float) (1 / porcentaje));
+           float precioFinal = (precio + precio * (float) (porcentaje / 100));
 
             PrecioFinalTxt.Text = precioFinal.ToString();
 
@@ -750,97 +752,186 @@ namespace Proyecto1_BD1
 
         private void asociarProveedorParteBtn_Click(object sender, EventArgs e)
         {
-
-            int indiceParte = PartesCmb.SelectedIndex;
-            int indiceProveedor = ProveedorCmb.SelectedIndex;
-
-            decimal precio = 0, precioF = 0, porcentaje = 0;
-            bool flag = false;
-
-            try
+            if (editionMode == false)
             {
-                precio = decimal.Parse(precioParteTxt.Text);
-            } catch (FormatException ex)
-            {
-                flag = true;
-            }
-            
-            try { 
-            precioF = decimal.Parse(PrecioFinalTxt.Text);
-            } catch (FormatException ex)
-            {
-                flag = true;
-            }
+                int indiceParte = PartesCmb.SelectedIndex;
+                int indiceProveedor = ProveedorCmb.SelectedIndex;
 
-            try
-            {
-                porcentaje = decimal.Parse(PorcentajeGananciaTxt.Text);
-            }
-            catch (FormatException exe)
-            {
-                flag = true;
-            }
+                decimal precio = 0, precioF = 0, porcentaje = 0;
+                bool flag = false;
 
-
-            if (flag)
-            {
-                MessageBox.Show("Verifique los campos de precios para la parte del proveedor", "Informacion de usuario", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            } 
-            else if (indiceParte == -1 || indiceProveedor == -1)
-            {
-                MessageBox.Show("Debe seleccionar el proveedor y la parte correspondiente", "Informacion de usuario", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-
-                Modelo.Parte parte = Modelo.Parte.PartesCargadas[indiceParte];
-
-                int res = parte.LinkProveedor(
-                    Model.Proveedor.ProveedoresCargados[indiceProveedor].Id, 
-                    precio, 
-                    porcentaje, 
-                    precioF
-                );
-
-                /*
-	                POSIBLES RESPUESTAS
-	                 0 = caso exitoso
-	                -1 = parte no existente
-	                -2 = proveedor no existente
-	                -3 = parte y proveedor no existente
-                */
-
-                if ( res == -1 )
+                try
                 {
-                    MessageBox.Show("Parte no existente",
-                        "Informacion de usuario", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                } 
-                else if (res == -2)
-                {
-                    MessageBox.Show("Proveedor no existente",
-                        "Informacion de usuario", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    precio = decimal.Parse(precioParteTxt.Text);
                 }
-                else if (res == -3)
+                catch (FormatException ex)
                 {
-                    MessageBox.Show("Proveedor y parte no existente",
-                       "Informacion de usuario", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    flag = true;
+                }
+
+                try
+                {
+                    precioF = decimal.Parse(PrecioFinalTxt.Text);
+                }
+                catch (FormatException ex)
+                {
+                    flag = true;
+                }
+
+                try
+                {
+                    porcentaje = decimal.Parse(PorcentajeGananciaTxt.Text);
+                }
+                catch (FormatException exe)
+                {
+                    flag = true;
+                }
+
+
+                if (flag)
+                {
+                    MessageBox.Show("Verifique los campos de precios para la parte del proveedor", "Informacion de usuario", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (indiceParte == -1 || indiceProveedor == -1)
+                {
+                    MessageBox.Show("Debe seleccionar el proveedor y la parte correspondiente", "Informacion de usuario", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show("Parte para el proveedor ha sido agregada",
-                       "Informacion de usuario", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    Modelo.Parte parte = Modelo.Parte.PartesCargadas[indiceParte];
+
+                    int res = parte.LinkProveedor(
+                        Model.Proveedor.ProveedoresCargados[indiceProveedor].Id,
+                        precio,
+                        porcentaje,
+                        precioF
+                    );
+
+                    /*
+                        POSIBLES RESPUESTAS
+                         0 = caso exitoso
+                        -1 = parte no existente
+                        -2 = proveedor no existente
+                        -3 = parte y proveedor no existente
+                    */
+
+                    if (res == -1)
+                    {
+                        MessageBox.Show("Parte no existente",
+                            "Informacion de usuario", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else if (res == -2)
+                    {
+                        MessageBox.Show("Proveedor no existente",
+                            "Informacion de usuario", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else if (res == -3)
+                    {
+                        MessageBox.Show("Proveedor y parte no existente",
+                           "Informacion de usuario", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Parte para el proveedor ha sido agregada",
+                           "Informacion de usuario", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
+
+
+                }
+            } else
+            {
+                // modo edicion
+                int indiceProveedor = ProveedorCmb.SelectedIndex;
+                int indiceParte = parteCmb.SelectedIndex;
+
+
+                if (currentProviderParte != -1)
+                {
+
+                    Model.ProveedorPartes newProveedorPartes =
+                        new ProveedorPartes(
+                            currentProviderParte,
+                            decimal.Parse(precioParteTxt.Text),
+                            decimal.Parse(PrecioFinalTxt.Text),
+                            decimal.Parse(PorcentajeGananciaTxt.Text)
+  
+                            );
+
+                    // actulizar proveedor parte
+                    int res = newProveedorPartes.update(currentProviderParte);
+
+                    if (res == -1)
+                    {
+                        MessageBox.Show("No existe la parte por proveedor seleccionada", "Informacion de Usuario", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    } else
+                    {
+                        MessageBox.Show("Se han guardado los cambios", "Informacion de Usuario",
+                           MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // volver a cargar la tabla
+                        loadProveedorPartes();
+
+                        resetAfterEdition();
+
+                        editionMode = false;
+                        currentProviderParte = -1;
+
+                        PartesCmb.Enabled = true;
+                        ProveedorCmb.Enabled = true;
+                    }
                 }
 
-
-
             }
+        }
 
+        private void resetAfterEdition()
+        {
+            precioParteTxt.Text = "";
+            PrecioFinalTxt.Text = "";
+            PorcentajeGananciaTxt.Text = "";
 
+            refreshPartes();
         }
 
         private void listarPartesBtn_Click(object sender, EventArgs e)
         {
-            this.
+            
+        }
+
+        private void guardarBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void partesProveedorDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            editionMode = true;
+            PartesCmb.Enabled = false;
+            ProveedorCmb.Enabled = false;
+
+            currentProviderParte = this.partesProveedorDataGrid.CurrentRow.Index;
+            asociarProveedorParteBtn.Text = "Guardar edicion";
+
+            int indiceSeleccionado = 
+                this.partesProveedorDataGrid.CurrentRow.Index;
+
+            if (indiceSeleccionado != -1)
+            {
+
+                Model.ProveedorPartes seleccionado = 
+                    Model.ProveedorPartes.proveedoresPartesCargadas[indiceSeleccionado];
+
+                // cargar datos para edicion
+
+                precioParteTxt.Text = seleccionado.precio.ToString();
+                PrecioFinalTxt.Text = seleccionado.precioFinal.ToString();
+                PorcentajeGananciaTxt.Text = seleccionado.porcentajeGanancia.ToString();
+
+              
+            } 
         }
     }
 }

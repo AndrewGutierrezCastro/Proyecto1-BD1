@@ -153,7 +153,7 @@ namespace Proyecto1_BD1.Model
 
         public string toString()
         {
-            return this.codigo + "-" + this.nombre;
+            return this.nombre;
         }
 
     }

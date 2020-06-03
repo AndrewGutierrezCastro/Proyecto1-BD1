@@ -10,7 +10,7 @@ namespace Proyecto1_BD1.Model
 {
     class ProveedorPartes
     {
-
+        public static string updatePrecios = "UpdatePreciosParteProveedor";
         public static string read = "ReadProveedoresPartes";
 
         public static List<ProveedorPartes> proveedoresPartesCargadas =
@@ -19,8 +19,6 @@ namespace Proyecto1_BD1.Model
         public int id;
         public string nombreParte, nombreProveedor, marca;
         public decimal precio, precioFinal, porcentajeGanancia;
-
-
 
         
         public ProveedorPartes(int id, string nombreParte, string nombreProveedor, string marca,
@@ -31,6 +29,26 @@ namespace Proyecto1_BD1.Model
             this.nombreProveedor = nombreProveedor;
             this.precio = precio;
             this.marca = marca;
+            this.precioFinal = precioFinal;
+            this.porcentajeGanancia = porcentajeGanancia;
+        }
+
+        public ProveedorPartes(int id, string nombreParte, string nombreProveedor,
+            decimal precio, decimal precioFinal, decimal porcentajeGanancia)
+        {
+            this.id = id;
+            this.nombreParte = nombreParte;
+            this.nombreProveedor = nombreProveedor;
+            this.precio = precio;
+            this.precioFinal = precioFinal;
+            this.porcentajeGanancia = porcentajeGanancia;
+        }
+
+        public ProveedorPartes(int id,
+           decimal precio, decimal precioFinal, decimal porcentajeGanancia)
+        {
+            this.id = id;
+            this.precio = precio;
             this.precioFinal = precioFinal;
             this.porcentajeGanancia = porcentajeGanancia;
         }
@@ -78,8 +96,42 @@ namespace Proyecto1_BD1.Model
 
         }
 
+        public int update(int id)
+        {
 
+            SqlConnection connection = ConectionBD.Instance;
+            connection.Close();
+            connection.Open();
 
+            /*
+             
+             @IdProveedorParte int,
+	            @Precio decimal(9,2),
+	            @PorcentajeGanancia decimal(9,2),
+	            @PrecioFinal decimal(9,2),
+	        @RespuestaOperacion int OUTPUT
+             */
+
+            using (SqlCommand comando = new SqlCommand(updatePrecios, connection))
+            {
+                SqlParameter idProveedorParte = comando.Parameters.AddWithValue("@IdProveedorParte", id);
+                SqlParameter precio = comando.Parameters.Add("@Precio", SqlDbType.Decimal);
+                SqlParameter porcentaje = comando.Parameters.Add("@PorcentajeGanancia", SqlDbType.Decimal);
+                SqlParameter precioFinal = comando.Parameters.Add("@PrecioFinal", SqlDbType.Decimal);
+                SqlParameter resultado = comando.Parameters.Add("@ResultadoOperacion", SqlDbType.Int);
+
+                precio.Value = this.precio;
+                porcentaje.Value = this.porcentajeGanancia;
+                precioFinal.Value = this.precioFinal;
+                resultado.Direction = ParameterDirection.Output;
+
+                int result = comando.ExecuteNonQuery();
+
+                return int.Parse(resultado.ToString());
+
+            }
+
+        }
 
     }
 }
