@@ -79,7 +79,7 @@ namespace Proyecto1_BD1.Modelo
 
             int res = -1;
 
-            using (SqlCommand proceso = new SqlCommand(readPartesPorAutomovil_sp, connmection))
+            using (SqlCommand proceso = new SqlCommand(readPartesPorAutomovil_sp, connection))
             {
 
                 SqlParameter pmodelo = proceso.Parameters.Add("@Modelo", SqlDbType.NChar);

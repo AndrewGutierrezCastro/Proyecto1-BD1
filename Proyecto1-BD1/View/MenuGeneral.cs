@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using Proyecto1_BD1.View;
+using Proyecto1_BD1.Model;
 
 namespace Proyecto1_BD1
 {
@@ -19,9 +20,11 @@ namespace Proyecto1_BD1
         private UpdatePersona updatePersona;
         private UpdateOrganizacion updateOrganizacion;
         private CambiarEstadoCliente cambiarEstadoCliente;
+        private LocalizarProveedor localizarProveedor;
         private DataGridView listaPersonasGrid;
         private DataGridView listaOrganizacionesGrid;
         private FuncionesClientes funcionesClientes = new FuncionesClientes(ConectionBD.Instance);
+        private FuncionesOrdenes funcionesOrdenes = new FuncionesOrdenes();
         public ConectionBD conectionBD;
 
         Ventana_Asociacion_Parte_Automovil ventanaAsociacionParteAutomovil = 
@@ -56,7 +59,7 @@ namespace Proyecto1_BD1
                 String excepcionConexionBD = error;
                 MessageBox.Show(excepcionConexionBD, "Arial", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+
             this.Close();
         }
 
@@ -64,6 +67,9 @@ namespace Proyecto1_BD1
         {
             // carga de datos en inicio de aplicacion
             funcionesClientes.conectionBD = conectionBD;
+            funcionesOrdenes.ConectionBD = conectionBD;
+            funcionesOrdenes.ConexionSqlBd = ConectionBD.Instance;
+
             funcionesClientes.CargarClientesBDtoLocal();
 
             Model.Automovil.loadData(ConectionBD.Instance);
@@ -118,27 +124,27 @@ namespace Proyecto1_BD1
             this.clientesTabControl.Show();
             //Generar Grid
             { listaOrganizacionesGrid = new DataGridView();
-            listaPersonasGrid = new DataGridView();
-            this.listaOrganizacionesGrid.AllowUserToAddRows = false;
-            this.listaOrganizacionesGrid.AllowUserToDeleteRows = false;
-            this.listaOrganizacionesGrid.AllowUserToOrderColumns = true;
-            this.listaOrganizacionesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.listaOrganizacionesGrid.Location = new System.Drawing.Point(6, 13);
-            this.listaOrganizacionesGrid.Name = "listaOrganizacionesGrid";
-            this.listaOrganizacionesGrid.ReadOnly = true;
-            this.listaOrganizacionesGrid.Size = new System.Drawing.Size(577, 356);
-            this.listaOrganizacionesGrid.TabIndex = 0;
+                listaPersonasGrid = new DataGridView();
+                this.listaOrganizacionesGrid.AllowUserToAddRows = false;
+                this.listaOrganizacionesGrid.AllowUserToDeleteRows = false;
+                this.listaOrganizacionesGrid.AllowUserToOrderColumns = true;
+                this.listaOrganizacionesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+                this.listaOrganizacionesGrid.Location = new System.Drawing.Point(6, 13);
+                this.listaOrganizacionesGrid.Name = "listaOrganizacionesGrid";
+                this.listaOrganizacionesGrid.ReadOnly = true;
+                this.listaOrganizacionesGrid.Size = new System.Drawing.Size(577, 356);
+                this.listaOrganizacionesGrid.TabIndex = 0;
 
 
-            this.listaPersonasGrid.AllowUserToAddRows = false;
-            this.listaPersonasGrid.AllowUserToDeleteRows = false;
-            this.listaPersonasGrid.AllowUserToOrderColumns = true;
-            this.listaPersonasGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.listaPersonasGrid.Location = new System.Drawing.Point(6, 6);
-            this.listaPersonasGrid.Name = "listaPersonasGrid";
-            this.listaPersonasGrid.ReadOnly = true;
-            this.listaPersonasGrid.Size = new System.Drawing.Size(577, 363);
-            this.listaPersonasGrid.TabIndex = 0; }
+                this.listaPersonasGrid.AllowUserToAddRows = false;
+                this.listaPersonasGrid.AllowUserToDeleteRows = false;
+                this.listaPersonasGrid.AllowUserToOrderColumns = true;
+                this.listaPersonasGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+                this.listaPersonasGrid.Location = new System.Drawing.Point(6, 6);
+                this.listaPersonasGrid.Name = "listaPersonasGrid";
+                this.listaPersonasGrid.ReadOnly = true;
+                this.listaPersonasGrid.Size = new System.Drawing.Size(577, 363);
+                this.listaPersonasGrid.TabIndex = 0; }
 
             this.organizacionesTab.Controls.Clear();
             this.personasTab.Controls.Clear();
@@ -176,9 +182,9 @@ namespace Proyecto1_BD1
 
 
         }
-        private void  crearPersonaAceptarBtn_Click(Object sender, EventArgs e)
+        private void crearPersonaAceptarBtn_Click(Object sender, EventArgs e)
         {
-            
+
             String[] datosPersona = new String[] { "ACTIVO", "Cedula", "Nombre", "Direccion", "Numero" };
             datosPersona[1] = this.crearPersona.cedulaTxtBox.Text;
             datosPersona[2] = this.crearPersona.nombreTxtBox.Text;
@@ -256,7 +262,7 @@ namespace Proyecto1_BD1
                     this.crearOrganizacion.limpiarBtn_Click(sender, e);
                     break;
                 case (-1):
-                    MessageBox.Show("No se puede crear" +datosOrganizacion[2]+ "\nCodigo error:" + respuesta + "\nLa cedula ingresada invalida.", "Crear Organizacion ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("No se puede crear" + datosOrganizacion[2] + "\nCodigo error:" + respuesta + "\nLa cedula ingresada invalida.", "Crear Organizacion ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
                 case (-2):
                     MessageBox.Show("No se puede crear" + "\nCodigo error:" + respuesta + "\nEl nombre  ingresado es invalido.", "Crear Organizacion ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -373,7 +379,7 @@ namespace Proyecto1_BD1
             this.cambiarEstadoCliente.Size = new Size(287, 167);
             this.cambiarEstadoCliente.TabIndex = 2;
 
-            
+
             this.clientesTabControl.Hide();
             this.panelClientesAux.Controls.Add(cambiarEstadoCliente);
             this.cambiarEstadoCliente.aceptarBtn.Click += new System.EventHandler(this.cambiarEstadoClienteAceptarBtn_Click);
@@ -381,12 +387,12 @@ namespace Proyecto1_BD1
         }
         private void cambiarEstadoClienteAceptarBtn_Click(Object sender, EventArgs e)
         {
-            String[] datosCliente= new String[] { "ACTIVO", "Cedula"};
+            String[] datosCliente = new String[] { "ACTIVO", "Cedula" };
             datosCliente[0] = this.cambiarEstadoCliente.estadoCmbBox.Text;
             datosCliente[1] = this.cambiarEstadoCliente.cedulaTxtBox.Text;
 
             int respuesta = funcionesClientes.UpdateEstadoCliente(datosCliente);
-            
+
             switch (respuesta)
             {
                 case (0):
@@ -394,22 +400,65 @@ namespace Proyecto1_BD1
                     this.cambiarEstadoCliente.limpiarBtn_Click(sender, e);
                     break;
                 case (-1):
-                    MessageBox.Show("No se puede Actualizar\n" + "Codigo error:" + respuesta+"\nEl estado ingresado es invalido. Debe ser ACTIVO," +
+                    MessageBox.Show("No se puede Actualizar\n" + "Codigo error:" + respuesta + "\nEl estado ingresado es invalido. Debe ser ACTIVO," +
                         " INACTIVO o SUSPENDIDO", "Modificar estado ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
-                case(-2):
+                case (-2):
                     MessageBox.Show("No se puede Actualizar\n" + "Codigo error:" + respuesta + "\nLa cedula ingresada no se encontró.", "Modificar estado ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
-            }              
-            
+            }
+
             this.clientesTabControl.Show();
         }
         private void cambiarEstadoClienteCancelarBtn_Click(Object sender, EventArgs e)
         {
             this.cambiarEstadoCliente.Hide();
             this.clientesTabControl.Show();
-       
+
         }
+        //END CLIENTES
+
+        //ORDENES
+        private void localizarProveedorBtn_Click(object sender, EventArgs e)
+        {
+            this.localizarProveedor = new LocalizarProveedor();
+            this.localizarProveedor.Name = "localizarProveedor1";
+            this.localizarProveedor.Size = new Size(582, 351);
+            this.localizarProveedor.TabIndex = 2;
+
+            this.ordenesPanelAux.Controls.Clear();
+
+            this.ordenesPanelAux.Controls.Add(localizarProveedor);
+            this.localizarProveedor.aceptarBtn.Click += new System.EventHandler(this.localizarProveedorAceptarBtn_Click);
+            this.localizarProveedor.cancelarBtn.Click += new System.EventHandler(this.localizarProveedorCancelarBtn_Click);
+        }
+
+        private void localizarProveedorCancelarBtn_Click(object sender, EventArgs e)
+        {
+            this.localizarProveedor.Hide();
+        }
+
+        private void localizarProveedorAceptarBtn_Click(object sender, EventArgs e)
+        {
+            String[]  nombreParte= new String[] { "PARTE" };
+            nombreParte[0] = this.localizarProveedor.nombreParteTxtBox.Text;
+
+            int respuesta = funcionesOrdenes.LocalizarProveedores(nombreParte);
+
+            switch (respuesta)
+            {
+                case (0):
+                    MessageBox.Show("Busqueda Exitosa", "Busqueda proveedores por parte", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //this.localizarProveedor.limpiarBtn_Click(sender, e);
+                    this.localizarProveedor.proveedorDataGridView.DataSource = funcionesOrdenes.TablaProveedores;
+                    break;
+                case (-1):
+                    MessageBox.Show("No se puede encontrar\n" + "Codigo error:" + respuesta + "\nLa parte ingresada no existe.", "Proveedor por parte ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+            }
+        }
+
+        //END ORDENES
         private void Partes_dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
