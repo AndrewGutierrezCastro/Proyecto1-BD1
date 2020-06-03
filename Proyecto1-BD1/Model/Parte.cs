@@ -137,8 +137,7 @@ namespace Proyecto1_BD1.Modelo
                             (int) lector["Id"],
                             (string) lector["nombre"],
                             (string) lector["marca"],
-                            (string) lector["nombreFabricante"],
-                            (string) lector["detalle"]
+                            (string) lector["nombreFabricante"],""
                         )
                     );
                 }

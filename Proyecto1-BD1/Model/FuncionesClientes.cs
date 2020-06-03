@@ -120,6 +120,16 @@ namespace Proyecto1_BD1
 	                @Numero nchar(24), == 4
 	                @Estado nchar(10), == 0
                  */
+                conectionBD.conexionBD = this.ConexionBD;
+                if (this.ConexionBD.State == ConnectionState.Open)
+                {
+                    this.conectionBD.closeConnection();
+                    this.conectionBD.openConnection();
+                }
+                else
+                {
+                    this.conectionBD.openConnection();
+                }
                 using (conexionSqlBd)
                 {
                     using (SqlCommand comandoCrearPersona = new SqlCommand("CreatePersona", conexionSqlBd))
@@ -208,6 +218,16 @@ namespace Proyecto1_BD1
                     @CargoContacto nchar(64), == 6
                     @Estado nchar(10), == 0
                  */
+                conectionBD.conexionBD = this.ConexionBD;
+                if (this.ConexionBD.State == ConnectionState.Open)
+                {
+                    this.conectionBD.closeConnection();
+                    this.conectionBD.openConnection();
+                }
+                else
+                {
+                    this.conectionBD.openConnection();
+                }
                 using (this.ConexionBD)
                 {
                     using (SqlCommand comandoCrearOrganizacion = new SqlCommand("CreateOrganizacion", this.ConexionBD))
@@ -322,23 +342,45 @@ namespace Proyecto1_BD1
             return false;
         }
 
-        public int UpdateEstadoCliente(String[] datosCliente)
+        public int UpdateEstadoCliente(String[] datosCliente, bool isOrganizacion)
         {
-            if (!(existeOrganizacion(datosCliente) || existePersona(datosCliente)))
+            if (isOrganizacion)
             {
-                return -1;
+                if (!(existeOrganizacion(datosCliente)))
+                {
+                    return -1;
+                }
+                else
+                {
+                    String[] parametros = new string[] { "@Estado", "@Cedula" };
+
+                    int respuestaOperacion = conectionBD.EjecutarProcedimientoAlmacenado("UpdateEstadoOrganizacion", parametros, datosCliente, conexionSqlBd);
+                    if (respuestaOperacion == 0)
+                    {
+                        this.ConexionBD = conexionSqlBd;
+                        CargarClientesBDtoLocal();
+                    }
+                    return respuestaOperacion;
+                }
             }
             else
             {
-                String[] parametros = new string[] { "@Estado", "@Cedula" };
-
-                int respuestaOperacion = conectionBD.EjecutarProcedimientoAlmacenado("UpdateEstadoCliente", parametros, datosCliente, conexionSqlBd);
-                if (respuestaOperacion == 0)
+                if (!(existePersona(datosCliente)))
                 {
-                    this.ConexionBD = conexionSqlBd;
-                    CargarClientesBDtoLocal();
+                    return -1;
                 }
-                return respuestaOperacion;
+                else
+                {
+                    String[] parametros = new string[] { "@Estado", "@Cedula" };
+
+                    int respuestaOperacion = conectionBD.EjecutarProcedimientoAlmacenado("UpdateEstadoPersona", parametros, datosCliente, conexionSqlBd);
+                    if (respuestaOperacion == 0)
+                    {
+                        this.ConexionBD = conexionSqlBd;
+                        CargarClientesBDtoLocal();
+                    }
+                    return respuestaOperacion;
+                }
             }
         }
     }

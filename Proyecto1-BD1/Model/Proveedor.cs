@@ -51,7 +51,7 @@ namespace Proyecto1_BD1.Model
             {
                 comando.CommandType = CommandType.StoredProcedure;
 
-                SqlParameter nombreParte = comando.Parameters.Add("@NombreParte", SqlDbType.NChar);
+                SqlParameter nombreParte = comando.Parameters.Add("@NombreParte", SqlDbType.VarChar);
                 SqlParameter resultadoOperacion = comando.Parameters.Add("@RespuestaOperacion", SqlDbType.Int);
 
                 resultadoOperacion.Direction = ParameterDirection.Output;
@@ -75,6 +75,35 @@ namespace Proyecto1_BD1.Model
             return data;
         }
 
-         
+        public static List<Proveedor> GetListProveedor(SqlConnection connection, String parteName)
+        {
+            List<Proveedor> data = new List<Proveedor>();
+
+            connection.Close();
+            connection.Open();
+
+            using (SqlCommand comando = new SqlCommand(readProveedoresPorParte, connection))
+            {
+                comando.CommandType = CommandType.StoredProcedure;
+
+                SqlParameter nombreParte = comando.Parameters.Add("@NombreParte", SqlDbType.VarChar);
+                SqlParameter resultadoOperacion = comando.Parameters.Add("@RespuestaOperacion", SqlDbType.Int);
+
+                resultadoOperacion.Direction = ParameterDirection.Output;
+                nombreParte.Value = parteName;
+
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    data.Add(
+                        new Proveedor(
+                            (string)lector["Nombre"],
+                            (int)lector["Codigo"]
+                     ));
+                }
+            }
+            return data;
+        }
     }
 }

@@ -19,8 +19,9 @@ namespace Proyecto1_BD1.View
 
         public void limpiarBtn_Click(object sender, EventArgs e)
         {
-            nombreParteTxtBox.Text = "";
-            proveedorDataGridView.DataSource = null;
+            nombrePartesComboBox.SelectedIndex = 0;
+            proveedorDataGridView.Rows.Clear();
+            
 
         }
     }

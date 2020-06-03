@@ -32,16 +32,24 @@
             this.aceptarBtn = new System.Windows.Forms.Button();
             this.limpiarBtn = new System.Windows.Forms.Button();
             this.cancelarBtn = new System.Windows.Forms.Button();
-            this.nombreParteTxtBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.nombrePartesComboBox = new System.Windows.Forms.ComboBox();
+            this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.proveedorDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // proveedorDataGridView
             // 
+            this.proveedorDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.proveedorDataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
             this.proveedorDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.proveedorDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Codigo,
+            this.Nombre});
             this.proveedorDataGridView.Location = new System.Drawing.Point(287, 26);
             this.proveedorDataGridView.Name = "proveedorDataGridView";
+            this.proveedorDataGridView.RowHeadersWidth = 10;
             this.proveedorDataGridView.Size = new System.Drawing.Size(282, 303);
             this.proveedorDataGridView.TabIndex = 0;
             // 
@@ -73,13 +81,6 @@
             this.cancelarBtn.Text = "Cancelar";
             this.cancelarBtn.UseVisualStyleBackColor = true;
             // 
-            // nombreParteTxtBox
-            // 
-            this.nombreParteTxtBox.Location = new System.Drawing.Point(19, 67);
-            this.nombreParteTxtBox.Name = "nombreParteTxtBox";
-            this.nombreParteTxtBox.Size = new System.Drawing.Size(215, 20);
-            this.nombreParteTxtBox.TabIndex = 4;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -89,12 +90,33 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "Nombre de la parte";
             // 
+            // nombrePartesComboBox
+            // 
+            this.nombrePartesComboBox.FormattingEnabled = true;
+            this.nombrePartesComboBox.Location = new System.Drawing.Point(22, 66);
+            this.nombrePartesComboBox.Name = "nombrePartesComboBox";
+            this.nombrePartesComboBox.Size = new System.Drawing.Size(259, 21);
+            this.nombrePartesComboBox.TabIndex = 6;
+            // 
+            // Codigo
+            // 
+            this.Codigo.HeaderText = "Codigo";
+            this.Codigo.Name = "Codigo";
+            this.Codigo.Width = 65;
+            // 
+            // Nombre
+            // 
+            this.Nombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.Name = "Nombre";
+            this.Nombre.Width = 21;
+            // 
             // LocalizarProveedor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.nombrePartesComboBox);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.nombreParteTxtBox);
             this.Controls.Add(this.cancelarBtn);
             this.Controls.Add(this.limpiarBtn);
             this.Controls.Add(this.aceptarBtn);
@@ -113,7 +135,9 @@
         public System.Windows.Forms.Button aceptarBtn;
         private System.Windows.Forms.Button limpiarBtn;
         public System.Windows.Forms.Button cancelarBtn;
-        public System.Windows.Forms.TextBox nombreParteTxtBox;
         private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.ComboBox nombrePartesComboBox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Codigo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
     }
 }
