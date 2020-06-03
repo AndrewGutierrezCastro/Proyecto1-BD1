@@ -35,6 +35,7 @@
             this.limpiarBtn = new System.Windows.Forms.Button();
             this.cancelarBtn = new System.Windows.Forms.Button();
             this.aceptarBtn = new System.Windows.Forms.Button();
+            this.isOrganizacionCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // estadoCmbBox
@@ -102,10 +103,21 @@
             this.aceptarBtn.Text = "Aceptar";
             this.aceptarBtn.UseVisualStyleBackColor = true;
             // 
+            // isOrganizacionCheckBox
+            // 
+            this.isOrganizacionCheckBox.AutoSize = true;
+            this.isOrganizacionCheckBox.Location = new System.Drawing.Point(196, 31);
+            this.isOrganizacionCheckBox.Name = "isOrganizacionCheckBox";
+            this.isOrganizacionCheckBox.Size = new System.Drawing.Size(88, 17);
+            this.isOrganizacionCheckBox.TabIndex = 35;
+            this.isOrganizacionCheckBox.Text = "Organizacion";
+            this.isOrganizacionCheckBox.UseVisualStyleBackColor = true;
+            // 
             // CambiarEstadoCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.isOrganizacionCheckBox);
             this.Controls.Add(this.limpiarBtn);
             this.Controls.Add(this.cancelarBtn);
             this.Controls.Add(this.aceptarBtn);
@@ -129,5 +141,6 @@
         private System.Windows.Forms.Button limpiarBtn;
         public System.Windows.Forms.Button cancelarBtn;
         public System.Windows.Forms.Button aceptarBtn;
+        public System.Windows.Forms.CheckBox isOrganizacionCheckBox;
     }
 }

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using Proyecto1_BD1.View;
 using Proyecto1_BD1.Model;
+using Proyecto1_BD1.Modelo;
 
 namespace Proyecto1_BD1
 {
@@ -147,6 +148,7 @@ namespace Proyecto1_BD1
         private void listarClientesBtn_Click(object sender, EventArgs e)
         {
             this.clientesTabControl.Show();
+            
             //Generar Grid
             { listaOrganizacionesGrid = new DataGridView();
                 listaPersonasGrid = new DataGridView();
@@ -399,6 +401,10 @@ namespace Proyecto1_BD1
         }
         private void cambiarEstadoCLienteBtn_Click(object sender, EventArgs e)
         {
+            if(this.cambiarEstadoCliente != null)
+            {
+                this.cambiarEstadoCliente.Dispose();
+            }
             this.cambiarEstadoCliente = new CambiarEstadoCliente();
             this.cambiarEstadoCliente.Name = "cambiarEstadoCliente1";
             this.cambiarEstadoCliente.Size = new Size(287, 167);
@@ -412,11 +418,21 @@ namespace Proyecto1_BD1
         }
         private void cambiarEstadoClienteAceptarBtn_Click(Object sender, EventArgs e)
         {
+
             String[] datosCliente = new String[] { "ACTIVO", "Cedula" };
             datosCliente[0] = this.cambiarEstadoCliente.estadoCmbBox.Text;
             datosCliente[1] = this.cambiarEstadoCliente.cedulaTxtBox.Text;
-
-            int respuesta = funcionesClientes.UpdateEstadoCliente(datosCliente);
+            int respuesta;
+            bool isChecked = this.cambiarEstadoCliente.isOrganizacionCheckBox.Checked;
+            if (isChecked)
+            {
+                respuesta = funcionesClientes.UpdateEstadoCliente(datosCliente, isChecked);
+            }
+            else
+            {
+                respuesta = funcionesClientes.UpdateEstadoCliente(datosCliente, isChecked);
+            }
+            
 
             switch (respuesta)
             {
@@ -437,7 +453,7 @@ namespace Proyecto1_BD1
         }
         private void cambiarEstadoClienteCancelarBtn_Click(Object sender, EventArgs e)
         {
-            this.cambiarEstadoCliente.Hide();
+            this.cambiarEstadoCliente = null ;
             this.clientesTabControl.Show();
 
         }
@@ -450,6 +466,12 @@ namespace Proyecto1_BD1
             this.localizarProveedor.Name = "localizarProveedor1";
             this.localizarProveedor.Size = new Size(582, 351);
             this.localizarProveedor.TabIndex = 2;
+
+            List<Parte> partes = Parte.PartesCargadas;
+            foreach (Parte parte in partes)
+            {
+                this.localizarProveedor.nombrePartesComboBox.Items.Add(parte.Nombre);
+            }
 
             this.ordenesPanelAux.Controls.Clear();
 
@@ -465,22 +487,32 @@ namespace Proyecto1_BD1
 
         private void localizarProveedorAceptarBtn_Click(object sender, EventArgs e)
         {
-            String[]  nombreParte= new String[] { "PARTE" };
-            nombreParte[0] = this.localizarProveedor.nombreParteTxtBox.Text;
-
-            int respuesta = funcionesOrdenes.LocalizarProveedores(nombreParte);
-
-            switch (respuesta)
+            String  nombreParte= "PARTE" ;
+            if(localizarProveedor.nombrePartesComboBox.SelectedIndex == -1)
             {
-                case (0):
-                    MessageBox.Show("Busqueda Exitosa", "Busqueda proveedores por parte", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    //this.localizarProveedor.limpiarBtn_Click(sender, e);
-                    this.localizarProveedor.proveedorDataGridView.DataSource = funcionesOrdenes.TablaProveedores;
-                    break;
-                case (-1):
-                    MessageBox.Show("No se puede encontrar\n" + "Codigo error:" + respuesta + "\nLa parte ingresada no existe.", "Proveedor por parte ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    break;
+                MessageBox.Show("No se puede encontrar\n" + "Codigo error:-1"+"\nLa parte ingresada no existe.", "Proveedor por parte ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
+            else
+            {
+                nombreParte = Parte.PartesCargadas[localizarProveedor.nombrePartesComboBox.SelectedIndex].Nombre;
+            }
+
+            List<Proveedor> proveedores = Proveedor.GetListProveedor(ConectionBD.Instance, nombreParte);
+
+            if(proveedores.Count == 0)
+            {
+                this.localizarProveedor.limpiarBtn_Click(sender, e);
+                MessageBox.Show("No se puede encontrar\n" + "Codigo error:-1" + "\nLa parte ingresada no tiene proveedores.", "Proveedor por parte ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            MessageBox.Show("Busqueda Exitosa", "Busqueda proveedores por parte", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            foreach (Proveedor proveedor in proveedores)
+            {
+                this.localizarProveedor.proveedorDataGridView.Rows.Add(proveedor.Codigo.ToString(), proveedor.Nombre);
+
+            }        
+            
         }
 
         //END ORDENES

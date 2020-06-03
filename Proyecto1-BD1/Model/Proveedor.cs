@@ -28,7 +28,7 @@ namespace Proyecto1_BD1.Model
         public string NombreContacto { get => nombreContacto; set => nombreContacto = value; }
 
 
-        public Proveedor( int id, string nombre, string direccion, string ciudad, string nombreContacto)
+        public Proveedor(int id, string nombre, string direccion, string ciudad, string nombreContacto)
         {
             this.id = id;
             this.nombre = nombre;
@@ -44,9 +44,9 @@ namespace Proyecto1_BD1.Model
             this.codigo = codigo;
         }
 
-        public Proveedor( string nombre, int codigo)
+        public Proveedor(string nombre, int codigo)
         {
-   
+
             this.nombre = nombre;
             this.codigo = codigo;
         }
@@ -74,12 +74,12 @@ namespace Proyecto1_BD1.Model
                 {
                     data.Add(
                         new Proveedor(
-                            (string)  lector["Nombre"],
-                            (int)     lector["Codigo"]
+                            (string)lector["Nombre"],
+                            (int)lector["Codigo"]
                      ));
                 }
 
-               
+
             }
 
             ProveedoresPorParteCargados = data;
@@ -94,7 +94,7 @@ namespace Proyecto1_BD1.Model
             connection.Close();
             connection.Open();
 
-            using ( SqlCommand comando = new SqlCommand( readProveedores, connection ) )
+            using (SqlCommand comando = new SqlCommand(readProveedores, connection))
             {
 
                 SqlDataReader lector = comando.ExecuteReader();
@@ -104,9 +104,9 @@ namespace Proyecto1_BD1.Model
 
                     data.Add(
                         new Proveedor(
-                            (int) lector["Id"],
-                            (string) lector["Nombre"],
-                            (int) lector["Codigo"]
+                            (int)lector["Id"],
+                            (string)lector["Nombre"],
+                            (int)lector["Codigo"]
                         )
                    );
 
@@ -120,11 +120,41 @@ namespace Proyecto1_BD1.Model
 
         }
 
+        public static List<Proveedor> GetListProveedor(SqlConnection connection, String parteName)
+        {
+            List<Proveedor> data = new List<Proveedor>();
+
+            connection.Close();
+            connection.Open();
+
+            using (SqlCommand comando = new SqlCommand(readProveedoresPorParte, connection))
+            {
+                comando.CommandType = CommandType.StoredProcedure;
+
+                SqlParameter nombreParte = comando.Parameters.Add("@NombreParte", SqlDbType.VarChar);
+                SqlParameter resultadoOperacion = comando.Parameters.Add("@RespuestaOperacion", SqlDbType.Int);
+
+                resultadoOperacion.Direction = ParameterDirection.Output;
+                nombreParte.Value = parteName;
+
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    data.Add(
+                        new Proveedor(
+                            (string)lector["Nombre"],
+                            (int)lector["Codigo"]
+                     ));
+                }
+            }
+            return data;
+        }
 
         public string toString()
         {
             return this.codigo + "-" + this.nombre;
         }
-         
+
     }
 }
