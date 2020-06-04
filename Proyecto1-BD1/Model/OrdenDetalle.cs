@@ -11,7 +11,6 @@ namespace Proyecto1_BD1.Model
 {
     class OrdenDetalle
     {
-        private string mostrarOrdenesDetalles_sp = "";
         private string crearOrdenDetalle_sp = "CreateOrdenDetalle";
 
         private int cantidad, idOrden, idProveedorParte;
