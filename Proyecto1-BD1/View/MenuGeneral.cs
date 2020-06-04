@@ -575,8 +575,11 @@ namespace Proyecto1_BD1
 
                 if (res == 0)
                 {
-                    List<Modelo.Parte> data = Modelo.Parte.PartesXAutomovilCargadas;
-
+                    // List<Modelo.Parte> data = Modelo.Parte.PartesXAutomovilCargadas;
+                    partesxautomovil_dataGridView.Columns.Clear();
+                    partesxautomovil_dataGridView.DataSource = Parte.PartesXAutomovilDataTable;
+                    
+                    /*
                     foreach (Modelo.Parte parte in data)
                     {
                         partesxautomovil_dataGridView.Rows.Add(
@@ -590,7 +593,7 @@ namespace Proyecto1_BD1
                             }
 
                         );
-                    }
+                    }*/
                 }
                 else if (res == -1)
                 {
@@ -735,7 +738,7 @@ namespace Proyecto1_BD1
 
         private void mostrarPartesAutobtn_Click(object sender, EventArgs e)
         {
-            partesxautomovil_dataGridView.Rows.Clear();
+            partesxautomovil_dataGridView.DataSource = null ;
             loadPartesAuto();
         }
 

@@ -27,6 +27,7 @@ namespace Proyecto1_BD1.Modelo
         public static List<Parte> PartesXProveedorCargadas;
         public static List<Parte> PartesXAutomovilCargadas;
 
+        public static DataTable PartesXAutomovilDataTable;
         // methods
         public int Id { get => id; set => id = value; }
         public string Nombre { get => nombre; set => nombre = value; }
@@ -83,7 +84,7 @@ namespace Proyecto1_BD1.Modelo
 
         public static int loadDataByAutomovil(SqlConnection connection, string modelo, string anno)
         {
-            List<Parte> data = new List<Parte>();
+            DataTable data = new DataTable();
             if (connection.State == ConnectionState.Open)
             {
                 connection.Close();
@@ -98,7 +99,7 @@ namespace Proyecto1_BD1.Modelo
 
             using (SqlCommand proceso = new SqlCommand(readPartesPorAutomovil_sp, connection))
             {
-
+                proceso.CommandType = CommandType.StoredProcedure;
                 SqlParameter pmodelo = proceso.Parameters.AddWithValue("@Modelo", modelo);
                 SqlParameter panno = proceso.Parameters.AddWithValue("@Anno", anno);
                 SqlParameter respuesta = proceso.Parameters.AddWithValue("@RespuestaOperacion", 0);
@@ -111,23 +112,13 @@ namespace Proyecto1_BD1.Modelo
 
                 if ( res == 0)
                 {
-                    while (lector.Read())
-                    {
-                        data.Add(
-                            new Parte(
-                                (int)lector["Id"],
-                                (string)lector["nombre"],
-                                (string)lector["marca"],
-                                (string)lector["nombreFabricante"],
-                                (string) lector["detalle"]
 
-                            )
-                        ); 
-                    }
+                    data.Load(lector) ;
+                            
                 }
             }
 
-            PartesXAutomovilCargadas = data;
+            PartesXAutomovilDataTable = data;
 
             return res;
 
