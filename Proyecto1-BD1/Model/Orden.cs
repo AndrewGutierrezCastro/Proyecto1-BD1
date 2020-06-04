@@ -12,6 +12,8 @@ namespace Proyecto1_BD1.Modelo
     class Orden
     {
         private string crearOrden_sp = "CreateOrden";
+        private string updateIva_sp = "UpdateOrdenMontoIva";
+        private string registrarOrdenesDetalles_sp = "CrearOrdenDetalle";
         private static string readOrdenes_sp = "ReadOrdenes";
 
         public static List<Orden> ordenesCargadasP = new List<Orden>();
@@ -108,6 +110,62 @@ namespace Proyecto1_BD1.Modelo
                 ordenesCargadasO = data;
 
             return data;
+        }
+
+        public int registrarOrdenesDetalles(List<Model.OrdenDetalle> ordenesDetalles)
+        {
+            int rest = 0;
+            bool success = false ;
+
+            SqlConnection connection = ConectionBD.Instance;
+            connection.Close();
+            connection.Open();
+
+            using (SqlCommand comando = new SqlCommand(updateIva_sp, connection))
+            {
+                /*@IdOrden int,
+                @MontoIva decimal,
+                @ResultadoOperacion int OUTPUT*/
+                comando.CommandType = CommandType.StoredProcedure;
+
+                comando.Parameters.AddWithValue("@IdOrden", this.id);
+                comando.Parameters.AddWithValue("@MontoIva", this.montoIva);
+
+                SqlParameter respuesta = comando.Parameters.AddWithValue("@ResultadoOperacion", 0);
+
+                respuesta.Direction = ParameterDirection.Output;
+
+                int res = comando.ExecuteNonQuery();
+                success = int.Parse(respuesta.Value.ToString()) == 0;
+
+            }
+
+
+            if (success)
+            {
+                connection.Close();
+                connection.Open();
+
+                // registrar orden detalles
+                bool ordDetallesSuccess = false;
+
+                foreach (Model.OrdenDetalle ord in ordenesDetalles)
+                {
+                    ordDetallesSuccess = ord.Create(connection);
+
+                    if (!ordDetallesSuccess)
+                    {
+                        return -500; // error al subir orden detalle
+                    }
+                    connection.Close();
+                    connection.Open();
+                }
+
+            } 
+            
+                return -100; // error al modificar orden iva
+            
+
         }
 
         public bool Create(SqlConnection connection)

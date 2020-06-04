@@ -42,12 +42,12 @@ namespace Proyecto1_BD1.View
         private void agregarOrdenDetalleBtn_Click(object sender, EventArgs e)
         {
 
-            if (parteOrdenCmb.SelectedIndex != -1)
+            if (parteOrdenCmb.SelectedIndex == -1)
             {
                 MessageBox.Show("Debe seleccionar una parte", "Informacion al usuario",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-            } else if (ordenCmb.SelectedIndex != -1)
+            } else if (ordenCmb.SelectedIndex == -1)
             {
                 MessageBox.Show("Debe seleccionar una orden", "Informacion al usuario",
                    MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -105,6 +105,10 @@ namespace Proyecto1_BD1.View
                     }    
                 );
 
+                // actualizar montos
+                actualizarResultados();
+
+
 
 
 
@@ -115,15 +119,27 @@ namespace Proyecto1_BD1.View
 
         public MenuGeneral menu;
 
-        private void cancelarOrdenDetalleBtn_Click(object sender, EventArgs e)
+        private void cancelar()
         {
             this.cantidadTxt.Text = "";
             this.ordenDetalles.Clear();
             this.ordenDetalleGrid.Rows.Clear();
+            this.totalTXT.Text = "";
+            this.montoIvaTxt.Text = "";
 
             menu.loadProveedorPartes();
             menu.loadOrdenes();
+        }
+
+        private void cancelarOrdenDetalleBtn_Click(object sender, EventArgs e)
+        {
+            cancelar();
             
+        }
+
+        private void registrarOrdenes()
+        {
+
         }
 
         private void registrarOrdenBtn_Click(object sender, EventArgs e)
@@ -133,12 +149,69 @@ namespace Proyecto1_BD1.View
             // ademas actualizar precios de orden y volver a cargar ordenes depues de 
             // registrar
 
+            int indice = 0;
+            Modelo.Orden ordenSelecionada = null;
+
+            if (ordenCmb.SelectedIndex > Modelo.Orden.ordenesCargadasP.Count)
+            {
+                indice = ordenCmb.SelectedIndex - Modelo.Orden.ordenesCargadasP.Count;
+                ordenSelecionada = Modelo.Orden.ordenesCargadasO[indice];
+            } else
+            {
+                indice = ordenCmb.SelectedIndex;
+                ordenSelecionada = Modelo.Orden.ordenesCargadasP[indice];
+            }
+
+
+            
+            if (ordenSelecionada != null)
+            {
+
+                ordenSelecionada.registrarOrdenesDetalles(ordenDetalles);
+                menu.loadOrdenes();
+                cancelar();
+                
+
+            } else
+            {
+
+            }
 
         }
 
         private void parteOrdenCmb_SelectedIndexChanged(object sender, EventArgs e)
         {
       
+        }
+
+        private void ordenDetalleGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void actualizarResultados()
+        {
+
+            decimal montoIva = 0;
+            try
+            {
+                montoIva = decimal.Parse(montoIvaTxt.Text);
+            } catch (FormatException e){ }
+
+
+            // suma de ordenes detalles
+            decimal sum = 0;
+            foreach (Model.OrdenDetalle ordenD in ordenDetalles)
+            {
+                sum += ordenD.PrecioCobrado;
+            }
+
+            totalTXT.Text = (sum + sum * montoIva).ToString();
+        }
+
+        private void montoIvaTxt_TextChanged(object sender, EventArgs e)
+        {
+            actualizarResultados();
         }
     }
 }

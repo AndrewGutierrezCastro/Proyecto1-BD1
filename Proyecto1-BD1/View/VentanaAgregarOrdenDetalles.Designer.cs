@@ -79,8 +79,9 @@
             this.PrecioCobrado});
             this.ordenDetalleGrid.Location = new System.Drawing.Point(232, 3);
             this.ordenDetalleGrid.Name = "ordenDetalleGrid";
-            this.ordenDetalleGrid.Size = new System.Drawing.Size(444, 459);
+            this.ordenDetalleGrid.Size = new System.Drawing.Size(513, 510);
             this.ordenDetalleGrid.TabIndex = 2;
+            this.ordenDetalleGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ordenDetalleGrid_CellContentClick);
             // 
             // NombreParte
             // 
@@ -158,6 +159,7 @@
             this.montoIvaTxt.Name = "montoIvaTxt";
             this.montoIvaTxt.Size = new System.Drawing.Size(205, 20);
             this.montoIvaTxt.TabIndex = 8;
+            this.montoIvaTxt.TextChanged += new System.EventHandler(this.montoIvaTxt_TextChanged);
             // 
             // totalTXT
             // 
@@ -224,7 +226,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ordenCmb);
             this.Name = "VentanaAgregarOrdenDetalles";
-            this.Size = new System.Drawing.Size(679, 465);
+            this.Size = new System.Drawing.Size(764, 530);
             ((System.ComponentModel.ISupportInitialize)(this.ordenDetalleGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

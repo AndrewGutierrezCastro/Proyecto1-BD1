@@ -142,7 +142,7 @@ namespace Proyecto1_BD1
             this.vmostrarOrdenes.ordenesPersonasGrid.Rows.Clear();
             this.vOrdenDetalles.ordenCmb.Items.Clear();
 
-            foreach (Modelo.Orden orden in Modelo.Orden.loadData(1) )
+            foreach (Modelo.Orden orden in Modelo.Orden.loadData(0) )
             {
                 this.vmostrarOrdenes.ordenesPersonasGrid.Rows.Add(
                     new Object[]
@@ -167,9 +167,9 @@ namespace Proyecto1_BD1
 
             this.vmostrarOrdenes.ordenesOrganizacionesGrid.Rows.Clear();
 
-            foreach (Modelo.Orden orden in Modelo.Orden.loadData(0))
+            foreach (Modelo.Orden orden in Modelo.Orden.loadData(1))
             {
-                this.vmostrarOrdenes.ordenesPersonasGrid.Rows.Add(
+                this.vmostrarOrdenes.ordenesOrganizacionesGrid.Rows.Add(
                     new Object[]
                     {
 

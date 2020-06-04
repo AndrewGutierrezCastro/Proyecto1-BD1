@@ -122,7 +122,7 @@
             // 
             // cerrarConexionBtn
             // 
-            this.cerrarConexionBtn.Location = new System.Drawing.Point(631, 475);
+            this.cerrarConexionBtn.Location = new System.Drawing.Point(698, 517);
             this.cerrarConexionBtn.Name = "cerrarConexionBtn";
             this.cerrarConexionBtn.Size = new System.Drawing.Size(137, 24);
             this.cerrarConexionBtn.TabIndex = 0;
@@ -138,7 +138,7 @@
             this.pestañas.Location = new System.Drawing.Point(13, 13);
             this.pestañas.Name = "pestañas";
             this.pestañas.SelectedIndex = 0;
-            this.pestañas.Size = new System.Drawing.Size(772, 456);
+            this.pestañas.Size = new System.Drawing.Size(822, 498);
             this.pestañas.TabIndex = 1;
             // 
             // clientesTab
@@ -689,7 +689,7 @@
             this.OrdenesTab.Location = new System.Drawing.Point(4, 22);
             this.OrdenesTab.Name = "OrdenesTab";
             this.OrdenesTab.Padding = new System.Windows.Forms.Padding(3);
-            this.OrdenesTab.Size = new System.Drawing.Size(764, 430);
+            this.OrdenesTab.Size = new System.Drawing.Size(814, 472);
             this.OrdenesTab.TabIndex = 2;
             this.OrdenesTab.Text = "Ordenes";
             this.OrdenesTab.UseVisualStyleBackColor = true;
@@ -698,7 +698,7 @@
             // 
             this.ordenesPanelAux.Location = new System.Drawing.Point(159, 7);
             this.ordenesPanelAux.Name = "ordenesPanelAux";
-            this.ordenesPanelAux.Size = new System.Drawing.Size(592, 361);
+            this.ordenesPanelAux.Size = new System.Drawing.Size(649, 462);
             this.ordenesPanelAux.TabIndex = 1;
             // 
             // panel4
@@ -768,7 +768,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(780, 511);
+            this.ClientSize = new System.Drawing.Size(847, 543);
             this.Controls.Add(this.pestañas);
             this.Controls.Add(this.cerrarConexionBtn);
             this.Name = "MenuGeneral";
