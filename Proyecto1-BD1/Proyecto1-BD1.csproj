@@ -68,6 +68,12 @@
     <Compile Include="View\CambiarEstadoCliente.Designer.cs">
       <DependentUpon>CambiarEstadoCliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\CrearOrden.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\CrearOrden.Designer.cs">
+      <DependentUpon>CrearOrden.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\CrearOrganizacion.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -129,6 +135,9 @@
     </Compile>
     <EmbeddedResource Include="View\CambiarEstadoCliente.resx">
       <DependentUpon>CambiarEstadoCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\CrearOrden.resx">
+      <DependentUpon>CrearOrden.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\CrearOrganizacion.resx">
       <DependentUpon>CrearOrganizacion.cs</DependentUpon>

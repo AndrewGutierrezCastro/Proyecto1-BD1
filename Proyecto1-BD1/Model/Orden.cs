@@ -17,7 +17,17 @@ namespace Proyecto1_BD1.Modelo
         private string cedulaCliente;
         private DateTime fechaEmitida;
         private decimal montoVenta, montoIva, montoCobrado;
-           
+
+        public Orden(int tipoCliente, string cedulaCliente, DateTime fechaEmitida, decimal montoVenta, decimal montoIva, decimal montoCobrado)
+        {
+            TipoCliente = tipoCliente;
+            CedulaCliente = cedulaCliente ?? throw new ArgumentNullException(nameof(cedulaCliente));
+            FechaEmitida = fechaEmitida;
+            MontoVenta = montoVenta;
+            MontoIva = montoIva;
+            MontoCobrado = montoCobrado;
+        }
+
         public int TipoCliente { get => tipoCliente; set => tipoCliente = value; }
         public string CedulaCliente { get => cedulaCliente; set => cedulaCliente = value; }
         public DateTime FechaEmitida { get => fechaEmitida; set => fechaEmitida = value; }
@@ -35,11 +45,11 @@ namespace Proyecto1_BD1.Modelo
                 // definicion de parametros
                 SqlParameter tipoCliente = comando.Parameters.Add("@TipoCliente", SqlDbType.Int);
                 SqlParameter cedulaCliente = comando.Parameters.Add("@CedulaCliente", SqlDbType.Int);
-                SqlParameter fechaEmitida = comando.Parameters.Add("@FechaEmitida", SqlDbType.Int);
+                SqlParameter fechaEmitida = comando.Parameters.Add("@FechaEmitida", SqlDbType.DateTime);
                 SqlParameter montoVenta = comando.Parameters.Add("@MontoVenta", SqlDbType.Decimal);
                 SqlParameter montoIva = comando.Parameters.Add("@MontoIva", SqlDbType.Decimal);
                 SqlParameter montoCobrado = comando.Parameters.Add("@MontoCobrado", SqlDbType.Decimal);
-                SqlParameter resultadoOperacion = comando.Parameters.Add("@ResultadoOperacion", SqlDbType.Int);
+                SqlParameter resultadoOperacion = comando.Parameters.Add("@RespuestaOperacion", SqlDbType.Int);
 
                 // establecer valores
                 tipoCliente.Value = this.tipoCliente;

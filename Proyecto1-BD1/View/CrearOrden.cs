@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Proyecto1_BD1.View
 {
-    public partial class LocalizarProveedor : UserControl
+    public partial class CrearOrden : UserControl
     {
-        public LocalizarProveedor()
+        public CrearOrden()
         {
             InitializeComponent();
         }
@@ -21,10 +21,11 @@ namespace Proyecto1_BD1.View
         {
             limpiar();
         }
+
         public void limpiar()
         {
-            nombrePartesComboBox.SelectedIndex = 0;
-            proveedorDataGridView.Rows.Clear();
+            cedulaTxtBox.Text = "";
+            isOrganizacionCheckBox.Checked = false;
         }
     }
 }

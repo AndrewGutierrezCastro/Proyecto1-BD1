@@ -736,6 +736,7 @@
             this.insertarNuevaOrdenBtn.TabIndex = 5;
             this.insertarNuevaOrdenBtn.Text = "Insertar nueva orden";
             this.insertarNuevaOrdenBtn.UseVisualStyleBackColor = true;
+            this.insertarNuevaOrdenBtn.Click += new System.EventHandler(this.insertarNuevaOrdenBtn_Click);
             // 
             // localizarProveedorBtn
             // 

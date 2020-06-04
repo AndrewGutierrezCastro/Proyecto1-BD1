@@ -84,7 +84,7 @@ namespace Proyecto1_BD1.Modelo
 
         public static int loadDataByAutomovil(SqlConnection connection, string modelo, string anno)
         {
-            DataTable data = new DataTable();
+            DataTable dataTable = new DataTable();
             if (connection.State == ConnectionState.Open)
             {
                 connection.Close();
@@ -112,13 +112,11 @@ namespace Proyecto1_BD1.Modelo
 
                 if ( res == 0)
                 {
-
-                    data.Load(lector) ;
-                            
+                    dataTable.Load(lector) ;           
                 }
             }
 
-            PartesXAutomovilDataTable = data;
+            PartesXAutomovilDataTable = dataTable;
 
             return res;
 

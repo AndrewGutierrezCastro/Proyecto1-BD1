@@ -41,8 +41,7 @@
             // 
             // proveedorDataGridView
             // 
-            this.proveedorDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
-            this.proveedorDataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
+            this.proveedorDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.proveedorDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.proveedorDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Codigo,
@@ -100,16 +99,15 @@
             // 
             // Codigo
             // 
+            this.Codigo.FillWeight = 50.76142F;
             this.Codigo.HeaderText = "Codigo";
             this.Codigo.Name = "Codigo";
-            this.Codigo.Width = 65;
             // 
             // Nombre
             // 
-            this.Nombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.Nombre.FillWeight = 149.2386F;
             this.Nombre.HeaderText = "Nombre";
             this.Nombre.Name = "Nombre";
-            this.Nombre.Width = 21;
             // 
             // LocalizarProveedor
             // 

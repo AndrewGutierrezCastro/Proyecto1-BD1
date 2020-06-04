@@ -22,6 +22,7 @@ namespace Proyecto1_BD1
         private UpdateOrganizacion updateOrganizacion;
         private CambiarEstadoCliente cambiarEstadoCliente;
         private LocalizarProveedor localizarProveedor;
+        private CrearOrden crearOrden;
         private DataGridView listaPersonasGrid;
         private DataGridView listaOrganizacionesGrid;
         private FuncionesClientes funcionesClientes = new FuncionesClientes(ConectionBD.Instance);
@@ -350,7 +351,7 @@ namespace Proyecto1_BD1
             this.crearOrganizacion.Hide();
         }
         private void modificarClienteBtn_Click(object sender, EventArgs e)
-        {
+        {   this.clientesTabControl.Show();
             this.clientesTabControl.Show();
             this.updatePersona = new UpdatePersona();
             this.updatePersona.Name = "updatePersona1";
@@ -476,8 +477,8 @@ namespace Proyecto1_BD1
                     MessageBox.Show("No se puede Actualizar\n" + "Codigo error:" + respuesta + "\nLa cedula ingresada no se encontró.", "Modificar estado ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
             }
-
-            this.clientesTabControl.Show();
+            funcionesClientes.CargarClientesBDtoLocal();
+            //this.clientesTabControl.Show();
         }
         private void cambiarEstadoClienteCancelarBtn_Click(Object sender, EventArgs e)
         {
@@ -527,10 +528,9 @@ namespace Proyecto1_BD1
             }
 
             List<Proveedor> proveedores = Proveedor.GetListProveedor(ConectionBD.Instance, nombreParte);
-
-            if(proveedores.Count == 0)
+            this.localizarProveedor.limpiar();
+            if (proveedores.Count == 0)
             {
-                this.localizarProveedor.limpiarBtn_Click(sender, e);
                 MessageBox.Show("No se puede encontrar\n" + "Codigo error:-1" + "\nLa parte ingresada no tiene proveedores.", "Proveedor por parte ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -543,6 +543,47 @@ namespace Proyecto1_BD1
             
         }
 
+        private void insertarNuevaOrdenBtn_Click(object sender, EventArgs e)
+        {
+            this.ordenesPanelAux.Controls.Clear();
+            this.crearOrden = new CrearOrden();
+            this.crearOrden.Name = "crearOrden1";
+            this.crearOrden.Size = new System.Drawing.Size(320, 190);
+            this.crearOrden.TabIndex = 0;
+            this.crearOrden.aceptarBtn.Click += new System.EventHandler(this.crearOrdenAceptarBtn_Click);
+            this.crearOrden.cancelarBtn.Click += new System.EventHandler(this.crearOrdenCancelarBtn_Click);
+
+            this.ordenesPanelAux.Controls.Add(crearOrden);
+            
+            
+        }
+        private void crearOrdenCancelarBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void crearOrdenAceptarBtn_Click(object sender, EventArgs e)
+        {
+            String cedulaCliente = this.crearOrden.cedulaTxtBox.Text;
+            DateTime date = this.crearOrden.dateTimePck.Value;
+            int isOrganizacion = 0; //1 es organizacion, 0 es persona
+            
+            bool isChecked = this.crearOrden.isOrganizacionCheckBox.Checked;
+            if (isChecked)
+            {
+                isOrganizacion = 1;
+            }
+            else
+            {
+                isOrganizacion = 0;
+            }
+
+            Orden orden = new Orden(isOrganizacion, cedulaCliente, date, 0,0,0);
+            if (orden.Create(ConectionBD.Instance))
+            {
+                MessageBox.Show("Orden creada Exitosamente", " exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            
+        }
         //END ORDENES
         private void Partes_dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -984,5 +1025,7 @@ namespace Proyecto1_BD1
                 PorcentajeGananciaTxt.Text = seleccionado.porcentajeGanancia.ToString();
             } 
         }
+
+        
     }
 }
