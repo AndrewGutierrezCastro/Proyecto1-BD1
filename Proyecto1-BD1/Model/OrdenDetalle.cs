@@ -15,12 +15,35 @@ namespace Proyecto1_BD1.Model
 
         private int cantidad, idOrden, idProveedorParte;
         private decimal montoVenta, precioCobrado;
+        private string nombreParte, nombreProveedor;
 
         public int Cantidad { get => cantidad; set => cantidad = value; }
         public int IdProveedor { get => idProveedorParte; set => idProveedorParte = value; }
         public int IdOrden { get => idOrden; set => idOrden = value; }
         public decimal MontoVenta { get => montoVenta; set => montoVenta = value; }
         public decimal PrecioCobrado { get => precioCobrado; set => precioCobrado = value; }
+
+        public string NombreParte { get => nombreParte; set => nombreParte = value; }
+        public string NombreProveedor { get => nombreProveedor; set => nombreProveedor = value; }
+
+        public OrdenDetalle(int cantidad, int idOrden, decimal montoVenta, decimal precioCobrado, string nombreParte, string nombreProveedor)
+        {
+            Cantidad = cantidad;
+            IdOrden = idOrden;
+            MontoVenta = montoVenta;
+            PrecioCobrado = precioCobrado;
+            this.nombreParte = nombreParte;
+            this.NombreProveedor = NombreProveedor;
+        }
+
+        public OrdenDetalle(int cantidad, int idProveedor, int idOrden, decimal montoVenta, decimal precioCobrado)
+        {
+            Cantidad = cantidad;
+            IdProveedor = idProveedor;
+            IdOrden = idOrden;
+            MontoVenta = montoVenta;
+            PrecioCobrado = precioCobrado;
+        }
 
         public bool Create(SqlConnection connection)
         {

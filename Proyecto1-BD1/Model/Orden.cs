@@ -12,12 +12,11 @@ namespace Proyecto1_BD1.Modelo
     class Orden
     {
         private string crearOrden_sp = "CreateOrden";
-        private string readOrdenes_sp = "ReadOrdenes";
+        private static string readOrdenes_sp = "ReadOrdenes";
 
-      
-
-        public static List<Orden> ordenesCargadas = new List<Orden>();
-
+        public static List<Orden> ordenesCargadasP = new List<Orden>();
+        public static List<Orden> ordenesCargadasO = new List<Orden>();
+        
         private int tipoCliente, id, numeroConsecutivo;
         private string cedulaCliente, nombreCliente;
         private DateTime fechaEmitida;
@@ -82,7 +81,7 @@ namespace Proyecto1_BD1.Modelo
             {
                 comando.CommandType = CommandType.StoredProcedure;
 
-                comando.Parameters.AddWithValue("@TipoCliente", 0).Direction = ParameterDirection.Output;
+                comando.Parameters.AddWithValue("@TipoCliente", tipo);
 
                 SqlDataReader lector = comando.ExecuteReader();
 
@@ -102,8 +101,12 @@ namespace Proyecto1_BD1.Modelo
                     );
                 }
             }
+            
+            if (tipo == 0)
+                ordenesCargadasP = data;
+            else
+                ordenesCargadasO = data;
 
-            ordenesCargadas = data;
             return data;
         }
 
@@ -113,6 +116,9 @@ namespace Proyecto1_BD1.Modelo
             using (SqlCommand comando = new SqlCommand(crearOrden_sp, connection))
             {
                 comando.CommandType = System.Data.CommandType.StoredProcedure;
+
+                connection.Close();
+                connection.Open();
 
                 // definicion de parametros
                 SqlParameter tipoCliente = comando.Parameters.Add("@TipoCliente", SqlDbType.Int);
@@ -169,6 +175,11 @@ namespace Proyecto1_BD1.Modelo
 
                 return false;
             }
+        }
+
+        public string toString()
+        {
+            return this.numeroConsecutivo + " " + this.cedulaCliente + " " + this.fechaEmitida.ToString();
         }
     }
 }

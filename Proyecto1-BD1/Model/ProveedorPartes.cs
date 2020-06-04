@@ -133,5 +133,10 @@ namespace Proyecto1_BD1.Model
 
         }
 
+        public string toString()
+        {
+            return this.nombreParte + this.nombreProveedor;
+        }
+
     }
 }

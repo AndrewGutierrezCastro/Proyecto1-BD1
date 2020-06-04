@@ -40,10 +40,11 @@ namespace Proyecto1_BD1
             new Ventana_Asociacion_Parte_Automovil();
 
         VentanaInsertarParte ventanaInsertarParte = new VentanaInsertarParte();
-
+        VentanaAgregarOrdenDetalles vOrdenDetalles;
 
         public MenuGeneral()
         {
+            vOrdenDetalles = new VentanaAgregarOrdenDetalles(this);
             InitializeComponent();
         }
 
@@ -94,11 +95,12 @@ namespace Proyecto1_BD1
 
         }
 
-        private void loadProveedorPartes()
+        public void loadProveedorPartes()
         {
             List<Model.ProveedorPartes> data = Model.ProveedorPartes.loadData();
 
             this.partesProveedorDataGrid.Rows.Clear();
+            this.vOrdenDetalles.parteOrdenCmb.Items.Clear();
 
             foreach (Model.ProveedorPartes objeto in data)
             {
@@ -112,7 +114,13 @@ namespace Proyecto1_BD1
                         objeto.precioFinal
                     }    
                 );
-            }
+
+                this.vOrdenDetalles.parteOrdenCmb.Items.Add(
+                    objeto.toString()
+                );
+;            }
+
+
         }
 
         public void refreshPartes()
@@ -132,6 +140,7 @@ namespace Proyecto1_BD1
         public void loadOrdenes() {
 
             this.vmostrarOrdenes.ordenesPersonasGrid.Rows.Clear();
+            this.vOrdenDetalles.ordenCmb.Items.Clear();
 
             foreach (Modelo.Orden orden in Modelo.Orden.loadData(1) )
             {
@@ -150,9 +159,13 @@ namespace Proyecto1_BD1
                     }
                     
                 );
+
+                this.vOrdenDetalles.ordenCmb.Items.Add(
+                    orden.toString()
+                    );
             }
 
-            this.vmostrarOrdenes.ordenesPersonasGrid.Rows.Clear();
+            this.vmostrarOrdenes.ordenesOrganizacionesGrid.Rows.Clear();
 
             foreach (Modelo.Orden orden in Modelo.Orden.loadData(0))
             {
@@ -624,6 +637,10 @@ namespace Proyecto1_BD1
             if (orden.Create(ConectionBD.Instance))
             {
                 MessageBox.Show("Orden creada Exitosamente", " exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                this.crearOrden.Dispose();
+                this.ordenesPanelAux.Controls.Add(this.vmostrarOrdenes);
+                loadOrdenes();
             }
             
         }
@@ -1069,6 +1086,21 @@ namespace Proyecto1_BD1
             } 
         }
 
-        
+
+
+ 
+        private void agregarPartesOrdenBtn_Click(object sender, EventArgs e)
+        {
+
+            this.ordenesPanelAux.Controls.Clear();
+
+            loadProveedorPartes();
+
+
+            this.ordenesPanelAux.Controls.Add(vOrdenDetalles);
+
+
+
+        }
     }
 }

@@ -727,6 +727,7 @@
             this.agregarPartesOrdenBtn.TabIndex = 6;
             this.agregarPartesOrdenBtn.Text = "Agregar partes a orden";
             this.agregarPartesOrdenBtn.UseVisualStyleBackColor = true;
+            this.agregarPartesOrdenBtn.Click += new System.EventHandler(this.agregarPartesOrdenBtn_Click);
             // 
             // insertarNuevaOrdenBtn
             // 
