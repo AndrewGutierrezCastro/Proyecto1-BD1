@@ -34,6 +34,8 @@ namespace Proyecto1_BD1
 
         public TabControl controlDePestanas = new TabControl();
 
+        VentanaMostrarOrdenes vmostrarOrdenes = new VentanaMostrarOrdenes();
+
         Ventana_Asociacion_Parte_Automovil ventanaAsociacionParteAutomovil = 
             new Ventana_Asociacion_Parte_Automovil();
 
@@ -111,28 +113,69 @@ namespace Proyecto1_BD1
                     }    
                 );
             }
-
         }
 
         public void refreshPartes()
         {
 
             List<Modelo.Parte> data = Modelo.Parte.LoadData(ConectionBD.Instance);
- 
+
             LoadPartes(data, Partes_dataGridView);
 
-            LoadOpcionesParte( data, parteCmb );
-            LoadOpcionesParte( data, PartesCmb);
+            LoadOpcionesParte(data, parteCmb);
+            LoadOpcionesParte(data, PartesCmb);
+            loadProveedorPartes();
 
- 
+            loadOrdenes();
         }
 
-        public void cargarProveedorParteEdicion()
-        {
+        public void loadOrdenes() {
 
-            // todo
+            this.vmostrarOrdenes.ordenesPersonasGrid.Rows.Clear();
+
+            foreach (Modelo.Orden orden in Modelo.Orden.loadData(1) )
+            {
+                this.vmostrarOrdenes.ordenesPersonasGrid.Rows.Add(
+                    new Object[]
+                    {
+
+                        orden.NumeroConsecutivo,
+                        orden.FechaEmitida,
+                        orden.CedulaCliente, 
+                        orden.NombreCliente, 
+                        orden.MontoVenta, 
+                        orden.MontoIva, 
+                        orden.MontoCobrado
+
+                    }
+                    
+                );
+            }
+
+            this.vmostrarOrdenes.ordenesPersonasGrid.Rows.Clear();
+
+            foreach (Modelo.Orden orden in Modelo.Orden.loadData(0))
+            {
+                this.vmostrarOrdenes.ordenesPersonasGrid.Rows.Add(
+                    new Object[]
+                    {
+
+                        orden.NumeroConsecutivo,
+                        orden.FechaEmitida,
+                        orden.CedulaCliente,
+                        orden.NombreCliente,
+                        orden.MontoVenta,
+                        orden.MontoIva,
+                        orden.MontoCobrado
+
+                    }
+
+                );
+            }
+
 
         }
+
 
         private void LoadPartes(List<Modelo.Parte> datosParte, DataGridView dataGrid)
         {
