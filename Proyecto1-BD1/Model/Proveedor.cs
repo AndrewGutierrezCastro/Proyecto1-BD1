@@ -17,11 +17,11 @@ namespace Proyecto1_BD1.Model
         public static List<Proveedor> ProveedoresPorParteCargados = new List<Proveedor>();
         public static List<Proveedor> ProveedoresCargados = new List<Proveedor>();
 
-        private int id, codigo;
-        private string nombre, direccion, ciudad, nombreContacto;
+        private int id;
+        private string codigo, nombre, direccion, ciudad, nombreContacto;
 
         public int Id { get => id; set => id = value; }
-        public int Codigo { get => codigo; set => codigo = value; }
+        public string Codigo { get => codigo; set => codigo = value; }
         public string Nombre { get => nombre; set => nombre = value; }
         public string Direccion { get => direccion; set => direccion = value; }
         public string Ciudad { get => ciudad; set => ciudad = value; }
@@ -37,14 +37,14 @@ namespace Proyecto1_BD1.Model
             this.nombreContacto = nombreContacto;
         }
 
-        public Proveedor(int id, string nombre, int codigo)
+        public Proveedor(int id, string nombre, string codigo)
         {
             this.id = id;
             this.nombre = nombre;
             this.codigo = codigo;
         }
 
-        public Proveedor(string nombre, int codigo)
+        public Proveedor(string nombre, string codigo)
         {
 
             this.nombre = nombre;
@@ -75,7 +75,7 @@ namespace Proyecto1_BD1.Model
                     data.Add(
                         new Proveedor(
                             (string)lector["Nombre"],
-                            (int)lector["Codigo"]
+                            lector["Codigo"] is System.DBNull ? "" : (string)lector["Codigo"]
                      ));
                 }
 
@@ -106,7 +106,7 @@ namespace Proyecto1_BD1.Model
                         new Proveedor(
                             (int)lector["Id"],
                             (string)lector["Nombre"],
-                            (int)lector["Codigo"]
+                            lector["Codigo"] is System.DBNull ? "" : (string)lector["Codigo"]
                         )
                    );
 
@@ -144,7 +144,7 @@ namespace Proyecto1_BD1.Model
                     data.Add(
                         new Proveedor(
                             (string)lector["Nombre"],
-                            (int)lector["Codigo"]
+                            lector["Codigo"] is System.DBNull ? "" : (string)lector["Codigo"]
                      ));
                 }
             }

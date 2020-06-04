@@ -750,6 +750,55 @@ namespace Proyecto1_BD1
 
         }
 
+        private bool validacion(decimal precio, decimal precioFinal, decimal porcentaje)
+        {
+            int indiceParte = PartesCmb.SelectedIndex;
+            int indiceProveedor = ProveedorCmb.SelectedIndex;
+
+            bool flag = false;
+
+            try
+            {
+                precio = decimal.Parse(precioParteTxt.Text);
+            }
+            catch (FormatException ex)
+            {
+                flag = true;
+            }
+
+            try
+            {
+                precioFinal = decimal.Parse(PrecioFinalTxt.Text);
+            }
+            catch (FormatException ex)
+            {
+                flag = true;
+            }
+
+            try
+            {
+                porcentaje = decimal.Parse(PorcentajeGananciaTxt.Text);
+            }
+            catch (FormatException exe)
+            {
+                flag = true;
+            }
+
+
+            if (flag)
+            {
+                MessageBox.Show("Verifique los campos de precios para la parte del proveedor", "Informacion de usuario", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (indiceParte == -1 || indiceProveedor == -1)
+            {
+                MessageBox.Show("Debe seleccionar el proveedor y la parte correspondiente", "Informacion de usuario", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            } else
+            {
+                return true;
+            }
+            return false;
+        }
+
         private void asociarProveedorParteBtn_Click(object sender, EventArgs e)
         {
             if (editionMode == false)
@@ -757,46 +806,9 @@ namespace Proyecto1_BD1
                 int indiceParte = PartesCmb.SelectedIndex;
                 int indiceProveedor = ProveedorCmb.SelectedIndex;
 
-                decimal precio = 0, precioF = 0, porcentaje = 0;
-                bool flag = false;
+                decimal precio = 0, precioFinal = 0, porcentaje = 0;
 
-                try
-                {
-                    precio = decimal.Parse(precioParteTxt.Text);
-                }
-                catch (FormatException ex)
-                {
-                    flag = true;
-                }
-
-                try
-                {
-                    precioF = decimal.Parse(PrecioFinalTxt.Text);
-                }
-                catch (FormatException ex)
-                {
-                    flag = true;
-                }
-
-                try
-                {
-                    porcentaje = decimal.Parse(PorcentajeGananciaTxt.Text);
-                }
-                catch (FormatException exe)
-                {
-                    flag = true;
-                }
-
-
-                if (flag)
-                {
-                    MessageBox.Show("Verifique los campos de precios para la parte del proveedor", "Informacion de usuario", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else if (indiceParte == -1 || indiceProveedor == -1)
-                {
-                    MessageBox.Show("Debe seleccionar el proveedor y la parte correspondiente", "Informacion de usuario", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
+                if (validacion(precio, precioFinal, porcentaje))
                 {
 
                     Modelo.Parte parte = Modelo.Parte.PartesCargadas[indiceParte];
@@ -805,7 +817,7 @@ namespace Proyecto1_BD1
                         Model.Proveedor.ProveedoresCargados[indiceProveedor].Id,
                         precio,
                         porcentaje,
-                        precioF
+                        precioFinal
                     );
 
                     /*
@@ -835,6 +847,8 @@ namespace Proyecto1_BD1
                     {
                         MessageBox.Show("Parte para el proveedor ha sido agregada",
                            "Informacion de usuario", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        resetAfterEdition();
                     }
 
 
@@ -845,6 +859,44 @@ namespace Proyecto1_BD1
                 // modo edicion
                 int indiceProveedor = ProveedorCmb.SelectedIndex;
                 int indiceParte = parteCmb.SelectedIndex;
+
+                bool flag = false;
+                decimal precio = 0, precioFinal = 0, porcentaje = 0;
+
+                try
+                {
+                    precio = decimal.Parse(precioParteTxt.Text);
+                }
+                catch (FormatException ex)
+                {
+                    flag = true;
+                }
+
+                try
+                {
+                    precioFinal = decimal.Parse(PrecioFinalTxt.Text);
+                }
+                catch (FormatException ex)
+                {
+                    flag = true;
+                }
+
+                try
+                {
+                    porcentaje = decimal.Parse(PorcentajeGananciaTxt.Text);
+                }
+                catch (FormatException exe)
+                {
+                    flag = true;
+                }
+
+
+                if (flag)
+                {
+                    MessageBox.Show("Verifique los campos de precios para la parte del proveedor", "Informacion de usuario", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
 
 
                 if (currentProviderParte != -1)
@@ -882,8 +934,7 @@ namespace Proyecto1_BD1
                         PartesCmb.Enabled = true;
                         ProveedorCmb.Enabled = true;
                     }
-                }
-
+                } 
             }
         }
 
@@ -911,9 +962,7 @@ namespace Proyecto1_BD1
             editionMode = true;
             PartesCmb.Enabled = false;
             ProveedorCmb.Enabled = false;
-
             currentProviderParte = this.partesProveedorDataGrid.CurrentRow.Index != -1 ? Model.ProveedorPartes.proveedoresPartesCargadas[this.partesProveedorDataGrid.CurrentRow.Index].id : 0 ;
-
 
             asociarProveedorParteBtn.Text = "Guardar edicion";
 
@@ -927,12 +976,9 @@ namespace Proyecto1_BD1
                     Model.ProveedorPartes.proveedoresPartesCargadas[indiceSeleccionado];
 
                 // cargar datos para edicion
-
                 precioParteTxt.Text = seleccionado.precio.ToString();
                 PrecioFinalTxt.Text = seleccionado.precioFinal.ToString();
                 PorcentajeGananciaTxt.Text = seleccionado.porcentajeGanancia.ToString();
-
-              
             } 
         }
     }
