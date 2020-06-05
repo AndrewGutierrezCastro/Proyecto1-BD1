@@ -162,8 +162,7 @@ namespace Proyecto1_BD1.View
                 ordenSelecionada = Modelo.Orden.ordenesCargadasP[indice];
             }
 
-
-            
+        
             if (ordenSelecionada != null)
             {
 
