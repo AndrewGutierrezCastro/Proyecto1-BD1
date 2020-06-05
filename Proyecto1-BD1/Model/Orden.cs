@@ -161,7 +161,10 @@ namespace Proyecto1_BD1.Modelo
                     connection.Open();
                 }
 
-            } 
+            } else
+            {
+                MessageBox.Show("No se identifico la orden", "Informacion de usuario", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             
                 return -100; // error al modificar orden iva
             

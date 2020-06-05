@@ -69,7 +69,7 @@ namespace Proyecto1_BD1.View
                 int indice = 0;
                 Modelo.Orden ordenSelecionada;
 
-                if (ordenCmb.SelectedIndex > Modelo.Orden.ordenesCargadasP.Count)
+                if (ordenCmb.SelectedIndex >= Modelo.Orden.ordenesCargadasP.Count)
                 {
                     indice = ordenCmb.SelectedIndex - Modelo.Orden.ordenesCargadasP.Count;
                     ordenSelecionada = Modelo.Orden.ordenesCargadasO[indice];
@@ -84,6 +84,7 @@ namespace Proyecto1_BD1.View
                 Model.OrdenDetalle orden = new Model.OrdenDetalle(
                             cantidad,
                             ordenSelecionada.Id,
+                            parteSeleccionada.id,
                             parteSeleccionada.precio,
                             parteSeleccionada.precio * cantidad,
                             parteSeleccionada.nombreParte,
@@ -169,7 +170,11 @@ namespace Proyecto1_BD1.View
                 ordenSelecionada.registrarOrdenesDetalles(ordenDetalles);
                 menu.loadOrdenes();
                 cancelar();
-                
+
+                menu.listarOrdenesBtn_Click(sender, e);
+                ordenDetalles.Clear();
+
+
 
             } else
             {
