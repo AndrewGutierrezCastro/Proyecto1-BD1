@@ -184,6 +184,9 @@ namespace Proyecto1_BD1
                     }
 
                 );
+                this.vOrdenDetalles.ordenCmb.Items.Add(
+                    orden.toString()
+                    );
             }
 
 
@@ -564,12 +567,12 @@ namespace Proyecto1_BD1
             this.localizarProveedor.aceptarBtn.Click += new System.EventHandler(this.localizarProveedorAceptarBtn_Click);
             this.localizarProveedor.cancelarBtn.Click += new System.EventHandler(this.localizarProveedorCancelarBtn_Click);
         }
-
+        
         private void localizarProveedorCancelarBtn_Click(object sender, EventArgs e)
         {
             this.localizarProveedor.Hide();
         }
-
+        
         private void localizarProveedorAceptarBtn_Click(object sender, EventArgs e)
         {
             String  nombreParte= "PARTE" ;
@@ -598,7 +601,7 @@ namespace Proyecto1_BD1
             }        
             
         }
-
+        
         private void insertarNuevaOrdenBtn_Click(object sender, EventArgs e)
         {
             this.ordenesPanelAux.Controls.Clear();
@@ -613,10 +616,12 @@ namespace Proyecto1_BD1
             
             
         }
+        
         private void crearOrdenCancelarBtn_Click(object sender, EventArgs e)
         {
 
         }
+        
         private void crearOrdenAceptarBtn_Click(object sender, EventArgs e)
         {
             String cedulaCliente = this.crearOrden.cedulaTxtBox.Text;
@@ -1086,14 +1091,11 @@ namespace Proyecto1_BD1
             } 
         }
 
-
-
- 
         private void agregarPartesOrdenBtn_Click(object sender, EventArgs e)
         {
 
             this.ordenesPanelAux.Controls.Clear();
-
+            refreshPartes();
             loadProveedorPartes();
 
 

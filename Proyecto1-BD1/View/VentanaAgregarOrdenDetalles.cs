@@ -73,7 +73,7 @@ namespace Proyecto1_BD1.View
                 {
                     indice = ordenCmb.SelectedIndex - Modelo.Orden.ordenesCargadasP.Count;
                     ordenSelecionada = Modelo.Orden.ordenesCargadasO[indice];
-                } else
+                }else
                 {
                     indice = ordenCmb.SelectedIndex;
                     ordenSelecionada = Modelo.Orden.ordenesCargadasP[indice];
