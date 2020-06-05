@@ -94,8 +94,8 @@ namespace Proyecto1_BD1.Modelo
                             (int)      lector["Id"],
                             (int)      lector["NumeroConsecutivo"],
                             (DateTime) lector["FechaEmitida"],
-                            (string)   lector["Nombre"],
                             (string)   lector["Cedula"],
+                            (string)   lector["Nombre"],
                             (decimal)  lector["MontoVenta"],
                             (decimal)  lector["MontoIva"],
                             (decimal)  lector["MontoCobrado"]
@@ -105,9 +105,9 @@ namespace Proyecto1_BD1.Modelo
             }
             
             if (tipo == 0)
-                ordenesCargadasP = data;
-            else
                 ordenesCargadasO = data;
+            else
+                ordenesCargadasP = data;
 
             return data;
         }
@@ -178,8 +178,15 @@ namespace Proyecto1_BD1.Modelo
             {
                 comando.CommandType = System.Data.CommandType.StoredProcedure;
 
-                connection.Close();
-                connection.Open();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                    connection.Open();
+                }
+                else
+                {
+                    connection.Open();
+                }
 
                 // definicion de parametros
                 SqlParameter tipoCliente = comando.Parameters.Add("@TipoCliente", SqlDbType.Int);
