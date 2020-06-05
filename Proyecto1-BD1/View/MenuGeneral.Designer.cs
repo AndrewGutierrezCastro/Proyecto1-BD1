@@ -97,6 +97,7 @@
             this.localizarProveedorBtn = new System.Windows.Forms.Button();
             this.listaPersonasGrid = new System.Windows.Forms.DataGridView();
             this.listaOrganizacionesGrid = new System.Windows.Forms.DataGridView();
+            this.listarOrdenesBtn = new System.Windows.Forms.Button();
             this.pestañas.SuspendLayout();
             this.clientesTab.SuspendLayout();
             this.panelClientesAux.SuspendLayout();
@@ -148,7 +149,7 @@
             this.clientesTab.Location = new System.Drawing.Point(4, 22);
             this.clientesTab.Name = "clientesTab";
             this.clientesTab.Padding = new System.Windows.Forms.Padding(3);
-            this.clientesTab.Size = new System.Drawing.Size(764, 430);
+            this.clientesTab.Size = new System.Drawing.Size(814, 472);
             this.clientesTab.TabIndex = 0;
             this.clientesTab.Text = "Clientes";
             this.clientesTab.UseVisualStyleBackColor = true;
@@ -201,7 +202,7 @@
             this.panel1.Controls.Add(this.insertarClienteBtn);
             this.panel1.Location = new System.Drawing.Point(7, 7);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(138, 175);
+            this.panel1.Size = new System.Drawing.Size(138, 236);
             this.panel1.TabIndex = 0;
             // 
             // listarClientesBtn
@@ -250,7 +251,7 @@
             this.partesTab.Location = new System.Drawing.Point(4, 22);
             this.partesTab.Name = "partesTab";
             this.partesTab.Padding = new System.Windows.Forms.Padding(3);
-            this.partesTab.Size = new System.Drawing.Size(764, 430);
+            this.partesTab.Size = new System.Drawing.Size(814, 472);
             this.partesTab.TabIndex = 1;
             this.partesTab.Text = "Partes";
             this.partesTab.UseVisualStyleBackColor = true;
@@ -711,12 +712,13 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.listarOrdenesBtn);
             this.panel2.Controls.Add(this.agregarPartesOrdenBtn);
             this.panel2.Controls.Add(this.insertarNuevaOrdenBtn);
             this.panel2.Controls.Add(this.localizarProveedorBtn);
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(138, 133);
+            this.panel2.Size = new System.Drawing.Size(138, 183);
             this.panel2.TabIndex = 1;
             // 
             // agregarPartesOrdenBtn
@@ -762,6 +764,16 @@
             this.listaOrganizacionesGrid.Name = "listaOrganizacionesGrid";
             this.listaOrganizacionesGrid.Size = new System.Drawing.Size(240, 150);
             this.listaOrganizacionesGrid.TabIndex = 0;
+            // 
+            // listarOrdenesBtn
+            // 
+            this.listarOrdenesBtn.Location = new System.Drawing.Point(3, 146);
+            this.listarOrdenesBtn.Name = "listarOrdenesBtn";
+            this.listarOrdenesBtn.Size = new System.Drawing.Size(126, 24);
+            this.listarOrdenesBtn.TabIndex = 7;
+            this.listarOrdenesBtn.Text = "Listar ordenes";
+            this.listarOrdenesBtn.UseVisualStyleBackColor = true;
+            this.listarOrdenesBtn.Click += new System.EventHandler(this.listarOrdenesBtn_Click);
             // 
             // MenuGeneral
             // 
@@ -872,5 +884,6 @@
         private System.Windows.Forms.TextBox PorcentajeGananciaTxt;
         private System.Windows.Forms.TextBox precioParteTxt;
         private System.Windows.Forms.TextBox PrecioFinalTxt;
+        private System.Windows.Forms.Button listarOrdenesBtn;
     }
 }

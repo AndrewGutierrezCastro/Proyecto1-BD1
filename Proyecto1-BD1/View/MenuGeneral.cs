@@ -142,7 +142,7 @@ namespace Proyecto1_BD1
             this.vmostrarOrdenes.ordenesPersonasGrid.Rows.Clear();
             this.vOrdenDetalles.ordenCmb.Items.Clear();
 
-            foreach (Modelo.Orden orden in Modelo.Orden.loadData(0) )
+            foreach (Modelo.Orden orden in Modelo.Orden.loadData(1) )
             {
                 this.vmostrarOrdenes.ordenesPersonasGrid.Rows.Add(
                     new Object[]
@@ -167,7 +167,7 @@ namespace Proyecto1_BD1
 
             this.vmostrarOrdenes.ordenesOrganizacionesGrid.Rows.Clear();
 
-            foreach (Modelo.Orden orden in Modelo.Orden.loadData(1))
+            foreach (Modelo.Orden orden in Modelo.Orden.loadData(0))
             {
                 this.vmostrarOrdenes.ordenesOrganizacionesGrid.Rows.Add(
                     new Object[]
@@ -182,8 +182,15 @@ namespace Proyecto1_BD1
                         orden.MontoCobrado
 
                     }
-
                 );
+
+                     this.vOrdenDetalles.ordenCmb.Items.Add(
+                        orden.toString()
+                     );
+
+                
+
+
             }
 
 
@@ -518,7 +525,6 @@ namespace Proyecto1_BD1
                 respuesta = funcionesClientes.UpdateEstadoCliente(datosCliente, isChecked);
             }
             
-
             switch (respuesta)
             {
                 case (0):
@@ -583,6 +589,7 @@ namespace Proyecto1_BD1
                 nombreParte = Parte.PartesCargadas[localizarProveedor.nombrePartesComboBox.SelectedIndex].Nombre;
             }
 
+            this.localizarProveedor.proveedorDataGridView.Rows.Clear();
             List<Proveedor> proveedores = Proveedor.GetListProveedor(ConectionBD.Instance, nombreParte);
             this.localizarProveedor.limpiar();
             if (proveedores.Count == 0)
@@ -593,8 +600,11 @@ namespace Proyecto1_BD1
             MessageBox.Show("Busqueda Exitosa", "Busqueda proveedores por parte", MessageBoxButtons.OK, MessageBoxIcon.Information);
             foreach (Proveedor proveedor in proveedores)
             {
-                this.localizarProveedor.proveedorDataGridView.Rows.Add(proveedor.Codigo.ToString(), proveedor.Nombre);
-
+                this.localizarProveedor.proveedorDataGridView.Rows.Add(
+                    new Object[]{
+                        proveedor.Codigo.ToString(),
+                        proveedor.Nombre
+                    });
             }        
             
         }
@@ -749,8 +759,10 @@ namespace Proyecto1_BD1
                     this.partesxproveedor_dataGridView.Rows.Add(
                         new object[]
                         {
-                        proveedor.Nombre,
-                        proveedor.Codigo
+
+                        proveedor.Codigo,
+                        proveedor.Nombre
+                        
                         }
                     );
                 }
@@ -1086,9 +1098,6 @@ namespace Proyecto1_BD1
             } 
         }
 
-
-
- 
         private void agregarPartesOrdenBtn_Click(object sender, EventArgs e)
         {
 
@@ -1096,11 +1105,13 @@ namespace Proyecto1_BD1
 
             loadProveedorPartes();
 
-
             this.ordenesPanelAux.Controls.Add(vOrdenDetalles);
+        }
 
-
-
+        public void listarOrdenesBtn_Click(object sender, EventArgs e)
+        {
+            this.ordenesPanelAux.Controls.Clear();
+            this.ordenesPanelAux.Controls.Add(this.vmostrarOrdenes);
         }
     }
 }

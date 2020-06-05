@@ -36,6 +36,17 @@ namespace Proyecto1_BD1.Model
             this.NombreProveedor = NombreProveedor;
         }
 
+        public OrdenDetalle(int cantidad, int idOrden, int idProveedorParte, decimal montoVenta, decimal precioCobrado, string nombreParte, string nombreProveedor)
+        {
+            Cantidad = cantidad;
+            IdOrden = idOrden;
+            MontoVenta = montoVenta;
+            this.idProveedorParte = idProveedorParte;
+            PrecioCobrado = precioCobrado;
+            this.nombreParte = nombreParte;
+            this.NombreProveedor = NombreProveedor;
+        }
+
         public OrdenDetalle(int cantidad, int idProveedor, int idOrden, decimal montoVenta, decimal precioCobrado)
         {
             Cantidad = cantidad;
@@ -54,15 +65,15 @@ namespace Proyecto1_BD1.Model
 
                 // definicion de parametros
                 SqlParameter idOrden = comando.Parameters.Add("@IdOrden", SqlDbType.Int);
-                SqlParameter idProveedor = comando.Parameters.Add("@IdProveedor", SqlDbType.Int);
+                SqlParameter idProveedorParte = comando.Parameters.Add("@IdProveedorParte", SqlDbType.Int);
                 SqlParameter cantidad = comando.Parameters.Add("@Cantidad", SqlDbType.Int);
                 SqlParameter montoVenta = comando.Parameters.Add("@MontoVenta", SqlDbType.Decimal);
                 SqlParameter precioCobrado = comando.Parameters.Add("@PrecioCobrado", SqlDbType.Decimal);
-                SqlParameter resultadoOperacion = comando.Parameters.Add("@ResultadoOperacion", SqlDbType.Int);
+                SqlParameter resultadoOperacion = comando.Parameters.Add("@RespuestaOperacion", SqlDbType.Int);
 
                 // establecer valores
                 idOrden.Value = this.IdOrden;
-                idProveedor.Value = this.IdProveedor;
+                idProveedorParte.Value = this.idProveedorParte;
                 cantidad.Value = this.cantidad;
                 montoVenta.Value = this.montoVenta;
                 precioCobrado.Value = this.precioCobrado;
