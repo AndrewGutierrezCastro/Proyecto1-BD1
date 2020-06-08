@@ -34,11 +34,11 @@ namespace Proyecto1_BD1.View
                 );
             }
 
-            // cargamos los tipos
+            // cargamos los modelos
             foreach (Model.Automovil auto in Model.Automovil.automovilesCargados)
             {
                 TipoAutomovilCmb.Items.Add(
-                    auto.toString()
+                    auto.Modelo.ToString()
                 );
             }
 

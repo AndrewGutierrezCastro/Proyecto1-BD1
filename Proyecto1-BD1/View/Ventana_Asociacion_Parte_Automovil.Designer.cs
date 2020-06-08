@@ -87,9 +87,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(128, 112);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(98, 13);
+            this.label2.Size = new System.Drawing.Size(115, 13);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Seleccione un tipo:";
+            this.label2.Text = "Seleccione un modelo:";
             // 
             // Ventana_Asociacion_Parte_Automovil
             // 
@@ -102,7 +102,7 @@
             this.Controls.Add(this.cancelarBtn);
             this.Controls.Add(this.asociarBtn);
             this.Name = "Ventana_Asociacion_Parte_Automovil";
-            this.Size = new System.Drawing.Size(374, 255);
+            this.Size = new System.Drawing.Size(393, 275);
             this.ResumeLayout(false);
             this.PerformLayout();
 
