@@ -178,15 +178,8 @@ namespace Proyecto1_BD1.Modelo
             {
                 comando.CommandType = System.Data.CommandType.StoredProcedure;
 
-                if (connection.State == ConnectionState.Open)
-                {
-                    connection.Close();
-                    connection.Open();
-                }
-                else
-                {
-                    connection.Open();
-                }
+                connection.Close();
+                connection.Open();
 
                 // definicion de parametros
                 SqlParameter tipoCliente = comando.Parameters.Add("@TipoCliente", SqlDbType.Int);

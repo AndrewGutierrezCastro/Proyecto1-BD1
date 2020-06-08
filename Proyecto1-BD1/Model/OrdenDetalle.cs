@@ -59,6 +59,16 @@ namespace Proyecto1_BD1.Model
         public bool Create(SqlConnection connection)
         {
 
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+                connection.Open();
+            }
+            else
+            {
+                connection.Open();
+            }
+
             using (SqlCommand comando = new SqlCommand(crearOrdenDetalle_sp, connection))
             {
                 comando.CommandType = System.Data.CommandType.StoredProcedure;

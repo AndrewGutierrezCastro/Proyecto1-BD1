@@ -171,6 +171,9 @@ namespace Proyecto1_BD1.View
                 menu.loadOrdenes();
                 cancelar();
 
+                MessageBox.Show("Se han registrado las partes compradas", "Informacion al usuario",
+                   MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 menu.listarOrdenesBtn_Click(sender, e);
                 ordenDetalles.Clear();
 

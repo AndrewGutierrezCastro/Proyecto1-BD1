@@ -56,6 +56,16 @@ namespace Proyecto1_BD1.Modelo
         {
             List<Parte> data = new List<Parte>();
 
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+                connection.Open();
+            }
+            else
+            {
+                connection.Open();
+            }
+
             using (SqlCommand proceso = new SqlCommand(mostrarPartes_sp, connection))
             {
                 SqlParameter provider = proceso.Parameters.Add("@IdProveedor", SqlDbType.Int);
@@ -156,6 +166,10 @@ namespace Proyecto1_BD1.Modelo
 
         public void Delete( SqlConnection connection )  
         {
+            if ( connection.State != ConnectionState.Closed )
+                connection.Close();
+            connection.Open();
+
             using (SqlCommand proceso = new SqlCommand(deletePartes_sp, connection))
             {
                 proceso.CommandType = CommandType.StoredProcedure;
@@ -234,15 +248,6 @@ namespace Proyecto1_BD1.Modelo
 
         public int LinkProveedor( int idProveedor, decimal precio, decimal porcentaje, decimal precioFinal )
         {
-            /*
-             
-                @IdParte int,
-	            @IdProveedor int, 
-	            @Precio decimal(9,2),
-	            @PorcentajeGanancia decimal(9,2),
-	            @PrecioFinal decimal(9,2),
-	            @RespuestaOperacion int OUTPUT
-           */
 
             ConectionBD.Instance.Close();
             ConectionBD.Instance.Open();
