@@ -64,7 +64,7 @@ namespace Proyecto1_BD1.View
                 /*
                  int cantidad, int idProveedor, 
                  int idOrden, decimal montoVenta,
-                 decimal precioCobrado)*/
+                 decimal precioCobrado) */
 
                 int indice = 0;
                 Modelo.Orden ordenSelecionada;

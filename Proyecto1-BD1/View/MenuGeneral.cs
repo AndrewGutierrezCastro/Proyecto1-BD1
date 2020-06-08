@@ -184,9 +184,9 @@ namespace Proyecto1_BD1
                     }
                 );
 
-                    this.vOrdenDetalles.ordenCmb.Items.Add(
+                this.vOrdenDetalles.ordenCmb.Items.Add(
                     orden.toString()
-                    );
+                );
 
                
             }
@@ -644,7 +644,7 @@ namespace Proyecto1_BD1
             }
 
             Orden orden = new Orden(isOrganizacion, cedulaCliente, date, 0,0,0);
-            if (orden.Create(ConectionBD.Instance))
+            if ( orden.Create(ConectionBD.Instance) )
             {
                 MessageBox.Show("Orden creada Exitosamente", " exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

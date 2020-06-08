@@ -236,10 +236,19 @@ namespace Proyecto1_BD1.Modelo
                        MessageBoxButtons.OK,
                        MessageBoxIcon.Error);
                 }
-                else
+                else if (respuesta == -3)
+                {
+                    MessageBox.Show(
+                    " No puede crear una orden ya que el cliente se encuentra SUSPENDIDO",
+                    " Accion no realizada ",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                } else
                 {
                     return true;
                 }
+                
 
                 return false;
             }
