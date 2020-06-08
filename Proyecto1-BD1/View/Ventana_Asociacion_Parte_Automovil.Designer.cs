@@ -102,7 +102,7 @@
             this.Controls.Add(this.cancelarBtn);
             this.Controls.Add(this.asociarBtn);
             this.Name = "Ventana_Asociacion_Parte_Automovil";
-            this.Size = new System.Drawing.Size(393, 275);
+            this.Size = new System.Drawing.Size(405, 284);
             this.ResumeLayout(false);
             this.PerformLayout();
 
