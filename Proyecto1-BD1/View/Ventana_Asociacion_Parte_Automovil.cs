@@ -34,11 +34,11 @@ namespace Proyecto1_BD1.View
                 );
             }
 
-            // cargamos los tipos
+            // cargamos los modelos
             foreach (Model.Automovil auto in Model.Automovil.automovilesCargados)
             {
                 TipoAutomovilCmb.Items.Add(
-                    auto.toString()
+                    auto.Modelo.ToString()
                 );
             }
 
@@ -139,8 +139,8 @@ namespace Proyecto1_BD1.View
 
         private void cancelarBtn_Click(object sender, EventArgs e)
         {
+            this.Hide();
             this.Dispose();
-
         }
     }
 }

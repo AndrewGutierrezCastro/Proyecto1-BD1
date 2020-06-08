@@ -13,7 +13,7 @@ namespace Proyecto1_BD1.Model
         public static string readAutomoviles_sp = "ReadAutomoviles";
 
         private int id;
-        private string detalle, anno, nombreFabricante;
+        private string detalle, anno, nombreFabricante, modelo;
 
         public static List<Automovil> automovilesCargados;
 
@@ -21,12 +21,15 @@ namespace Proyecto1_BD1.Model
         public string Detalle { get => detalle; set => detalle = value; }
         public string Anno { get => anno; set => anno = value; }
         public string NombreFabricante { get => nombreFabricante; set => nombreFabricante = value; }
+        public string Modelo { get => modelo; set => modelo = value; }
 
-        public Automovil (int id, string detalle, string anno, string nombreFabricante) {
+        public Automovil(int id, string detalle, string anno, string nombreFabricante, string modelo)
+        {
             this.id = id;
-            this.detalle = detalle;
-            this.anno = anno;
-            this.nombreFabricante = nombreFabricante;
+            this.detalle = detalle ?? throw new ArgumentNullException(nameof(detalle));
+            this.anno = anno ?? throw new ArgumentNullException(nameof(anno));
+            this.nombreFabricante = nombreFabricante ?? throw new ArgumentNullException(nameof(nombreFabricante));
+            this.modelo = modelo ;
         }
 
         public string toString()
@@ -54,7 +57,8 @@ namespace Proyecto1_BD1.Model
                             (int) lector["Id"],
                             (string) lector["Detalle"],
                             (string) lector["Anno"],
-                            (string) lector["NombreFabricante"]
+                            (string) lector["NombreFabricante"],
+                            (string) lector["Modelo"]
 
                      ));
                 }
