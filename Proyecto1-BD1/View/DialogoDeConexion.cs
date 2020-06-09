@@ -17,15 +17,14 @@ namespace Proyecto1_BD1
 
         string databaseName = "tarea_programada_1_db";
 
-        string[] testingDevices =
+        List<string> testingDevices = new List<string>()
         {
-            "DESKTOP-QHTQCVG", // Andrew PC 
-            "DESKTOP-MUVE26F"  // Josue PC
+            "localhost", //  PC local
         };
 
         public string getConnectionPath(int index)
         {
-            if (index >= 0 && index < testingDevices.Length)
+            if (index >= 0 && index < testingDevices.Count)
                 return "Data Source=" + testingDevices[index] +
                     ";Initial Catalog=" + databaseName +
                     "; Integrated Security=True";
@@ -79,5 +78,10 @@ namespace Proyecto1_BD1
 		}
 
 		private ConectionBD conectionBD;
-	}
+
+        private void agregarServidorBtn_Click(object sender, EventArgs e)
+        {
+			
+		}
+    }
 }
